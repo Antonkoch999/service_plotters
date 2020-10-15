@@ -2,6 +2,9 @@ from django.apps import AppConfig
 from django.utils.translation import gettext_lazy as _
 
 
+# class UsersConfig(AppConfig):
+#     name = 'users'
+
 class UsersConfig(AppConfig):
     name = "main_service_of_plotters.users"
     verbose_name = _("Users")

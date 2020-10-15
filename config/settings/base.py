@@ -64,11 +64,11 @@ DJANGO_APPS = [
     "django.forms",
 ]
 THIRD_PARTY_APPS = [
-    "crispy_forms",
+    # "crispy_forms",
     "allauth",
-    "allauth.account",
-    "allauth.socialaccount",
-    "django_celery_beat",
+    # "allauth.account",
+    # "allauth.socialaccount",
+    # "django_celery_beat",
     "rest_framework",
     "rest_framework.authtoken",
     "corsheaders",
@@ -76,6 +76,9 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     "main_service_of_plotters.users.apps.UsersConfig",
+    "main_service_of_plotters.statistics_app.apps.StatisticsAppConfig",
+    "main_service_of_plotters.materials.apps.MaterialsConfig",
+    "main_service_of_plotters.device.apps.DeviceConfig"
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
