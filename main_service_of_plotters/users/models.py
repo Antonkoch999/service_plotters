@@ -11,7 +11,7 @@ class User(AbstractUser):
     role = models.CharField(max_length=30, choices=ROLE_USER, blank=True,
                             null=True, default='User',
                             verbose_name='User role')
-    dealer_id = models.IntegerField()
+    dealer_id = models.CharField(max_length=30, blank=True, null=True)
 
     def get_absolute_url(self):
         """Get url for user's detail view.
