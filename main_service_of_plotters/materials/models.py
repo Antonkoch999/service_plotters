@@ -1,5 +1,5 @@
 from django.db import models
-
+from main_service_of_plotters.materials.validators import validate_scratch_code, validate_barcode
 
 class Template(models.Model):
     """This class creates template table."""
@@ -16,9 +16,11 @@ class Label(models.Model):
 
     template = models.ForeignKey(Template, on_delete=models.CASCADE,
                                  verbose_name='instance model template')
-    scratch_code = models.CharField(max_length=250, unique=True, blank=True,
+    scratch_code = models.CharField(max_length=16, unique=True, blank=True,
+                                    validators=[validate_scratch_code],
                                     verbose_name='Unique scratch code')
-    barcode = models.CharField(max_length=250, unique=True, blank=True,
+    barcode = models.CharField(max_length=16, unique=True, blank=True,
+                               validators=[validate_barcode],
                                verbose_name='Unique barcode')
     date_creation = models.DateField(verbose_name='Data of creation label')
     date_life = models.DateField(verbose_name='Lifetime of label')
@@ -26,3 +28,8 @@ class Label(models.Model):
     lot = models.IntegerField()
     size = models.CharField(max_length=150, blank=True,
                             verbose_name='Size of label')
+
+    class Meta:
+        unique_together = ['scratch_code', 'barcode']
+
+

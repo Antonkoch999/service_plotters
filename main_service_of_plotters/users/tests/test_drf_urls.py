@@ -1,4 +1,5 @@
 import pytest
+
 from django.urls import resolve, reverse
 
 from main_service_of_plotters.users.models import User
