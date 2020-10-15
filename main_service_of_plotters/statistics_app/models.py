@@ -5,12 +5,18 @@ from main_service_of_plotters.device.models import Plotter
 
 
 class StatisticsPlotter(models.Model):
-    IP = models.CharField(max_length=150)
-    last_request = models.DateField()
+    """This class creates a plotter statistics table in the database."""
+
+    IP = models.CharField(max_length=150, verbose_name='IP address plotter')
+    last_request = models.DateField(verbose_name='last connection to server')
     count_cut = models.IntegerField()
 
 
 class StatisticsTemplate(models.Model):
-    plotter_id = models.ForeignKey(Plotter, on_delete=models.CASCADE)
-    template_id = models.ForeignKey(Template, on_delete=models.CASCADE)
+    """This class creates a template statistics table in the database."""
+
+    plotter_id = models.ForeignKey(Plotter, on_delete=models.CASCADE,
+                                   verbose_name='instance model plotter')
+    template_id = models.ForeignKey(Template, on_delete=models.CASCADE,
+                                    verbose_name='instance model template')
     count = models.IntegerField()

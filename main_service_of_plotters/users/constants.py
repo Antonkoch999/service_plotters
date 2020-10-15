@@ -1,6 +1,6 @@
 ROLE = {
-    'Chief_Administrator': '0',
-    'Administrator': '1',
-    'Dealer': '2',
-    'User': '3',
+    'Chief_Administrator': 'Chief_Administrator',
+    'Administrator': 'Administrator',
+    'Dealer': 'Dealer',
+    'User': 'User',
 }

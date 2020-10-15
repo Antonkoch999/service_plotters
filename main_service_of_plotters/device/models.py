@@ -3,7 +3,8 @@ from main_service_of_plotters.users.models import User
 
 
 class Plotter(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    """This class creates plotter table."""
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE,
+                             verbose_name='instance model User')
     serial_number = models.IntegerField()
-
-
