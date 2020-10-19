@@ -1,5 +1,5 @@
 from django.test import TestCase
-from main_service_of_plotters.apps.device import Plotter
+from main_service_of_plotters.apps.device.models import Plotter
 from main_service_of_plotters.apps.users.models import User
 
 

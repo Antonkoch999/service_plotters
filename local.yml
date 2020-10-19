@@ -1,4 +1,4 @@
-version: '3'
+version: '3.2'
 
 volumes:
   local_main_service_postgres_data: {}
@@ -9,6 +9,8 @@ services:
     build:
       context: .
       dockerfile: ./compose/local/django/Dockerfile
+      cache_from:
+        - main_service_of_plotters_local_django
     image: main_service_of_plotters_local_django
     container_name: django
     depends_on:
