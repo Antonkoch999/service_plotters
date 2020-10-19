@@ -1,6 +1,7 @@
 from django.db import models
-from main_service_of_plotters.apps.materials.validators import validate_unique_code
 from django.utils.timezone import now
+
+from .validators import validate_unique_code
 
 
 class Template(models.Model):
@@ -34,4 +35,3 @@ class Label(models.Model):
 
     class Meta:
         unique_together = [['scratch_code', 'barcode']]
-

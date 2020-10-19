@@ -1,6 +1,7 @@
-from django.test import TestCase
 from django.core.exceptions import ValidationError
-from main_service_of_plotters.apps.materials.validators import validate_unique_code
+from django.test import TestCase
+
+from ..validators import validate_unique_code
 
 
 class TestValidator(TestCase):
@@ -17,4 +18,3 @@ class TestValidator(TestCase):
 
         self.assertTrue(
             '111122223333aa444 is not number' in context.exception)
-

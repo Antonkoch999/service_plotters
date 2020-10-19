@@ -11,4 +11,3 @@ def validate_unique_code(value):
         raise ValidationError(
             gettext_lazy(f'{value} is not 16 characters')
         )
-
