@@ -2,7 +2,7 @@
 
 from django.db import migrations, models
 import django.db.models.deletion
-import main_service_of_plotters.materials.validators
+import main_service_of_plotters.apps.materials.validators
 
 
 class Migration(migrations.Migration):
@@ -26,8 +26,10 @@ class Migration(migrations.Migration):
             name='Label',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('scratch_code', models.CharField(blank=True, max_length=16, unique=True, validators=[main_service_of_plotters.materials.validators.validate_unique_code], verbose_name='Unique scratch code')),
-                ('barcode', models.CharField(blank=True, max_length=16, unique=True, validators=[main_service_of_plotters.materials.validators.validate_unique_code], verbose_name='Unique barcode')),
+                ('scratch_code', models.CharField(blank=True, max_length=16, unique=True, validators=[
+                    main_service_of_plotters.apps.materials.validators.validate_unique_code], verbose_name='Unique scratch code')),
+                ('barcode', models.CharField(blank=True, max_length=16, unique=True, validators=[
+                    main_service_of_plotters.apps.materials.validators.validate_unique_code], verbose_name='Unique barcode')),
                 ('date_creation', models.DateField(verbose_name='Data of creation label')),
                 ('date_life', models.DateField(verbose_name='Lifetime of label')),
                 ('count', models.IntegerField()),

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from main_service_of_plotters.statistics_app.models import StatisticsTemplate, \
+from main_service_of_plotters.apps.statistics.models import StatisticsTemplate, \
     StatisticsPlotter
 # Register your models here.
 

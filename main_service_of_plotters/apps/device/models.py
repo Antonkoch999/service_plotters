@@ -1,5 +1,5 @@
 from django.db import models
-from main_service_of_plotters.users.models import User
+from main_service_of_plotters.apps.users.models import User
 
 
 class Plotter(models.Model):
@@ -7,4 +7,4 @@ class Plotter(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE,
                              verbose_name='instance model User')
-    serial_number = models.IntegerField()
+    serial_number = models.BigIntegerField()

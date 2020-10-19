@@ -1,6 +1,6 @@
 from django.db import models
-from main_service_of_plotters.materials.models import Template
-from main_service_of_plotters.device.models import Plotter
+from main_service_of_plotters.apps.materials.models import Template
+from main_service_of_plotters.apps.device.models import Plotter
 # Create your models here.
 
 

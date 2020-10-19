@@ -75,10 +75,11 @@ THIRD_PARTY_APPS = [
 ]
 
 LOCAL_APPS = [
-    "main_service_of_plotters.users.apps.UsersConfig",
-    "main_service_of_plotters.statistics_app.apps.StatisticsAppConfig",
-    "main_service_of_plotters.materials.apps.MaterialsConfig",
-    "main_service_of_plotters.device.apps.DeviceConfig"
+    "main_service_of_plotters.apps.users.apps.UsersConfig",
+    "main_service_of_plotters.apps.statistics.apps.StatisticsAppConfig",
+    "main_service_of_plotters.apps.materials.apps.MaterialsConfig",
+    "main_service_of_plotters.apps.device.apps.DeviceConfig",
+    "import_export",
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps

@@ -1,7 +1,7 @@
 from django.urls import reverse
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from main_service_of_plotters.users.constants import ROLE
+from main_service_of_plotters.apps.users.constants import ROLE
 
 
 class User(AbstractUser):
