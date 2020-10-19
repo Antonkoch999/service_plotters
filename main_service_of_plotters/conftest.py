@@ -1,7 +1,7 @@
 import pytest
 
-from main_service_of_plotters.users.models import User
-from main_service_of_plotters.users.tests.factories import UserFactory
+from main_service_of_plotters.apps.users.models import User
+from main_service_of_plotters.apps.users.tests.factories import UserFactory
 
 
 @pytest.fixture(autouse=True)
