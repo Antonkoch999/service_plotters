@@ -1,6 +1,6 @@
 import pytest
 
-from main_service_of_plotters.apps.users.models import User
+# from main_service_of_plotters.apps.users.models import User
 # from main_service_of_plotters.apps.users.tests.factories import UserFactory
 
 
