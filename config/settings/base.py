@@ -66,13 +66,13 @@ DJANGO_APPS = [
 THIRD_PARTY_APPS = [
     # "crispy_forms",
     "allauth",
-    # "allauth.account",
+    "allauth.account",
     # "allauth.socialaccount",
     # "django_celery_beat",
     "rest_framework",
     "rest_framework.authtoken",
     "corsheaders",
-    "import_export"
+    "import_export",
 ]
 
 LOCAL_APPS = [
@@ -115,8 +115,7 @@ PASSWORD_HASHERS = [
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#auth-password-validators
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"
+    {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"
     },
     {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
     {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
@@ -290,9 +289,9 @@ ACCOUNT_EMAIL_REQUIRED = True
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
 ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
-ACCOUNT_ADAPTER = "main_service_of_plotters.users.adapters.AccountAdapter"
+ACCOUNT_ADAPTER = "main_service_of_plotters.apps.users.adapters.AccountAdapter"
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
-SOCIALACCOUNT_ADAPTER = "main_service_of_plotters.users.adapters.SocialAccountAdapter"
+SOCIALACCOUNT_ADAPTER = "main_service_of_plotters.apps.users.adapters.SocialAccountAdapter"
 
 # django-rest-framework
 # -------------------------------------------------------------------------------
