@@ -36,7 +36,7 @@ services:
     env_file:
       - ./.envs/.local/.postgres
     ports:
-      55551:5432
+      - 55551:5432
 
   redis:
     image: redis:5.0
