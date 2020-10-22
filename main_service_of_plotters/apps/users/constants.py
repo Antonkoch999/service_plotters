@@ -4,3 +4,8 @@ ROLE = {
     'Dealer': 'Dealer',
     'User': 'User',
 }
+CATEGORY = {
+    'Phone': 'Phone',
+    'Watch': 'Watch',
+    'Camera': 'Camera',
+}

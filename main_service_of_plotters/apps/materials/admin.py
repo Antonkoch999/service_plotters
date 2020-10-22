@@ -13,10 +13,15 @@ class LabelResource(resources.ModelResource):
 
 class CustomLabelAdmin(ImportExportMixin, admin.ModelAdmin):
     resource_class = LabelResource
-    list_display = ('scratch_code', 'barcode', 'date_creation', 'count')
+    list_display = ('scratch_code', 'barcode', 'date_creation', 'date_update',
+                    'count')
     list_filter = ('date_creation', )
     search_fields = ('date_creation', )
 
 
-admin.site.register(Template)
+class TemplateAdmin(admin.ModelAdmin):
+    list_display = ('category', 'name', 'date_creation', 'date_update')
+
+
+admin.site.register(Template, TemplateAdmin)
 admin.site.register(Label, CustomLabelAdmin)

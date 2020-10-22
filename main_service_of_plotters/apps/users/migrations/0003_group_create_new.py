@@ -29,7 +29,8 @@ def create_group(apps, schema_editor):
         'Can delete template', 'Can view template', 'Can add user',
         'Can change user', 'Can delete user', 'Can view user',
         'Can add label', 'Can change label', 'Can delete label',
-        'Can view label',
+        'Can view label', 'Can view statistics plotter',
+        'Can view statistics template', 'Can view cutting transaction',
     )
 
     permission_dealer_list = (

@@ -8,20 +8,12 @@ from django.core.exceptions import ValidationError
 
 from main_service_of_plotters.apps.users.models import User
 
-try:
-    USERS = [(user.id, user.username) for user in
-             User.objects.filter(role='Dealer')]
-    USERS += [(0, 'None')]
-except Exception:
-    USERS = [(0, 'None')]
-
 
 class UserCreationForm(forms.ModelForm):
 
     password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
     password2 = forms.CharField(label='Password confirmation',
                                 widget=forms.PasswordInput)
-    dealer_id = forms.ChoiceField(choices=USERS)
 
     class Meta:
         model = User
@@ -76,22 +68,33 @@ class UserAdmin(BaseUserAdmin):
             kwargs['form'] = AdministratorUserForm
         return super().get_form(request, obj, **kwargs)
 
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        if request.user.groups.filter(name='Dealer').exists():
+            return qs.filter(dealer_id=request.user.pk)
+        return qs
+
     list_display = ('username', 'email', 'role', 'dealer_id')
     list_filter = ('role',)
     fieldsets = (
         (None, {'fields': ('email', 'username', 'first_name', 'last_name',
-                           'role', 'dealer_id', 'password', 'is_active',
+                           'role', 'password', 'is_active',
                            )}),
     )
 
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('email', 'username', 'role', 'dealer_id', 'password1',
+            'fields': ('email', 'username', 'role', 'password1',
                        'password2'),
         }),
     )
     search_fields = ('role',)
+
+    def save_model(self, request, obj, form, change):
+        if request.user.groups.filter(name='Dealer').exists():
+            obj.dealer_id = request.user.pk
+        super().save_model(request, obj, form, change)
 
 
 class GroupAdminWithCount(GroupAdmin):
