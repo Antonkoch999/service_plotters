@@ -12,7 +12,7 @@ try:
     USERS = [(user.id, user.username) for user in
              User.objects.filter(role='Dealer')]
     USERS += [(0, 'None')]
-except ValueError:
+except Exception:
     USERS = [(0, 'None')]
 
 
