@@ -8,9 +8,12 @@ from django.core.exceptions import ValidationError
 
 from main_service_of_plotters.apps.users.models import User
 
-USERS = [(user.id, user.username) for user in
-         User.objects.filter(role='Dealer')]
-USERS += [(0, 'None')]
+try:
+    USERS = [(user.id, user.username) for user in
+             User.objects.filter(role='Dealer')]
+    USERS += [(0, 'None')]
+except ValueError:
+    USERS = [(0, 'None')]
 
 
 class UserCreationForm(forms.ModelForm):
@@ -102,4 +105,3 @@ class GroupAdminWithCount(GroupAdmin):
 admin.site.unregister(Group)
 admin.site.register(Group, GroupAdminWithCount)
 admin.site.register(User, UserAdmin)
-# admin.site.register(User)
