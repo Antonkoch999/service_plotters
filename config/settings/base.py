@@ -185,8 +185,7 @@ TEMPLATES = [
                 "django.template.context_processors.media",
                 "django.template.context_processors.static",
                 "django.template.context_processors.tz",
-                "django.contrib.messages.context_processors.messages",
-                "main_service_of_plotters.utils.context_processors.settings_context",
+                "django.contrib.messages.context_processors.messages"
             ],
         },
     }
