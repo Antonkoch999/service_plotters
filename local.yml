@@ -21,7 +21,7 @@ services:
       - ./.envs/.local/.django
       - ./.envs/.local/.postgres
     ports:
-      - "8000:8000"
+      - 8855:8000
     command: /start
 
   postgres:
@@ -38,36 +38,37 @@ services:
     ports:
       - 55551:5432
 
-  redis:
-    image: redis:5.0
-    container_name: redis
-
-  celeryworker:
-    <<: *django
-    image: main_service_of_plotters_local_celeryworker
-    container_name: celeryworker
-    depends_on:
-      - redis
-      - postgres
-
-    ports: []
-    command: /start-celeryworker
-
-  celerybeat:
-    <<: *django
-    image: main_service_of_plotters_local_celerybeat
-    container_name: celerybeat
-    depends_on:
-      - redis
-      - postgres
-
-    ports: []
-    command: /start-celerybeat
-
-  flower:
-    <<: *django
-    image: main_service_of_plotters_local_flower
-    container_name: flower
-    ports:
-      - "5555:5555"
-    command: /start-flower
+# Right now, it is not use
+#  redis:
+#    image: redis:5.0
+#    container_name: redis
+#
+#  celeryworker:
+#    <<: *django
+#    image: main_service_of_plotters_local_celeryworker
+#    container_name: celeryworker
+#    depends_on:
+#      - redis
+#      - postgres
+#
+#    ports: []
+#    command: /start-celeryworker
+#
+#  celerybeat:
+#    <<: *django
+#    image: main_service_of_plotters_local_celerybeat
+#    container_name: celerybeat
+#    depends_on:
+#      - redis
+#      - postgres
+#
+#    ports: []
+#    command: /start-celerybeat
+#
+#  flower:
+#    <<: *django
+#    image: main_service_of_plotters_local_flower
+#    container_name: flower
+#    ports:
+#      - "5555:5555"
+#    command: /start-flower
