@@ -1,11 +1,13 @@
 from django.db import models
 from django.utils.timezone import now
 
-from .validators import validate_unique_code
+from .validators import validate_unique_code, \
+    validate_file_photo, validate_file_plt
 
 from main_service_of_plotters.utils.abstractmodel import DateTimeDateUpdate
 # from main_service_of_plotters.apps.users.constants import CATEGORY
-from main_service_of_plotters.apps.category.models import DeviceCategory, Manufacturer
+from main_service_of_plotters.apps.category.models import DeviceCategory, \
+    Manufacturer, ModelsTemplate
 
 
 class Template(DateTimeDateUpdate):
@@ -25,10 +27,17 @@ class Template(DateTimeDateUpdate):
         on_delete=models.CASCADE,
         verbose_name='Name of template manufacturer',
     )
+    model_category = models.ForeignKey(ModelsTemplate,
+                                       on_delete=models.CASCADE,
+                                       verbose_name='Name of template model')
     name = models.CharField(max_length=100, blank=True,
                             verbose_name='name of template')
-    file_photo = models.FileField(verbose_name='Upload file with photo')
-    file_plt = models.FileField(verbose_name='Upload file format .plt')
+    file_photo = models.FileField(upload_to="photo/%Y/%m/%d",
+                                  verbose_name='Upload file with photo',
+                                  validators=[validate_file_photo])
+    file_plt = models.FileField(upload_to="documents/%Y/%m/%d",
+                                verbose_name='Upload file format .plt',
+                                validators=[validate_file_plt])
 
     def __str__(self):
         return f'Template {self.name}'

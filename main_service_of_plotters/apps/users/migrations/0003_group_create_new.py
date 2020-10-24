@@ -31,6 +31,12 @@ def create_group(apps, schema_editor):
         'Can add label', 'Can change label', 'Can delete label',
         'Can view label', 'Can view statistics plotter',
         'Can view statistics template', 'Can view cutting transaction',
+        'Can add device category', 'Can change device category',
+        'Can delete device category', 'Can view device category',
+        'Can add manufacturer', 'Can change manufacturer',
+        'Can delete manufacturer', 'Can view manufacturer',
+        'Can add models template', 'Can change models template',
+        'Can delete models template', 'Can view models template',
     )
 
     permission_dealer_list = (
