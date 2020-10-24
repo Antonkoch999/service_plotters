@@ -24,7 +24,7 @@ class TemplateAdmin(admin.ModelAdmin):
 
 
 class PlotterAdmin(TemplateAdmin):
-    list_display = ['plotter_id', 'IP', 'last_request',
+    list_display = ['plotter', 'ip', 'last_request',
                     'count_cut', 'date_creation', 'date_update']
 
 

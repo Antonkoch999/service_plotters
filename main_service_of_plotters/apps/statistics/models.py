@@ -11,9 +11,9 @@ from main_service_of_plotters.utils.abstractmodel import DateTimeDateUpdate
 class StatisticsPlotter(DateTimeDateUpdate):
     """This class creates a plotter statistics table in the database."""
 
-    plotter_id = models.ForeignKey(Plotter, on_delete=models.CASCADE,
-                                   verbose_name='instance model plotter')
-    IP = models.CharField(max_length=150, verbose_name='IP address plotter')
+    plotter = models.ForeignKey(Plotter, on_delete=models.CASCADE,
+                                verbose_name='instance model plotter')
+    ip = models.CharField(max_length=150, verbose_name='IP address plotter')
     last_request = models.DateField(verbose_name='last connection to server')
     count_cut = models.IntegerField()
 
@@ -21,23 +21,23 @@ class StatisticsPlotter(DateTimeDateUpdate):
 class StatisticsTemplate(DateTimeDateUpdate):
     """This class creates a template statistics table in the database."""
 
-    plotter_id = models.ForeignKey(Plotter, on_delete=models.CASCADE,
-                                   verbose_name='instance model plotter')
-    template_id = models.ForeignKey(Template, on_delete=models.CASCADE,
-                                    verbose_name='instance model template')
+    plotter = models.ForeignKey(Plotter, on_delete=models.CASCADE,
+                                verbose_name='instance model plotter')
+    template = models.ForeignKey(Template, on_delete=models.CASCADE,
+                                 verbose_name='instance model template')
     count = models.IntegerField()
 
 
 class CuttingTransaction(DateTimeDateUpdate):
     """This class creates a cutting statistics table in the database."""
 
-    user_id = models.ForeignKey(User, on_delete=models.CASCADE,
-                                verbose_name='instance model user')
-    plotter_id = models.ForeignKey(Plotter, on_delete=models.CASCADE,
-                                   verbose_name='instance model plotter')
-    template_id = models.ForeignKey(Template, on_delete=models.CASCADE,
-                                    verbose_name='instance model user')
-    label_id = models.ForeignKey(Label, null=True, on_delete=models.SET_NULL,
-                                 verbose_name='instance model label')
+    user = models.ForeignKey(User, on_delete=models.CASCADE,
+                             verbose_name='instance model user')
+    plotter = models.ForeignKey(Plotter, on_delete=models.CASCADE,
+                                verbose_name='instance model plotter')
+    template = models.ForeignKey(Template, on_delete=models.CASCADE,
+                                 verbose_name='instance model user')
+    label = models.ForeignKey(Label, null=True, on_delete=models.SET_NULL,
+                              verbose_name='instance model label')
     date_cutted = models.DateTimeField(verbose_name='Data of creation cut',
                                        default=now)

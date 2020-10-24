@@ -20,7 +20,8 @@ class CustomLabelAdmin(ImportExportMixin, admin.ModelAdmin):
 
 
 class TemplateAdmin(admin.ModelAdmin):
-    list_display = ('category', 'name', 'date_creation', 'date_update')
+    list_display = ('name', 'device_category', 'manufacturer_category',
+                    'file_photo', 'file_plt', 'date_creation', 'date_update')
 
 
 admin.site.register(Template, TemplateAdmin)

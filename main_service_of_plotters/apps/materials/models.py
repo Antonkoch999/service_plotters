@@ -4,21 +4,34 @@ from django.utils.timezone import now
 from .validators import validate_unique_code
 
 from main_service_of_plotters.utils.abstractmodel import DateTimeDateUpdate
-from main_service_of_plotters.apps.users.constants import CATEGORY
+# from main_service_of_plotters.apps.users.constants import CATEGORY
+from main_service_of_plotters.apps.category.models import DeviceCategory, Manufacturer
 
 
 class Template(DateTimeDateUpdate):
     """This class creates template table."""
-    CATEGORY_OF_TEMPLATE = ((CATEGORY[key], key) for key in
-                            CATEGORY.keys())
-    category = models.CharField(max_length=60, blank=True,
-                                verbose_name='category template',
-                                choices=CATEGORY_OF_TEMPLATE)
+    # CATEGORY_OF_TEMPLATE = ((CATEGORY[key], key) for key in
+    #                         CATEGORY.keys())
+    # category = models.CharField(max_length=60, blank=True,
+    #                             verbose_name='category template',
+    #                             choices=CATEGORY_OF_TEMPLATE
+    #                             )
+    device_category = models.ForeignKey(DeviceCategory,
+                                        on_delete=models.CASCADE,
+                                        verbose_name='Name of template device'
+                                        )
+    manufacturer_category = models.ForeignKey(
+        Manufacturer,
+        on_delete=models.CASCADE,
+        verbose_name='Name of template manufacturer',
+    )
     name = models.CharField(max_length=100, blank=True,
                             verbose_name='name of template')
+    file_photo = models.FileField(verbose_name='Upload file with photo')
+    file_plt = models.FileField(verbose_name='Upload file format .plt')
 
     def __str__(self):
-        return f'Category {self.category}'
+        return f'Template {self.name}'
 
 
 class Label(DateTimeDateUpdate):
