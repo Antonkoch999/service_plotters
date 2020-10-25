@@ -36,7 +36,7 @@ class CuttingTransaction(DateTimeDateUpdate):
     plotter = models.ForeignKey(Plotter, on_delete=models.CASCADE,
                                 verbose_name='instance model plotter')
     template = models.ForeignKey(Template, on_delete=models.CASCADE,
-                                 verbose_name='instance model user')
+                                 verbose_name='instance model template')
     label = models.ForeignKey(Label, null=True, on_delete=models.SET_NULL,
                               verbose_name='instance model label')
     date_cutted = models.DateTimeField(verbose_name='Data of creation cut',
