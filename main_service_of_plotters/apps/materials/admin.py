@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django import forms
 from import_export import resources
 from import_export.admin import ImportExportMixin
 from django.shortcuts import render
@@ -13,6 +14,12 @@ class LabelResource(resources.ModelResource):
 
     class Meta:
         model = Label
+
+
+class LabelFormDealer(forms.ModelForm):
+    class Meta:
+        models = Label
+        exclude = ('dealer', )
 
 
 class CustomLabelAdmin(ImportExportMixin, admin.ModelAdmin):
@@ -84,6 +91,14 @@ class CustomLabelAdmin(ImportExportMixin, admin.ModelAdmin):
         elif request.user.groups.filter(name='User').exists():
             return qs.filter(user=request.user.pk)
         return qs
+
+    def get_form(self, request, obj=None, **kwargs):
+        if request.user.role == 'Dealer':
+            kwargs['form'] = LabelFormDealer
+            form = super().get_form(request, obj, **kwargs)
+            form.base_fields['user'].queryset = User.objects.filter(dealer_id=request.user.pk)
+            return form
+        return super().get_form(request, obj, **kwargs)
 
 
 class TemplateAdmin(admin.ModelAdmin):
