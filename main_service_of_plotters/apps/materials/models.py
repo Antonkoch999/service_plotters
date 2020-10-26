@@ -8,7 +8,7 @@ from main_service_of_plotters.utils.abstractmodel import DateTimeDateUpdate
 # from main_service_of_plotters.apps.users.constants import CATEGORY
 from main_service_of_plotters.apps.category.models import DeviceCategory, \
     Manufacturer, ModelsTemplate
-
+from main_service_of_plotters.apps.users.models import User
 
 class Template(DateTimeDateUpdate):
     """This class creates template table."""
@@ -20,16 +20,18 @@ class Template(DateTimeDateUpdate):
     #                             )
     device_category = models.ForeignKey(DeviceCategory,
                                         on_delete=models.CASCADE,
-                                        verbose_name='Name of template device'
+                                        verbose_name='Name of template device',
+                                        null=True, blank=True
                                         )
     manufacturer_category = models.ForeignKey(
         Manufacturer,
         on_delete=models.CASCADE,
-        verbose_name='Name of template manufacturer',
+        verbose_name='Name of template manufacturer', null=True, blank=True
     )
     model_category = models.ForeignKey(ModelsTemplate,
                                        on_delete=models.CASCADE,
-                                       verbose_name='Name of template model')
+                                       verbose_name='Name of template model',
+                                       null=True, blank=True)
     name = models.CharField(max_length=100, blank=True,
                             verbose_name='name of template')
     file_photo = models.FileField(upload_to="photo/%Y/%m/%d",
@@ -60,6 +62,15 @@ class Label(DateTimeDateUpdate):
     # lot = models.IntegerField()
     # size = models.CharField(max_length=150, blank=True,
     #                         verbose_name='Size of label')
+
+    dealer = models.ForeignKey(User, on_delete=models.CASCADE,
+                               verbose_name='instance model Dealer',
+                               limit_choices_to={'role': 'Dealer'},
+                               null=True, blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE,
+                             verbose_name='instance model User',
+                             limit_choices_to={'role': 'User'},
+                             related_name='label_user', null=True, blank=True)
 
     class Meta:
         unique_together = [['scratch_code', 'barcode']]

@@ -16,7 +16,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='template',
             name='model_category',
-            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, to='category.ModelsTemplate', verbose_name='Name of template model'),
+            field=models.ForeignKey(null=True, blank=True, on_delete=django.db.models.deletion.CASCADE, to='category.ModelsTemplate', verbose_name='Name of template model'),
             preserve_default=False,
         ),
         migrations.AlterField(

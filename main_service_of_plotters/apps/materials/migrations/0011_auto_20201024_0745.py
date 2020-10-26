@@ -19,7 +19,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='template',
             name='device_category',
-            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, to='category.DeviceCategory', verbose_name='Name of template device'),
+            field=models.ForeignKey(null=True, blank=True, on_delete=django.db.models.deletion.CASCADE, to='category.DeviceCategory', verbose_name='Name of template device'),
             preserve_default=False,
         ),
         migrations.AddField(
@@ -37,7 +37,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='template',
             name='manufacturer_category',
-            field=models.ForeignKey(default=1, on_delete=django.db.models.deletion.CASCADE, to='category.Manufacturer', verbose_name='Name of template manufacturer'),
+            field=models.ForeignKey(null=True, blank=True, on_delete=django.db.models.deletion.CASCADE, to='category.Manufacturer', verbose_name='Name of template manufacturer'),
             preserve_default=False,
         ),
     ]

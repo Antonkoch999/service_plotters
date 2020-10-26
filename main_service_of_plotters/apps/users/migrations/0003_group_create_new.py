@@ -40,8 +40,8 @@ def create_group(apps, schema_editor):
     )
 
     permission_dealer_list = (
-        'Can add user', 'Can change user', 'Can add plotter',
-        'Can change plotter', 'Can view plotter', 'Can view user',
+        'Can add user', 'Can change user', 'Can change plotter',
+        'Can view plotter', 'Can view user',
     )
 
     permission_user_list = (

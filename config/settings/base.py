@@ -308,3 +308,5 @@ REST_FRAMEWORK = {
 CORS_URLS_REGEX = r"^/api/.*$"
 # Your stuff...
 # ------------------------------------------------------------------------------
+IMPORT_EXPORT_EXPORT_PERMISSION_CODE = 'add'
+IMPORT_EXPORT_IMPORT_PERMISSION_CODE = 'add'
