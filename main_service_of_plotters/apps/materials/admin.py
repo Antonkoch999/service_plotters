@@ -11,7 +11,6 @@ from main_service_of_plotters.apps.materials.models import Label, Template
 
 
 class LabelResource(resources.ModelResource):
-
     class Meta:
         model = Label
 
@@ -19,62 +18,68 @@ class LabelResource(resources.ModelResource):
 class LabelFormDealer(forms.ModelForm):
     class Meta:
         models = Label
-        exclude = ('dealer', )
+        exclude = ('dealer', 'scratch_code')
+
+
+class LabelFormUser(forms.ModelForm):
+    class Meta:
+        models = Label
+        exclude = ('user', 'dealer', 'scratch_code')
 
 
 class CustomLabelAdmin(ImportExportMixin, admin.ModelAdmin):
     resource_class = LabelResource
     list_display = ('scratch_code', 'barcode', 'date_creation', 'date_update',
                     'count', 'dealer', 'user')
-    list_filter = ('date_creation', )
-    search_fields = ('date_creation', )
+    list_filter = ('date_creation',)
+    search_fields = ('date_creation',)
     actions = ['add_user', 'add_dealer']
 
     def add_user(self, request, queryset):
-            form = None
+        form = None
 
-            if 'apply' in request.POST:
-                form = SelectUserForm(request.POST)
+        if 'apply' in request.POST:
+            form = SelectUserForm(request.POST)
 
-                if form.is_valid():
-                    user = form.cleaned_data['user']
+            if form.is_valid():
+                user = form.cleaned_data['user']
 
-                    for item in queryset:
-                        item.user = user
-                        item.save()
+                for item in queryset:
+                    item.user = user
+                    item.save()
 
-                    return HttpResponseRedirect(request.get_full_path())
+                return HttpResponseRedirect(request.get_full_path())
 
-            if not form:
-                form = SelectUserForm(initial={
-                    '_selected_action': request.POST.getlist(
-                        admin.ACTION_CHECKBOX_NAME)})
-                return render(request, 'admin/multiple_owner_change.html',
-                              {'items': queryset, 'form': form,
-                               'title': u'Изменение категории'})
+        if not form:
+            form = SelectUserForm(initial={
+                '_selected_action': request.POST.getlist(
+                    admin.ACTION_CHECKBOX_NAME)})
+            return render(request, 'admin/multiple_owner_change.html',
+                          {'items': queryset, 'form': form,
+                           'title': u'Изменение категории'})
 
     def add_dealer(self, request, queryset):
-            form = None
+        form = None
 
-            if 'apply' in request.POST:
-                form = SelectDealerForm(request.POST)
+        if 'apply' in request.POST:
+            form = SelectDealerForm(request.POST)
 
-                if form.is_valid():
-                    dealer = form.cleaned_data['dealer']
+            if form.is_valid():
+                dealer = form.cleaned_data['dealer']
 
-                    for item in queryset:
-                        item.dealer = dealer
-                        item.save()
+                for item in queryset:
+                    item.dealer = dealer
+                    item.save()
 
-                    return HttpResponseRedirect(request.get_full_path())
+                return HttpResponseRedirect(request.get_full_path())
 
-            if not form:
-                form = SelectDealerForm(initial={
-                    '_selected_action': request.POST.getlist(
-                        admin.ACTION_CHECKBOX_NAME)})
-                return render(request, 'admin/add_dealer.html',
-                              {'items': queryset, 'form': form,
-                               'title': u'Изменение категории'})
+        if not form:
+            form = SelectDealerForm(initial={
+                '_selected_action': request.POST.getlist(
+                    admin.ACTION_CHECKBOX_NAME)})
+            return render(request, 'admin/add_dealer.html',
+                          {'items': queryset, 'form': form,
+                           'title': u'Изменение категории'})
 
     def get_actions(self, request):
         actions = super().get_actions(request)
@@ -96,9 +101,20 @@ class CustomLabelAdmin(ImportExportMixin, admin.ModelAdmin):
         if request.user.role == 'Dealer':
             kwargs['form'] = LabelFormDealer
             form = super().get_form(request, obj, **kwargs)
-            form.base_fields['user'].queryset = User.objects.filter(dealer_id=request.user.pk)
+            form.base_fields['user'].queryset = User.objects.filter(
+                dealer_id=request.user.pk)
+            form.base_fields['barcode'].disabled = True
             return form
+        elif request.user.role == 'User':
+            kwargs['form'] = LabelFormUser
         return super().get_form(request, obj, **kwargs)
+
+    def get_list_display(self, request):
+        if request.user.groups.filter(name='Dealer').exists() \
+                or request.user.groups.filter(name='User').exists():
+            return ['barcode', 'date_creation', 'date_update',
+                    'count', 'dealer', 'user']
+        return super().get_list_display(request)
 
 
 class TemplateAdmin(admin.ModelAdmin):
