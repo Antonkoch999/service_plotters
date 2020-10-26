@@ -35,7 +35,7 @@ class CuttingAdmin(TemplateAdmin):
     def get_queryset(self, request):
         qs = super().get_queryset(request)
         if request.user.groups.filter(name='Dealer').exists():
-            return qs.filter(user=request.user.pk)
+            return qs.filter(user__dealer_id=request.user.pk)
         return qs
 
 
