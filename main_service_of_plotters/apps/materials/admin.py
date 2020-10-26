@@ -85,6 +85,7 @@ class CustomLabelAdmin(ImportExportMixin, admin.ModelAdmin):
             return qs.filter(user=request.user.pk)
         return qs
 
+
 class TemplateAdmin(admin.ModelAdmin):
     list_display = ('name', 'device_category', 'manufacturer_category',
                     'file_photo', 'file_plt', 'date_creation', 'date_update')

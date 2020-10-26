@@ -28,6 +28,7 @@ class PlotterAdmin(admin.ModelAdmin):
     def get_form(self, request, obj=None, **kwargs):
         if request.user.role == 'Dealer':
             kwargs['form'] = DealerPlotterForm
+            kwargs['form'].base_fields['user'].queryset = User.objects.filter(dealer_id=request.user.pk)
         elif request.user.role == 'Administrator':
             kwargs['form'] = AdministratorPlotterForm
         return super().get_form(request, obj, **kwargs)
