@@ -32,6 +32,12 @@ class CuttingAdmin(TemplateAdmin):
     list_display = [field.name for field in
                     CuttingTransaction._meta.get_fields()]
 
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        if request.user.groups.filter(name='Dealer').exists():
+            return qs.filter(user=request.user.pk)
+        return qs
+
 
 admin.site.register(StatisticsTemplate, TemplateAdmin)
 admin.site.register(StatisticsPlotter, PlotterAdmin)
