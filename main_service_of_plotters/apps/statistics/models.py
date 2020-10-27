@@ -1,10 +1,11 @@
+"""This module creates statistics table in database."""
+
 from django.db import models
 from django.utils.timezone import now
 
 from main_service_of_plotters.apps.device.models import Plotter
-from main_service_of_plotters.apps.materials.models import Template
+from main_service_of_plotters.apps.materials.models import Label, Template
 from main_service_of_plotters.apps.users.models import User
-from main_service_of_plotters.apps.materials.models import Label
 from main_service_of_plotters.utils.abstractmodel import DateTimeDateUpdate
 
 
