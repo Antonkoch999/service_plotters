@@ -60,7 +60,7 @@ class UserChangeForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('email', 'username', 'password', 'role', 'dealer_id')
+        fields = ('email', 'username', 'role', 'dealer_id')
 
     def clean_password(self):
         """Display hash password."""

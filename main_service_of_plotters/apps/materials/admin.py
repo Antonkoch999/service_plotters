@@ -25,7 +25,7 @@ class CustomLabelAdmin(ImportExportMixin, admin.ModelAdmin):
     # import resource class for working django-import-export
     resource_class = LabelResource
     list_display = ('scratch_code', 'barcode', 'date_creation', 'date_update',
-                    'count', 'dealer', 'user')
+                    'count', 'dealer', 'user', 'is_active')
     list_filter = ('date_creation', 'user', 'dealer')
     search_fields = ('barcode',)
     # custom actions
@@ -138,7 +138,7 @@ class CustomLabelAdmin(ImportExportMixin, admin.ModelAdmin):
         if CustomLabelAdmin._is_requested_user_dealer_or_user(request):
             # without `scretch code`
             return ['barcode', 'date_creation', 'date_update',
-                    'count', 'dealer', 'user']
+                    'count', 'dealer', 'user', 'is_active']
         return super().get_list_display(request)
 
     @staticmethod

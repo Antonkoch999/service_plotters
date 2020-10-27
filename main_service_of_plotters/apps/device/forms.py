@@ -11,7 +11,7 @@ class PlotterForm(forms.ModelForm):
 
     class Meta:
         model = Plotter
-        fields = ('dealer', 'user', 'serial_number', )
+        fields = ('dealer', 'user', 'serial_number', 'available_film')
 
 
 class DealerPlotterForm(PlotterForm):

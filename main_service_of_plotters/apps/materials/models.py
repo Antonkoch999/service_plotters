@@ -59,6 +59,7 @@ class Label(DateTimeDateUpdate):
                              verbose_name='instance model User',
                              limit_choices_to={'role': 'User'},
                              related_name='label_user', null=True, blank=True)
+    is_active = models.BooleanField(default=False)
 
     class Meta:
         unique_together = [['scratch_code', 'barcode']]

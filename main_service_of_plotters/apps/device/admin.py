@@ -11,13 +11,16 @@ from main_service_of_plotters.apps.materials.models import Label
 from main_service_of_plotters.apps.users.models import User
 
 from .forms import AdministratorPlotterForm, DealerPlotterForm, PlotterForm, AddLabelForm
+from django.contrib import messages
+from django.core.exceptions import ObjectDoesNotExist
 
 
 class PlotterAdmin(admin.ModelAdmin):
     """Class is representation of a model Plotter in the admin interface."""
 
     form = PlotterForm
-    list_display = ('serial_number', 'dealer', 'user', 'account_actions')
+    list_display = ('serial_number', 'dealer', 'user', 'available_film',
+                    'account_actions')
 
     def get_form(self, request, obj=None, **kwargs):
         """"Changes form class depending on the user role."""
@@ -41,6 +44,15 @@ class PlotterAdmin(admin.ModelAdmin):
         elif request.user.groups.filter(name='User').exists():
             return qs.filter(user=request.user.pk)
         return qs
+
+    def get_list_display(self, request):
+        """Change list_display list depended of logged user."""
+
+        # If user is `Dealer` or User
+        if request.user.groups.filter(name='Dealer').exists():
+            # without `scretch code`
+            return ['serial_number', 'dealer', 'user', 'available_film']
+        return super().get_list_display(request)
 
     def get_urls(self):
         urls = super().get_urls()
@@ -68,10 +80,19 @@ class PlotterAdmin(admin.ModelAdmin):
             form = AddLabelForm(request.POST)
             if form.is_valid():
                 try:
-                    label = Label.objects.get(scratch_code=form.cleaned_data['scratch_code'])
-                    print('Good')
-                except Exception:
-                    print('Bad')
+                    label = Label.objects.filter(is_active=False).get(scratch_code=form.cleaned_data['scratch_code'])
+                    if not (label.dealer == plotter.dealer or
+                            label.user == plotter.user):
+                        raise ObjectDoesNotExist
+                except ObjectDoesNotExist:
+                    messages.add_message(request, messages.ERROR,
+                                         'Scratch code not found')
+                    return HttpResponseRedirect('./')
+                else:
+                    plotter.available_film += label.count
+                    plotter.save()
+                    label.is_active = True
+                    label.save()
 
             return HttpResponseRedirect('../..')
         else:

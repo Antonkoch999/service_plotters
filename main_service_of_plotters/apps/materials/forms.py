@@ -36,7 +36,7 @@ class LabelFormDealer(forms.ModelForm):
     class Meta:
         models = Label
         # User must't see scrathc_code at own dealer (its obviouse)
-        exclude = ('dealer', 'scratch_code')
+        exclude = ('dealer', 'scratch_code', 'is_active')
 
 
 class LabelFormUser(forms.ModelForm):
@@ -44,4 +44,4 @@ class LabelFormUser(forms.ModelForm):
 
     class Meta:
         models = Label
-        exclude = ('user', 'dealer', 'scratch_code')
+        exclude = ('user', 'dealer', 'scratch_code', 'is_active')

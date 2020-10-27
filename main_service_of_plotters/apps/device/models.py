@@ -16,6 +16,7 @@ class Plotter(DateTimeDateUpdate):
                              limit_choices_to={'role': 'User'},
                              related_name='plotter_user', null=True, blank=True)
     serial_number = models.BigIntegerField()
+    available_film = models.IntegerField(default=0)
 
     def __str__(self):
         return f'Plotter {self.serial_number}'
