@@ -1,18 +1,23 @@
 """This class is representation of device in the admin interface."""
-
+from django.conf.urls import url
 from django.contrib import admin
+from django.http import HttpResponseRedirect
+from django.shortcuts import render
+from django.urls import reverse
+from django.utils.html import format_html
 
 from main_service_of_plotters.apps.device.models import Plotter
+from main_service_of_plotters.apps.materials.models import Label
 from main_service_of_plotters.apps.users.models import User
 
-from .forms import AdministratorPlotterForm, DealerPlotterForm, PlotterForm
+from .forms import AdministratorPlotterForm, DealerPlotterForm, PlotterForm, AddLabelForm
 
 
 class PlotterAdmin(admin.ModelAdmin):
     """Class is representation of a model Plotter in the admin interface."""
 
     form = PlotterForm
-    list_display = ('serial_number', 'dealer', 'user', )
+    list_display = ('serial_number', 'dealer', 'user', 'account_actions')
 
     def get_form(self, request, obj=None, **kwargs):
         """"Changes form class depending on the user role."""
@@ -36,6 +41,42 @@ class PlotterAdmin(admin.ModelAdmin):
         elif request.user.groups.filter(name='User').exists():
             return qs.filter(user=request.user.pk)
         return qs
+
+    def get_urls(self):
+        urls = super().get_urls()
+        custom_urls = [
+            url(
+                r'^(?P<plotter_id>.+)/addlabel/$',
+                self.admin_site.admin_view(self.process_label),
+                name='add_label',
+            ),
+        ]
+        return custom_urls + urls
+
+    def account_actions(self, obj):
+        return format_html(
+            '<a class="button" href="{}">Add label</a>&nbsp;',
+            reverse('admin:add_label', args=[obj.pk]),
+
+        )
+    account_actions.short_description = 'Account Actions'
+    account_actions.allow_tags = True
+
+    def process_label(self, request, plotter_id, *args, **kwargs):
+        plotter = Plotter.objects.get(pk=plotter_id)
+        if request.method == 'POST':
+            form = AddLabelForm(request.POST)
+            if form.is_valid():
+                try:
+                    label = Label.objects.get(scratch_code=form.cleaned_data['scratch_code'])
+                    print('Good')
+                except Exception:
+                    print('Bad')
+
+            return HttpResponseRedirect('../..')
+        else:
+            form = AddLabelForm()
+        return render(request, 'admin/adding_label.html', {'form': form})
 
 
 admin.site.register(Plotter, PlotterAdmin)

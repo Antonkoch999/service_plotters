@@ -3,6 +3,7 @@
 from django import forms
 
 from main_service_of_plotters.apps.device.models import Plotter
+from main_service_of_plotters.apps.materials.models import Label
 
 
 class PlotterForm(forms.ModelForm):
@@ -25,3 +26,9 @@ class AdministratorPlotterForm(PlotterForm):
 
     class Meta:
         exclude = ('user', )
+
+
+class AddLabelForm(forms.ModelForm):
+    class Meta:
+        model = Label
+        fields = ('scratch_code', )
