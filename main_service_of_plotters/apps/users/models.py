@@ -1,3 +1,5 @@
+"""This module create table in database."""
+
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.urls import reverse
@@ -14,10 +16,9 @@ class User(AbstractUser):
                             verbose_name='User role')
     dealer_id = models.CharField(max_length=30, blank=True, null=True)
 
-    def get_absolute_url(self):
-        """Get url for user's detail view.
+    def get_absolute_url(self) -> str:
+        """"Get url for user's detail view.
 
-        Returns:
-            str: URL for user detail.
+        :return: URL for user detail.
         """
         return reverse("users:detail", kwargs={"username": self.username})

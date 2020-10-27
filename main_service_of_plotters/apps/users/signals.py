@@ -1,3 +1,5 @@
+"""This module contains signals."""
+
 from django.contrib.auth.models import Group
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -9,6 +11,7 @@ from main_service_of_plotters.apps.users.models import User
 @receiver(post_save, sender=User)
 def my_handler(sender, instance, created,  **kwargs):
     """Post-create user signal that adds the user to everyone group."""
+
     if created:
         try:
             if instance.role == ROLE['Dealer']:

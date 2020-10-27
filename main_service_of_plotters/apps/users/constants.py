@@ -1,3 +1,5 @@
+"""This module stores constant values."""
+
 ROLE = {
     # 'Chief_Administrator': 'Chief_Administrator',
     'Administrator': 'Administrator',
