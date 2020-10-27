@@ -1,7 +1,6 @@
 """Classes and methods of models `Lable` and `Template for admin page."""
 
 from django.contrib import admin
-from django import forms
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from import_export import resources
@@ -27,14 +26,13 @@ class CustomLabelAdmin(ImportExportMixin, admin.ModelAdmin):
     resource_class = LabelResource
     list_display = ('scratch_code', 'barcode', 'date_creation', 'date_update',
                     'count', 'dealer', 'user')
-    list_filter = ('date_creation',)
+    list_filter = ('date_creation', 'user', 'dealer')
     search_fields = ('barcode',)
     # custom actions
     actions = ['add_user', 'add_dealer']
 
     def add_user(self, request, queryset):
         """Action to add user as owner for set of labels."""
-
         form = None
 
         if 'apply' in request.POST:
@@ -58,8 +56,7 @@ class CustomLabelAdmin(ImportExportMixin, admin.ModelAdmin):
                            'title': u'Изменение категории'})
 
     def add_dealer(self, request, queryset):
-        """Action toi add dealer as owner for set in labels."""
-
+        """Action to add dealer as owner for set in labels."""
         form = None
 
         if 'apply' in request.POST:
@@ -83,8 +80,7 @@ class CustomLabelAdmin(ImportExportMixin, admin.ModelAdmin):
                            'title': u'Изменение категории'})
 
     def get_actions(self, request):
-        """Change list of actions for different users"""
-
+        """Change list of actions for different users."""
         actions = super().get_actions(request)
         if request.user.groups.filter(name='Dealer').exists():
             del actions['add_dealer']
@@ -94,7 +90,6 @@ class CustomLabelAdmin(ImportExportMixin, admin.ModelAdmin):
 
     def get_queryset(self, request):
         """Change list of available labels depended of logged user."""
-
         qs = super().get_queryset(request)
         # Dealer can see own labels
         if request.user.groups.filter(name='Dealer').exists():
@@ -106,7 +101,6 @@ class CustomLabelAdmin(ImportExportMixin, admin.ModelAdmin):
 
     def get_form(self, request, obj=None, **kwargs):
         """Change form of admin page depended of logged user."""
-
         if request.user.role == 'Dealer':
             kwargs['form'] = LabelFormDealer
             # Dealer can add to label only user it own
@@ -122,7 +116,6 @@ class CustomLabelAdmin(ImportExportMixin, admin.ModelAdmin):
 
     def get_list_display(self, request):
         """Change list_display list depended of logged user."""
-
         # If user is `Dealer` or User
         if CustomLabelAdmin._is_requested_user_dealer_or_user(request):
             # without `scretch code`
@@ -133,13 +126,13 @@ class CustomLabelAdmin(ImportExportMixin, admin.ModelAdmin):
     @staticmethod
     def _is_requested_user_dealer_or_user(request):
         """Helper method identificate is authenticated user is dealer."""
-
         return request.user.groups.filter(name='Dealer').exists() \
             or request.user.groups.filter(name='User').exists()
 
 
 class TemplateAdmin(admin.ModelAdmin):
     """Class for `Template` admin representation."""
+
     list_display = ('name', 'device_category', 'manufacturer_category',
                     'file_photo', 'file_plt', 'date_creation', 'date_update')
 
