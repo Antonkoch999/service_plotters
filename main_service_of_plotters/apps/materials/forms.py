@@ -1,10 +1,13 @@
+"""This module creates form."""
+
 from django import forms
 from main_service_of_plotters.apps.materials.models import Label
 from main_service_of_plotters.apps.users.models import User
 
 
 class SelectDealerForm(forms.Form):
-    '''From with one field `dealer` to add this dealer to multiple entities.'''
+    """From with one field `dealer` to add this dealer to multiple entities."""
+
     _selected_action = forms.CharField(widget=forms.MultipleHiddenInput)
     dealer = forms.ModelChoiceField(
         queryset=User.objects.filter(role='Dealer'),
@@ -12,7 +15,8 @@ class SelectDealerForm(forms.Form):
 
 
 class SelectUserForm(forms.Form):
-    '''From with one field `user` to add this user to multiple entities.'''
+    """From with one field `user` to add this user to multiple entities."""
+
     _selected_action = forms.CharField(widget=forms.MultipleHiddenInput)
     user = forms.ModelChoiceField(
         queryset=User.objects.filter(role='User'),
@@ -20,7 +24,7 @@ class SelectUserForm(forms.Form):
 
 
 class LabelFormDealer(forms.ModelForm):
-    '''Form for `Label` admin page when `User` is loggined.'''
+    """Form for `Label` admin page when `User` is loggined."""
 
     class Meta:
         models = Label
@@ -29,7 +33,7 @@ class LabelFormDealer(forms.ModelForm):
 
 
 class LabelFormUser(forms.ModelForm):
-    '''Form for `Label` admin page when `Dealer` is loggined.'''
+    """Form for `Label` admin page when `Dealer` is loggined."""
 
     class Meta:
         models = Label

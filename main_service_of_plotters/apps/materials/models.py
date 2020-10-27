@@ -1,3 +1,5 @@
+"""This module creates tables in database."""
+
 from django.db import models
 
 from .validators import validate_unique_code, \
@@ -11,6 +13,7 @@ from main_service_of_plotters.apps.users.models import User
 
 class Template(DateTimeDateUpdate):
     """This class creates template table."""
+
     device_category = models.ForeignKey(DeviceCategory,
                                         on_delete=models.CASCADE,
                                         verbose_name='Name of template device',
@@ -40,6 +43,7 @@ class Template(DateTimeDateUpdate):
 
 class Label(DateTimeDateUpdate):
     """This class creates label table."""
+
     scratch_code = models.CharField(max_length=16, blank=True,
                                     validators=[validate_unique_code],
                                     verbose_name='Unique scratch code')
