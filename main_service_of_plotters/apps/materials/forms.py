@@ -22,6 +22,13 @@ class SelectUserForm(forms.Form):
         queryset=User.objects.filter(role='User'),
         label=u'User')
 
+    def __init__(self, *args, dealer=None, **kwargs):
+        super().__init__(*args, **kwargs)
+        # while form is created, filter by owner user
+        if dealer:
+            self.fields['user'].queryset = \
+                User.objects.filter(dealer_id=dealer.pk)
+
 
 class LabelFormDealer(forms.ModelForm):
     """Form for `Label` admin page when `User` is loggined."""

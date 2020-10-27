@@ -43,15 +43,18 @@ class CustomLabelAdmin(ImportExportMixin, admin.ModelAdmin):
                 user = form.cleaned_data['user']
 
                 for item in queryset:
-                    item.user = user
-                    item.save()
+                    if item.user is None:
+                        item.user = user
+                        item.save()
 
                 return HttpResponseRedirect(request.get_full_path())
 
         if not form:
             form = SelectUserForm(initial={
                 '_selected_action': request.POST.getlist(
-                    admin.ACTION_CHECKBOX_NAME)})
+                    admin.ACTION_CHECKBOX_NAME)},
+                dealer=request.user)
+            queryset = queryset.filter(user=None)
             return render(request, 'admin/multiple_owner_change.html',
                           {'items': queryset, 'form': form,
                            'title': u'Изменение категории'})
@@ -68,8 +71,9 @@ class CustomLabelAdmin(ImportExportMixin, admin.ModelAdmin):
                 dealer = form.cleaned_data['dealer']
 
                 for item in queryset:
-                    item.dealer = dealer
-                    item.save()
+                    if item.dealer is None:
+                        item.dealer = dealer
+                        item.save()
 
                 return HttpResponseRedirect(request.get_full_path())
 
@@ -77,6 +81,7 @@ class CustomLabelAdmin(ImportExportMixin, admin.ModelAdmin):
             form = SelectDealerForm(initial={
                 '_selected_action': request.POST.getlist(
                     admin.ACTION_CHECKBOX_NAME)})
+            queryset = queryset.filter(dealer=None)
             return render(request, 'admin/add_dealer.html',
                           {'items': queryset, 'form': form,
                            'title': u'Изменение категории'})
@@ -114,9 +119,16 @@ class CustomLabelAdmin(ImportExportMixin, admin.ModelAdmin):
                 dealer_id=request.user.pk)
             # For dealer barcode is unchangable
             form.base_fields['barcode'].disabled = True
+            if obj.user is not None:
+                form.base_fields['user'].disabled = True
             return form
         elif request.user.role == 'User':
             kwargs['form'] = LabelFormUser
+        elif request.user.role == 'Administrator':
+            form = super().get_form(request, obj, **kwargs)
+            if obj.dealer is not None:
+                form.base_fields['dealer'].disabled = True
+            return form
         return super().get_form(request, obj, **kwargs)
 
     def get_list_display(self, request):
