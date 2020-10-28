@@ -25,8 +25,7 @@ class CustomLabelAdmin(ImportExportMixin, admin.ModelAdmin):
     # import resource class for working django-import-export
     resource_class = LabelResource
     list_display = ('scratch_code', 'barcode', 'date_creation', 'date_update',
-                    'count', 'dealer', 'user', 'is_active')
-    list_filter = ('date_creation', 'user', 'dealer')
+                    'count', 'dealer', 'user')
     search_fields = ('barcode',)
     # custom actions
     actions = ['add_user', 'add_dealer']
@@ -60,8 +59,12 @@ class CustomLabelAdmin(ImportExportMixin, admin.ModelAdmin):
                            'title': u'Изменение категории'})
 
     def add_dealer(self, request, queryset):
+<<<<<<< HEAD
         """Action to add dealer as owner for set in labels."""
 
+=======
+        """Add dealer as owner for set in labels."""
+>>>>>>> 37fff59... add dynamic list filter for `Label` admin
         form = None
 
         if 'apply' in request.POST:
@@ -140,6 +143,15 @@ class CustomLabelAdmin(ImportExportMixin, admin.ModelAdmin):
             return ['barcode', 'date_creation', 'date_update',
                     'count', 'dealer', 'user', 'is_active']
         return super().get_list_display(request)
+
+    def get_list_filter(self, request):
+        """Add filters on list page depeded of logged user."""
+        filters = ()
+        if request.user.role == "User":
+            filters = ('date_creation', )
+        else:
+            filters = ('date_creation', 'user', 'dealer', )
+        return filters
 
     @staticmethod
     def _is_requested_user_dealer_or_user(request):
