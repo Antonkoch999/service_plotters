@@ -15,6 +15,7 @@ class Plotter(DateTimeDateUpdate):
                              verbose_name='instance model User',
                              limit_choices_to={'role': 'User'},
                              related_name='plotter_user', null=True, blank=True)
+    # FIXME Serial Number must be char string in production stage
     serial_number = models.BigIntegerField()
     available_film = models.IntegerField(default=0)
 
