@@ -12,7 +12,7 @@ from main_service_of_plotters.apps.device.models import Plotter
 from main_service_of_plotters.apps.materials.models import Label
 from main_service_of_plotters.apps.users.models import User
 from .forms import AdministratorPlotterForm, DealerPlotterForm, PlotterForm, \
-    AddLabelForm
+    AddLabelForm, UserPlotterForm
 
 
 class PlotterAdmin(admin.ModelAdmin):
@@ -32,6 +32,8 @@ class PlotterAdmin(admin.ModelAdmin):
             return form
         elif request.user.role == 'Administrator':
             kwargs['form'] = AdministratorPlotterForm
+        elif request.user.role == 'User':
+            kwargs['form'] = UserPlotterForm
         return super().get_form(request, obj, **kwargs)
 
     def get_queryset(self, request):

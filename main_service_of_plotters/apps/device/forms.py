@@ -11,21 +11,27 @@ class PlotterForm(forms.ModelForm):
 
     class Meta:
         model = Plotter
-        fields = ('dealer', 'user', 'serial_number', 'available_film')
+        fields = ('dealer', 'user', 'serial_number', 'available_film', 'date_creation')
 
 
 class DealerPlotterForm(PlotterForm):
     """This class excludes field 'dealer' from model Plotter."""
 
     class Meta:
-        exclude = ('dealer', )
+        exclude = ('dealer', 'date_creation')
 
 
 class AdministratorPlotterForm(PlotterForm):
     """This class excludes field 'user' from model Plotter."""
 
     class Meta:
-        exclude = ('user', )
+        exclude = ('user', 'date_creation')
+
+class UserPlotterForm(PlotterForm):
+    """This class excludes field 'user' from model Plotter."""
+
+    class Meta:
+        exclude = ('dealer', 'user', 'date_creation')
 
 
 class AddLabelForm(forms.ModelForm):
