@@ -24,7 +24,6 @@ class PlotterAdmin(admin.ModelAdmin):
 
     def get_form(self, request, obj=None, **kwargs):
         """Changes form class depending on the user role."""
-
         if request.user.role == 'Dealer':
             kwargs['form'] = DealerPlotterForm
             form = super().get_form(request, obj, **kwargs)
@@ -37,7 +36,6 @@ class PlotterAdmin(admin.ModelAdmin):
 
     def get_queryset(self, request):
         """Changes QuerySet model instance depending of the user groups."""
-
         qs = super().get_queryset(request)
         if request.user.groups.filter(name='Dealer').exists():
             return qs.filter(dealer=request.user.pk)
@@ -47,7 +45,6 @@ class PlotterAdmin(admin.ModelAdmin):
 
     def get_list_display(self, request):
         """Change list_display list depended of logged user."""
-
         # If user is `Dealer` or User
         if request.user.groups.filter(name='Dealer').exists():
             # without `scretch code`
