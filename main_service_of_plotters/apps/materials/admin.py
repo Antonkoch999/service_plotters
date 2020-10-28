@@ -165,7 +165,8 @@ class TemplateAdmin(admin.ModelAdmin):
     """Class for `Template` admin representation."""
 
     list_display = ('name', 'device_category', 'manufacturer_category',
-                    'file_photo', 'file_plt', 'date_creation', 'date_update')
+                    'file_photo', 'file_plt')
+    exclude = ('date_creation',)
 
 
 admin.site.register(Template, TemplateAdmin)
