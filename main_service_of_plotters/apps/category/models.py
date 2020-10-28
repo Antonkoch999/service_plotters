@@ -45,4 +45,5 @@ class ModelsTemplate(DateTimeDateUpdate):
                             verbose_name='Name of model template')
 
     def __str__(self):
-        return f'Category {self.manufacturer.device_category.name} | Manufacturer {self.manufacturer.name} | Model {self.name}'
+        return f'Category {self.manufacturer.device_category.name} | '\
+            'Manufacturer {self.manufacturer.name} | Model {self.name}'

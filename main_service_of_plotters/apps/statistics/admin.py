@@ -52,9 +52,8 @@ class PlotterAdmin(TemplateAdmin):
     @staticmethod
     def _is_requested_user_dealer_or_user(request):
         """Helper method identificate is authenticated user is dealer."""
-
         return request.user.groups.filter(name='Dealer').exists() \
-               or request.user.groups.filter(name='User').exists()
+            or request.user.groups.filter(name='User').exists()
 
 
 class CuttingAdmin(TemplateAdmin):

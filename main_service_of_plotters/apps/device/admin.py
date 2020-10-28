@@ -23,7 +23,7 @@ class PlotterAdmin(admin.ModelAdmin):
                     'account_actions')
 
     def get_form(self, request, obj=None, **kwargs):
-        """"Changes form class depending on the user role."""
+        """Changes form class depending on the user role."""
 
         if request.user.role == 'Dealer':
             kwargs['form'] = DealerPlotterForm
