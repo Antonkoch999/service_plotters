@@ -27,6 +27,7 @@ class AdministratorPlotterForm(PlotterForm):
     class Meta:
         exclude = ('user', 'date_creation')
 
+
 class UserPlotterForm(PlotterForm):
     """This class excludes field 'user' from model Plotter."""
 

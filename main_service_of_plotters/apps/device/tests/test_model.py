@@ -2,13 +2,11 @@ from django.test import TestCase, Client
 from django.http import HttpRequest
 from django.contrib.admin.sites import AdminSite
 from django.contrib.auth.models import Group
-from django.shortcuts import reverse
 
 from main_service_of_plotters.apps.device.models import Plotter
 from main_service_of_plotters.apps.users.models import User
 from ...users.constants import ROLE
 from ..admin import PlotterAdmin
-from ..forms import PlotterForm
 
 
 class TestModelPlotter(TestCase):
