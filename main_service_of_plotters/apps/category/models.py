@@ -48,3 +48,4 @@ class ModelsTemplate(DateTimeDateUpdate):
     def __str__(self):
         return f'Category {self.manufacturer.device_category.name} | ' \
                f'Manufacturer {self.manufacturer.name} | Model {self.name}'
+
