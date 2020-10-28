@@ -36,7 +36,7 @@ class LabelFormDealer(forms.ModelForm):
     class Meta:
         models = Label
         # User must't see scrathc_code at own dealer (its obviouse)
-        exclude = ('dealer', 'scratch_code', 'is_active')
+        exclude = ('dealer', 'scratch_code', 'is_active', 'date_creation')
 
 
 class LabelFormUser(forms.ModelForm):
@@ -44,4 +44,12 @@ class LabelFormUser(forms.ModelForm):
 
     class Meta:
         models = Label
-        exclude = ('user', 'dealer', 'scratch_code', 'is_active')
+        exclude = ('user', 'dealer', 'scratch_code', 'is_active', 'date_creation')
+
+
+class LabelFormAdmin(forms.ModelForm):
+    """Form for `Label` admin page when `Administrator` is loggined."""
+
+    class Meta:
+        models = Label
+        exclude = ('date_creation',)

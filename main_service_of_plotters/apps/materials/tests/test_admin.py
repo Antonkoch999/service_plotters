@@ -1,7 +1,5 @@
-from django.contrib.admin.options import ModelAdmin
 from django.contrib.admin.sites import AdminSite
 from django.test import TestCase
-from django.urls import reverse
 
 from main_service_of_plotters.apps.materials.models import Template, Label
 from main_service_of_plotters.apps.category.models import (DeviceCategory,
@@ -166,7 +164,7 @@ class MaterialsAdminTest(TestCase):
         self.assertEqual(
             list(test_admin_model.get_form(request=self.request,
                                            obj=self.label).base_fields),
-            ['date_creation', 'scratch_code', 'barcode', 'count', 'dealer',
+            ['scratch_code', 'barcode', 'count', 'dealer',
              'user', 'is_active']
         )
 
@@ -177,7 +175,7 @@ class MaterialsAdminTest(TestCase):
         self.assertEqual(
             list(test_admin_model.get_form(request=self.request,
                                            obj=self.label).base_fields),
-            ['date_creation', 'barcode', 'count', 'user']
+            ['barcode', 'count', 'user']
         )
 
     def test_label_get_form_user(self):
@@ -187,7 +185,7 @@ class MaterialsAdminTest(TestCase):
         self.assertEqual(
             list(test_admin_model.get_form(request=self.request,
                                            obj=self.label).base_fields),
-            ['date_creation', 'barcode', 'count']
+            ['barcode', 'count']
         )
 
     def test_label_get_list_display_administrator(self):
@@ -196,7 +194,7 @@ class MaterialsAdminTest(TestCase):
         self.request.user = self.administrator
         self.assertEqual(
             list(test_admin_model.get_list_display(request=self.request)),
-            ['scratch_code', 'barcode', 'date_creation', 'date_update',
+            ['scratch_code', 'barcode',
              'count', 'dealer', 'user', 'is_active']
         )
 
@@ -206,7 +204,7 @@ class MaterialsAdminTest(TestCase):
         self.request.user = self.dealer
         self.assertEqual(
             list(test_admin_model.get_list_display(request=self.request)),
-            ['barcode', 'date_creation', 'date_update', 'count',
+            ['barcode', 'count',
              'dealer', 'user', 'is_active']
         )
 
@@ -227,7 +225,3 @@ class MaterialsAdminTest(TestCase):
             list(test_admin_model.get_list_filter(request=self.request)),
             ['date_creation']
         )
-
-
-
-

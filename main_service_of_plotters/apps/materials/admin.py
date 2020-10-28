@@ -10,7 +10,7 @@ from import_export.admin import ImportExportMixin
 from main_service_of_plotters.apps.users.models import User
 from main_service_of_plotters.apps.materials.models import Label, Template
 from .forms import (SelectUserForm, SelectDealerForm, LabelFormDealer,
-                    LabelFormUser)
+                    LabelFormUser, LabelFormAdmin)
 
 
 class LabelResource(resources.ModelResource):
@@ -49,9 +49,9 @@ class CustomLabelAdmin(ImportExportMixin, admin.ModelAdmin):
 
         if not form:
             form = SelectUserForm(
-                initial=
-                {'_selected_action':
-                     request.POST.getlist(admin.ACTION_CHECKBOX_NAME)},
+                initial={
+                    '_selected_action':
+                    request.POST.getlist(admin.ACTION_CHECKBOX_NAME)},
                 dealer=request.user)
             queryset = queryset.filter(user=None)
             return render(request, 'admin/multiple_owner_change.html',
@@ -127,6 +127,7 @@ class CustomLabelAdmin(ImportExportMixin, admin.ModelAdmin):
         elif request.user.role == 'User':
             kwargs['form'] = LabelFormUser
         elif request.user.role == 'Administrator':
+            kwargs['form'] = LabelFormAdmin
             form = super().get_form(request, obj, **kwargs)
             if obj.dealer is not None:
                 form.base_fields['dealer'].disabled = True
@@ -137,11 +138,11 @@ class CustomLabelAdmin(ImportExportMixin, admin.ModelAdmin):
         """Change list_display list depended of logged user."""
 
         # If user is `Dealer` or User
-        list_display = ('scratch_code', 'barcode', 'date_creation',
-                        'date_update', 'count', 'dealer', 'user', 'is_active')
+        list_display = ('scratch_code', 'barcode',
+                        'count', 'dealer', 'user', 'is_active')
         if CustomLabelAdmin._is_requested_user_dealer_or_user(request):
             # without `scretch code`
-            list_display = ['barcode', 'date_creation', 'date_update', 'count',
+            list_display = ['barcode', 'count',
                             'dealer', 'user', 'is_active']
         return list_display
 

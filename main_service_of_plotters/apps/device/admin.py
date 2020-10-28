@@ -20,7 +20,7 @@ class PlotterAdmin(admin.ModelAdmin):
 
     form = PlotterForm
     list_display = ('serial_number', 'dealer', 'user', 'available_film',
-                    'account_actions')
+                    'account_actions',)
 
     def get_form(self, request, obj=None, **kwargs):
         """Changes form class depending on the user role."""
