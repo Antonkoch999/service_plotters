@@ -1,6 +1,8 @@
 """This class is representation of device in the admin interface."""
+
 from django.conf.urls import url
-from django.contrib import admin
+from django.contrib import admin, messages
+from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
@@ -9,10 +11,8 @@ from django.utils.html import format_html
 from main_service_of_plotters.apps.device.models import Plotter
 from main_service_of_plotters.apps.materials.models import Label
 from main_service_of_plotters.apps.users.models import User
-
-from .forms import AdministratorPlotterForm, DealerPlotterForm, PlotterForm, AddLabelForm
-from django.contrib import messages
-from django.core.exceptions import ObjectDoesNotExist
+from .forms import AdministratorPlotterForm, DealerPlotterForm, PlotterForm, \
+    AddLabelForm
 
 
 class PlotterAdmin(admin.ModelAdmin):
