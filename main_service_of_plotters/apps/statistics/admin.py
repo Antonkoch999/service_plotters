@@ -29,12 +29,14 @@ class TemplateAdmin(admin.ModelAdmin):
 
 class PlotterAdmin(TemplateAdmin):
     """Class representation of model statistics plotter in interface admin."""
+
     form = StatisticsPlotterFrom
     list_display = ['plotter', 'ip', 'last_request',
                     'count_cut', 'date_creation', 'date_update']
 
     def get_form(self, request, obj=None, **kwargs):
         """Change form of admin page depended of logged user."""
+
         if PlotterAdmin._is_requested_user_dealer_or_user(request):
             kwargs['form'] = StatisticsPlotterFromUserDealer
         return super().get_form(request, obj, **kwargs)
@@ -52,6 +54,7 @@ class PlotterAdmin(TemplateAdmin):
     @staticmethod
     def _is_requested_user_dealer_or_user(request):
         """Helper method identificate is authenticated user is dealer."""
+
         return request.user.groups.filter(name='Dealer').exists() \
             or request.user.groups.filter(name='User').exists()
 
