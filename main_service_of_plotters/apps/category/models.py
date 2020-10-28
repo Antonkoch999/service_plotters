@@ -30,7 +30,8 @@ class Manufacturer(DateTimeDateUpdate):
                               null=True)
 
     def __str__(self):
-        return f'Category {self.device_category.name} | Manufacturer {self.name}'
+        return f'Category {self.device_category.name} | ' \
+               f'Manufacturer {self.name}'
 
 
 class ModelsTemplate(DateTimeDateUpdate):
@@ -45,4 +46,5 @@ class ModelsTemplate(DateTimeDateUpdate):
                             verbose_name='Name of model template')
 
     def __str__(self):
-        return f'Category {self.manufacturer.device_category.name} | Manufacturer {self.manufacturer.name} | Model {self.name}'
+        return f'Category {self.manufacturer.device_category.name} | ' \
+               f'Manufacturer {self.manufacturer.name} | Model {self.name}'
