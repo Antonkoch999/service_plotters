@@ -7,6 +7,7 @@ from ..models import Plotter
 
 class PlotterSerializer(serializers.HyperlinkedModelSerializer):
     """Serializing Plotter instance for api views."""
+
     class Meta:
         model = Plotter
         # ISSUE: maybe worth to add fields `dealer` `user`?

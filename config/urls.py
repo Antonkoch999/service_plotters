@@ -19,6 +19,11 @@ urlpatterns += [
     path("api/", include("config.api_router")),
     # DRF auth token
     path("auth-token/", obtain_auth_token),
+    # FIXME api auth methods
+    path('api-auth/', include(
+        'rest_framework.urls',
+        namespace='rest_framework'
+    )),
 ]
 
 if settings.DEBUG:

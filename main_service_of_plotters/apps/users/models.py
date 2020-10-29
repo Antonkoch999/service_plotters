@@ -16,6 +16,15 @@ class User(AbstractUser):
                             verbose_name='User role')
     dealer_id = models.CharField(max_length=30, blank=True, null=True)
 
+    def is_user(self):
+        return self.role == ROLE['User']
+
+    def is_dealer(self):
+        return self.role == ROLE['Dealer']
+
+    def is_administrator(self):
+        return self.role == ROLE['Administrator']
+
     def get_absolute_url(self) -> str:
         """"Get url for user's detail view.
 
