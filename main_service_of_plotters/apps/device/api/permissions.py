@@ -10,7 +10,7 @@ class PlotterUserPermission(BasePermission):
         else:
             return request.user.is_dealer() or \
                 request.user.is_administrator() or \
-                request.user.is_superuser()
+                request.user.is_superuser
 
     def has_object_permission(self, request, view, obj):
         if request.user.is_user():
@@ -20,4 +20,4 @@ class PlotterUserPermission(BasePermission):
         elif request.user.is_administrator():
             return True
         else:
-            return request.user.is_superuser()
+            return request.user.is_superuser
