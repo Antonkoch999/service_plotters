@@ -1,6 +1,4 @@
-from rest_framework.mixins import ListModelMixin, \
-    RetrieveModelMixin, UpdateModelMixin, CreateModelMixin
-from rest_framework.viewsets import GenericViewSet
+from rest_framework.viewsets import ModelViewSet
 from rest_framework.decorators import permission_classes
 from rest_framework.permissions import DjangoModelPermissions, IsAuthenticated
 
@@ -11,7 +9,7 @@ from .permissions import PlotterUserPermission
 
 # TODO Process with permission
 @permission_classes([IsAuthenticated, DjangoModelPermissions, PlotterUserPermission])
-class PlotterViewSet(RetrieveModelMixin, ListModelMixin, UpdateModelMixin, CreateModelMixin, GenericViewSet):
+class PlotterViewSet(ModelViewSet):
     """Create, update, list, retriev views of plotter."""
 
     serializer_class = PlotterSerializer

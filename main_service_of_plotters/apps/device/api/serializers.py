@@ -11,9 +11,9 @@ class PlotterSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Plotter
         # ISSUE: maybe worth to add fields `dealer` `user`?
-        fields = ['serial_number', 'available_film', 'url']
+        fields = ['serial_number', 'available_film', 'user', 'dealer', 'url']
         extra_kwargs = {
-            'url': {
-                'view_name': 'api:plotter-detail'
-            }
+            'url': {'view_name': 'api:plotter-detail', },
+            'user': {'view_name': 'api:user-detail', },
+            'dealer': {'view_name': 'api:user-detail', },
         }
