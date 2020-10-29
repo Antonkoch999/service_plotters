@@ -5,13 +5,29 @@ from main_service_of_plotters.apps.device.api.views import PlotterViewSet
 
 from main_service_of_plotters.apps.users.api.views import UserViewSet
 
+from main_service_of_plotters.apps.materials.api.views import TemplateViewSet, LabelViewSet
+from main_service_of_plotters.apps.category.api.views import (
+    DeviceCategoryViewSet, ManufacturerViewSet, ModelsTemplateViewSet)
+from main_service_of_plotters.apps.statistics.api.views import (
+    StatisticsPlotterViewSet, StatisticsTemplateViewSet,
+    CuttingTransactionViewSet)
+
 if settings.DEBUG:
     router = DefaultRouter()
 else:
     router = SimpleRouter()
 
-router.register("plotters", PlotterViewSet)
 router.register("users", UserViewSet)
+router.register("plotters", PlotterViewSet)
+router.register("templates", TemplateViewSet)
+router.register("labels", LabelViewSet)
+router.register("devicecategory", DeviceCategoryViewSet)
+router.register("manufacturer", ManufacturerViewSet)
+router.register("modelstemplate", ModelsTemplateViewSet)
+router.register("statisticsplotter", StatisticsPlotterViewSet)
+router.register("statisticstemplate", StatisticsTemplateViewSet)
+router.register("cuttingtransaction", CuttingTransactionViewSet)
+
 
 app_name = "api"
 
