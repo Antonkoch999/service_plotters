@@ -17,13 +17,13 @@ class User(AbstractUser):
     dealer_id = models.CharField(max_length=30, blank=True, null=True)
 
     def is_user(self):
-        return self.role == ROLE['User']
+        return self.groups.filter(name='User').exists()
 
     def is_dealer(self):
-        return self.role == ROLE['Dealer']
+        return self.groups.filter(name='Dealer').exists()
 
     def is_administrator(self):
-        return self.role == ROLE['Administrator']
+        return self.groups.filter(name='Administrator').exists()
 
     def get_absolute_url(self) -> str:
         """"Get url for user's detail view.
