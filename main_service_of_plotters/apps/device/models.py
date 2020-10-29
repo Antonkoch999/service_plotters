@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 from main_service_of_plotters.apps.users.models import User
 from main_service_of_plotters.utils.abstractmodel import DateTimeDateUpdate
@@ -21,3 +22,6 @@ class Plotter(DateTimeDateUpdate):
 
     def __str__(self):
         return f'Plotter {self.serial_number}'
+
+    def get_absolute_url(self) -> str:
+        return reverse('api:plotter-detail', kwargs={'pk': self.pk})
