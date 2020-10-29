@@ -1,6 +1,7 @@
 """This module creates tables in database."""
 
 from django.db import models
+from django.urls import reverse
 
 from .validators import validate_unique_code, \
     validate_file_photo, validate_file_plt
@@ -37,6 +38,9 @@ class Template(DateTimeDateUpdate):
                                 verbose_name='Upload file format .plt',
                                 validators=[validate_file_plt])
 
+    def get_absolute_url(self) -> str:
+        return reverse('api:template-detail', kwargs={'pk': self.pk})
+
     def __str__(self):
         return f'Template {self.name}'
 
@@ -63,6 +67,9 @@ class Label(DateTimeDateUpdate):
 
     class Meta:
         unique_together = [['scratch_code', 'barcode']]
+
+    def get_absolute_url(self) -> str:
+        return reverse('api:label-detail', kwargs={'pk': self.pk})
 
     def __str__(self):
         return f'Scratch code {self.scratch_code}'
