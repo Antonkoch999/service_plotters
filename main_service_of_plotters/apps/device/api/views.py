@@ -18,12 +18,12 @@ class PlotterViewSet(RetrieveModelMixin, ListModelMixin, UpdateModelMixin, Creat
     queryset = Plotter.objects.all()
 
     def get_queryset(self):
-
+        queryset = self.queryset
         # Plotter can see only owned plotters
         if self.request.user.is_dealer():
-            queryset = self.queryset.filter(dealer=self.request.user)
+            queryset = queryset.filter(dealer=self.request.user)
         # User can see only owned plotters
         if self.request.user.is_user():
-            queryset = self.queryset.filter(user=self.request.user)
+            queryset = queryset.filter(user=self.request.user)
 
         return queryset
