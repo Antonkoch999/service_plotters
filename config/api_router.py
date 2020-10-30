@@ -1,7 +1,8 @@
 from django.conf import settings
+from rest_framework.urls import path
 from rest_framework.routers import DefaultRouter, SimpleRouter
 
-from main_service_of_plotters.apps.device.api.views import PlotterViewSet
+from main_service_of_plotters.apps.device.api.views import PlotterViewSet, cut
 
 from main_service_of_plotters.apps.users.api.views import UserViewSet
 
@@ -31,4 +32,8 @@ router.register("cuttingtransaction", CuttingTransactionViewSet)
 
 app_name = "api"
 
-urlpatterns = router.urls
+additional_urls = [
+    path('cut/', cut, name='cut')
+]
+
+urlpatterns = router.urls + additional_urls

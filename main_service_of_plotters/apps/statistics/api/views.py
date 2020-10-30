@@ -10,20 +10,20 @@ from .serializers import (
 from .filters import IsUserPlotterOwnFilter, IsDealerPlotterOwnFilter
 
 
-@permission_classes(IsAuthenticated, DjangoModelPermissions)
+@permission_classes([IsAuthenticated, DjangoModelPermissions])
 class StatisticsPlotterViewSet(ModelViewSet):
     serializer_class = StatisticsPlotterListSerializer
     queryset = StatisticsPlotter.objects.all()
     filter_backends = (IsUserPlotterOwnFilter, IsDealerPlotterOwnFilter)
 
 
-@permission_classes(IsAuthenticated, DjangoModelPermissions)
+@permission_classes([IsAuthenticated, DjangoModelPermissions])
 class StatisticsTemplateViewSet(ModelViewSet):
     serializer_class = StatisticsTemplateListSerializer
     queryset = StatisticsTemplate.objects.all()
 
 
-@permission_classes(IsAuthenticated, DjangoModelPermissions)
+@permission_classes([IsAuthenticated, DjangoModelPermissions])
 class CuttingTransactionViewSet(ModelViewSet):
     serializer_class = CuttingTransactionListSerializer
     queryset = CuttingTransaction.objects.all()

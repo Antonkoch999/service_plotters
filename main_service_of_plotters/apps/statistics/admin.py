@@ -62,7 +62,7 @@ class PlotterAdmin(TemplateAdmin):
 class CuttingAdmin(TemplateAdmin):
     """Class representation of model statistics journal in interface admin."""
 
-    list_display = ['user', 'plotter', 'template', 'label', 'date_cutted']
+    list_display = ['user', 'plotter', 'template', 'date_cutted']
 
     def get_queryset(self, request):
         """Changes QuerySet model instance depending of the user groups."""

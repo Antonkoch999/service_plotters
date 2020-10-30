@@ -15,7 +15,7 @@ class StatisticsPlotter(DateTimeDateUpdate):
     plotter = models.ForeignKey(Plotter, on_delete=models.CASCADE,
                                 verbose_name='instance model plotter')
     ip = models.CharField(max_length=150, verbose_name='IP address plotter')
-    last_request = models.DateField(verbose_name='last connection to server')
+    last_request = models.DateField(verbose_name='last connection to server', default=now)
     count_cut = models.IntegerField()
 
 
@@ -38,7 +38,7 @@ class CuttingTransaction(DateTimeDateUpdate):
                                 verbose_name='instance model plotter')
     template = models.ForeignKey(Template, on_delete=models.CASCADE,
                                  verbose_name='instance model template')
-    label = models.ForeignKey(Label, null=True, on_delete=models.SET_NULL,
-                              verbose_name='instance model label')
+    # label = models.ForeignKey(Label, null=True, on_delete=models.SET_NULL,
+    #                           verbose_name='instance model label')
     date_cutted = models.DateTimeField(verbose_name='Data of creation cut',
                                        default=now)
