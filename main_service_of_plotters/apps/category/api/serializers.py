@@ -25,6 +25,7 @@ class ManufacturerListSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class ModelsTemplateListSerializer(serializers.HyperlinkedModelSerializer):
+
     class Meta:
         model = ModelsTemplate
         fields = ['id', 'manufacturer', 'name', 'url']
