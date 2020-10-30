@@ -31,4 +31,3 @@ class User(AbstractUser):
         :return: URL for user detail.
         """
         return reverse("api:user-detail", kwargs={"pk": self.pk})
-
