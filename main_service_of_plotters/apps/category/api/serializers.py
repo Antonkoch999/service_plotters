@@ -7,6 +7,16 @@ class DeviceCategoryListSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = DeviceCategory
+        fields = ['id', 'name', 'photo', 'url']
+        extra_kwargs = {
+            'url': {'view_name': 'api:devicecategory-detail'},
+        }
+
+
+class DeviceCategoryInstSerializer(serializers.HyperlinkedModelSerializer):
+
+    class Meta:
+        model = DeviceCategory
         fields = ['id', 'name', 'photo', 'url', 'device']
         extra_kwargs = {
             'url': {'view_name': 'api:devicecategory-detail'},
