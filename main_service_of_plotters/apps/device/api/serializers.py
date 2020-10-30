@@ -3,6 +3,7 @@
 from rest_framework import serializers
 
 from ..models import Plotter
+from main_service_of_plotters.apps.materials.models import Template
 
 
 class PlotterSerializer(serializers.HyperlinkedModelSerializer):
@@ -42,3 +43,8 @@ class PlotterSerializer(serializers.HyperlinkedModelSerializer):
             self.fields.get('user').read_only = True
             if get_inst and dealer_presented:
                 self.fields.get('dealer').read_only = True
+
+
+class CutSerializer(serializers.Serializer):
+    plotter = serializers.PrimaryKeyRelatedField(queryset=Plotter.objects.all())
+    template = serializers.PrimaryKeyRelatedField(queryset=Template.objects.all())

@@ -26,11 +26,9 @@ class StatisticsTemplateListSerializer(serializers.HyperlinkedModelSerializer):
 class CuttingTransactionListSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = CuttingTransaction
-        fields = ['id', 'user', 'plotter', 'template', 'label', 'date_cutted']
+        fields = ['id', 'user', 'plotter', 'template', 'date_cutted']
         extra_kwargs = {
             'user': {'view_name': 'api:user-detail'},
             'plotter': {'view_name': 'api:plotter-detail'},
             'template': {'view_name': 'api:template-detail'},
-            'label': {'view_name': 'api:label-detail'},
-
         }
