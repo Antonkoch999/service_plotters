@@ -22,7 +22,8 @@ class Manufacturer(DateTimeDateUpdate):
 
     device_category = models.ForeignKey(DeviceCategory,
                                         on_delete=models.CASCADE,
-                                        verbose_name='Instance model device')
+                                        verbose_name='Instance model device',
+                                        related_name='device')
     name = models.CharField(max_length=150, blank=True,
                             verbose_name='Name of template manufacturer')
     photo = models.ImageField(upload_to="manufacturer/%Y/%m/%d",
