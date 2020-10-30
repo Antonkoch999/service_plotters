@@ -2,7 +2,7 @@ from main_service_of_plotters.apps.category.models import (
     DeviceCategory, ModelsTemplate, Manufacturer)
 from .serializers import (
     DeviceCategoryListSerializer, ManufacturerListSerializer,
-    ModelsTemplateListSerializer)
+    ModelsTemplateListSerializer, DeviceCategoryInstSerializer)
 from rest_framework.decorators import permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import viewsets
@@ -14,6 +14,15 @@ class DeviceCategoryViewSet(viewsets.ReadOnlyModelViewSet):
 
     serializer_class = DeviceCategoryListSerializer
     queryset = DeviceCategory.objects.all()
+
+    def get_serializer_class(self):
+        serializer_class = super().get_serializer_class()
+
+        if self.action == 'retrieve':
+            serializer_class = DeviceCategoryInstSerializer
+
+        return serializer_class
+
 
 
 @permission_classes([IsAuthenticated, AdministratorPermission])
