@@ -6,6 +6,7 @@ from .serializers import PlotterSerializer, AdministratorPlotterSerializer, \
     DealerPlotterSerializer, UserPlotterSerializer
 from ..models import Plotter
 from .permissions import PlotterUserPermission
+from .filters import IsUserOwnFilter, IsDealerOwnFilter
 
 
 # TODO Process with permission
@@ -15,17 +16,7 @@ class PlotterViewSet(ModelViewSet):
 
     serializer_class = PlotterSerializer
     queryset = Plotter.objects.all()
-
-    def get_queryset(self):
-        queryset = self.queryset
-        # Plotter can see only owned plotters
-        if self.request.user.is_dealer():
-            queryset = queryset.filter(dealer=self.request.user)
-        # User can see only owned plotters
-        if self.request.user.is_user():
-            queryset = queryset.filter(user=self.request.user)
-
-        return queryset
+    filter_backends = (IsUserOwnFilter, IsDealerOwnFilter)
 
     def get_serializer_class(self):
         if self.request.user.is_dealer():
@@ -33,5 +24,5 @@ class PlotterViewSet(ModelViewSet):
         if self.request.user.is_user():
             return UserPlotterSerializer
         if self.request.user.is_administrator():
-            return AdministatorPlotterSerializer
+            return AdministratorPlotterSerializer
         return super().get_serializer_class()

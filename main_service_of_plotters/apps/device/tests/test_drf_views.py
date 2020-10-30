@@ -61,14 +61,14 @@ class TestPlotterViewSet:
         request.user = self.admin
         self.view.request = request
 
-        assert self.view.get_queryset().count() == Plotter.objects.all().count()
+        assert self.view.filter_queryset(self.view.get_queryset()).count() == Plotter.objects.all().count()
 
     def test_get_queryset_dealer_see_only_owned(self):
         request = RequestFactory().get(path='/fake-url/')
         dealer = self.dealer
         request.user = dealer
         self.view.request = request
-        qs = self.view.get_queryset()
+        qs = self.view.filter_queryset(self.view.get_queryset())
 
         assert qs.count() > 0
         assert qs.count() == Plotter.objects.filter(dealer=dealer).count()
@@ -81,7 +81,7 @@ class TestPlotterViewSet:
         user = self.user
         request.user = user
         self.view.request = request
-        qs = self.view.get_queryset()
+        qs = self.view.filter_queryset(self.view.get_queryset())
 
         assert qs.count() > 0
         assert qs.count() == Plotter.objects.filter(user=user).count()
