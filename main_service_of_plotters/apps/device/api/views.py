@@ -16,12 +16,3 @@ class PlotterViewSet(ModelViewSet):
     serializer_class = PlotterSerializer
     queryset = Plotter.objects.all()
     filter_backends = (IsUserOwnFilter, IsDealerOwnFilter)
-
-    # def get_serializer_class(self):
-    #     if self.request.user.is_dealer():
-    #         return DealerPlotterSerializer
-    #     if self.request.user.is_user():
-    #         return UserPlotterSerializer
-    #     if self.request.user.is_administrator():
-    #         return AdministratorPlotterSerializer
-    #     return super().get_serializer_class()
