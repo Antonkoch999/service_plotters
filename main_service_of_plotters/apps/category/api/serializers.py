@@ -34,12 +34,24 @@ class ManufacturerListSerializer(serializers.HyperlinkedModelSerializer):
         }
 
 
+class ManufacturerInstSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Manufacturer
+        fields = ['id', 'device_category', 'name', 'photo', 'url', 'modelstemplate']
+        extra_kwargs = {
+            'url': {'view_name': 'api:manufacturer-detail'},
+            'device_category': {'view_name': 'api:devicecategory-detail'},
+            'modelstemplate': {'view_name': 'api:modelstemplate-detail'},
+        }
+
+
 class ModelsTemplateListSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = ModelsTemplate
-        fields = ['id', 'manufacturer', 'name', 'url']
+        fields = ['id', 'manufacturer', 'name', 'url', 'template_set']
         extra_kwargs = {
             'url': {'view_name': 'api:modelstemplate-detail'},
             'manufacturer': {'view_name': 'api:manufacturer-detail'},
+            'template_set': {'view_name': 'api:template-detail'}
         }

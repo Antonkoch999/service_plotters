@@ -42,6 +42,7 @@ class ModelsTemplate(DateTimeDateUpdate):
         Manufacturer,
         on_delete=models.CASCADE,
         verbose_name='Instance model manufacturer',
+        related_name='modelstemplate'
     )
     name = models.CharField(max_length=150, blank=True,
                             verbose_name='Name of model template')

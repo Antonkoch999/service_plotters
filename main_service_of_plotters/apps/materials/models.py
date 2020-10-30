@@ -28,7 +28,7 @@ class Template(DateTimeDateUpdate):
     model_category = models.ForeignKey(ModelsTemplate,
                                        on_delete=models.CASCADE,
                                        verbose_name='Name of template model',
-                                       null=True, blank=True)
+                                       null=True, blank=True, )
     name = models.CharField(max_length=100, blank=True,
                             verbose_name='name of template')
     file_photo = models.FileField(upload_to="photo/%Y/%m/%d",
