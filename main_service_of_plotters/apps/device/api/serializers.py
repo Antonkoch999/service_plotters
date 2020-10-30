@@ -19,6 +19,8 @@ class PlotterSerializer(serializers.HyperlinkedModelSerializer):
 
     def __init__(self, *args, **kwargs):
 
+        # TODO Rewrite this crap
+
         get_inst = False
         if len(args) > 0 and isinstance(args[0], Plotter):
             plotter = args[0]
@@ -38,6 +40,5 @@ class PlotterSerializer(serializers.HyperlinkedModelSerializer):
                 self.fields.get('user').read_only = True
         elif user.is_administrator():
             self.fields.get('user').read_only = True
-            print(get_inst, dealer_presented)
             if get_inst and dealer_presented:
                 self.fields.get('dealer').read_only = True
