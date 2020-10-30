@@ -2,7 +2,8 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework.decorators import permission_classes
 from rest_framework.permissions import DjangoModelPermissions, IsAuthenticated
 
-from .serializers import PlotterSerializer
+from .serializers import PlotterSerializer, AdministratorPlotterSerializer, \
+    DealerPlotterSerializer, UserPlotterSerializer
 from ..models import Plotter
 from .permissions import PlotterUserPermission
 
@@ -25,3 +26,12 @@ class PlotterViewSet(ModelViewSet):
             queryset = queryset.filter(user=self.request.user)
 
         return queryset
+
+    def get_serializer_class(self):
+        if self.request.user.is_dealer():
+            return DealerPlotterSerializer
+        if self.request.user.is_user():
+            return UserPlotterSerializer
+        if self.request.user.is_administrator():
+            return AdministatorPlotterSerializer
+        return super().get_serializer_class()
