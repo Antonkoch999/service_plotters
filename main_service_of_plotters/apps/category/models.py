@@ -15,7 +15,7 @@ class DeviceCategory(DateTimeDateUpdate):
                               null=True)
 
     def __str__(self):
-        return f'Category {self.name}'
+        return _('Category') + f' {self.name}'
 
 
 class Manufacturer(DateTimeDateUpdate):
@@ -26,14 +26,14 @@ class Manufacturer(DateTimeDateUpdate):
                                         verbose_name=_('Category of devices'),
                                         related_name='device')
     name = models.CharField(max_length=150, blank=True,
-                            verbose_name='Name of template manufacturer')
+                            verbose_name=_('Name of manufacturer'))
     photo = models.ImageField(upload_to="manufacturer/%Y/%m/%d",
-                              verbose_name='Photo manufacturer', blank=True,
+                              verbose_name=_('Manufacturer image'), blank=True,
                               null=True)
 
     def __str__(self):
-        return f'Category {self.device_category.name} | ' \
-               f'Manufacturer {self.name}'
+        return _('Category') + f'{self.device_category.name} | ' + \
+               _('Manufacturer') + f' {self.name}'
 
 
 class ModelsTemplate(DateTimeDateUpdate):
@@ -46,7 +46,7 @@ class ModelsTemplate(DateTimeDateUpdate):
         related_name='modelstemplate'
     )
     name = models.CharField(max_length=150, blank=True,
-                            verbose_name='Name of model template')
+                            verbose_name=_('Name of model'))
 
     def __str__(self):
         return f'Category {self.manufacturer.device_category.name} | ' \
