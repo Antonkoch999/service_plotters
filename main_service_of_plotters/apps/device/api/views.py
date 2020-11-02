@@ -11,6 +11,7 @@ from ..models import Plotter
 from .permissions import PlotterUserPermission
 from .filters import IsUserOwnFilter, IsDealerOwnFilter
 from main_service_of_plotters.apps.statistics.models import CuttingTransaction, StatisticsPlotter, StatisticsTemplate
+from main_service_of_plotters.apps.materials.api.serializers import TemplateBlueprintOnlySerializer
 
 
 @permission_classes([IsAuthenticated, DjangoModelPermissions, PlotterUserPermission])
@@ -51,7 +52,9 @@ def cut(request):
             template=template,
         )
 
-        response = FileResponse(template.file_plt, content_type='application/octet-stream')
-        response['Content-Length'] = template.file_plt.size
-        response['Content-Disposition'] = 'attachment; filename="blueprint.plt"'
-        return response
+        seria = TemplateBlueprintOnlySerializer(template,
+                                                context={'request': request})
+
+        return Response(seria.data)
+    else:
+        return Response(status=status.HTTP_400_BAD_REQUEST)

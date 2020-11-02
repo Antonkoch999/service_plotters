@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from main_service_of_plotters.apps.materials.models import Template, Label
+from rest_framework import fields
 
 
 class TemplateListSerializer(serializers.HyperlinkedModelSerializer):
@@ -26,3 +27,15 @@ class LabelListSerializer(serializers.HyperlinkedModelSerializer):
             'user': {'view_name': 'api:user-detail'},
         }
 
+
+class TemplateBlueprintOnlySerializer(serializers.HyperlinkedModelSerializer):
+
+    file = fields.SerializerMethodField('get_file')
+
+    def get_file(self, obj):
+        return self.context['request'].build_absolute_uri(obj.file_plt.url)
+
+    class Meta:
+
+        model = Template
+        fields = ['file']
