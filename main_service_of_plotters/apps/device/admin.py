@@ -7,6 +7,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from django.utils.html import format_html
+from django.utils.translation import ugettext_lazy as _
 
 from main_service_of_plotters.apps.device.models import Plotter
 from main_service_of_plotters.apps.materials.models import Label
@@ -20,7 +21,7 @@ class PlotterAdmin(admin.ModelAdmin):
 
     form = PlotterForm
     list_display = ('serial_number', 'dealer', 'user', 'available_films',
-                    'account_actions',)
+                    'account_actions', )
 
     def get_form(self, request, obj=None, **kwargs):
         """Changes form class depending on the user role."""
@@ -70,7 +71,7 @@ class PlotterAdmin(admin.ModelAdmin):
             reverse('admin:add_label', args=[obj.pk]),
 
         )
-    account_actions.short_description = 'Account Actions'
+    account_actions.short_description = _('Account Actions')
     account_actions.allow_tags = True
 
     def process_label(self, request, plotter_id, *args, **kwargs):
@@ -79,13 +80,15 @@ class PlotterAdmin(admin.ModelAdmin):
             form = AddLabelForm(request.POST)
             if form.is_valid():
                 try:
-                    label = Label.objects.filter(is_active=False).get(scratch_code=form.cleaned_data['scratch_code'])
+                    label = Label.objects.filter(
+                        is_active=False).get(
+                        scratch_code=form.cleaned_data['scratch_code'])
                     if not (label.dealer == plotter.dealer or
                             label.user == plotter.user):
                         raise ObjectDoesNotExist
                 except ObjectDoesNotExist:
                     messages.add_message(request, messages.ERROR,
-                                         'Scratch code not found')
+                                         _('Scratch code not found'))
                     return HttpResponseRedirect('./')
                 else:
                     plotter.link_label(label)

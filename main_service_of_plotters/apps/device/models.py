@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.utils.translation import ugettext_lazy as _
 
 from main_service_of_plotters.apps.users.models import User
 from main_service_of_plotters.utils.abstractmodel import DateTimeDateUpdate
@@ -9,13 +10,14 @@ class Plotter(DateTimeDateUpdate):
     """This class creates plotter table."""
 
     dealer = models.ForeignKey(User, on_delete=models.CASCADE,
-                               verbose_name='instance model Dealer',
+                               verbose_name=_('Dealer'),
                                limit_choices_to={'role': 'Dealer'},
                                null=True, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE,
-                             verbose_name='instance model User',
+                             verbose_name=_('User'),
                              limit_choices_to={'role': 'User'},
-                             related_name='plotter_user', null=True, blank=True)
+                             related_name='plotter_user',
+                             null=True, blank=True)
     # FIXME Serial Number must be char string in production stage
     serial_number = models.BigIntegerField()
 
@@ -39,7 +41,7 @@ class Plotter(DateTimeDateUpdate):
 
     @property
     def first_linked_label(self):
-        qs = self.linked_labels.\
-                filter(available_count__gt=0).\
-                order_by('date_of_activation')
-        return [label for label in qs.all() if label.is_active_and_not_expired][0]
+        qs = self.linked_labels.filter(available_count__gt=0).order_by(
+            'date_of_activation')
+        return [label for label in qs.all() if
+                label.is_active_and_not_expired][0]
