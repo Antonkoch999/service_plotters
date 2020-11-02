@@ -1,11 +1,12 @@
 """This module creates tables in database."""
+from datetime import timedelta
+from django.utils.timezone import now
 
 from django.db import models
 from django.urls import reverse
 
 from .validators import validate_unique_code, \
     validate_file_photo, validate_file_plt
-
 from main_service_of_plotters.utils.abstractmodel import DateTimeDateUpdate
 from main_service_of_plotters.apps.category.models import DeviceCategory, \
     Manufacturer, ModelsTemplate
@@ -47,6 +48,7 @@ class Template(DateTimeDateUpdate):
 
 class Label(DateTimeDateUpdate):
     """This class creates label table."""
+    TERM_OF_EXPIRATION = timedelta(days=90)
 
     scratch_code = models.CharField(max_length=16, blank=True,
                                     validators=[validate_unique_code],
@@ -73,3 +75,10 @@ class Label(DateTimeDateUpdate):
 
     def __str__(self):
         return f'Scratch code {self.scratch_code}'
+
+    def date_of_expiration(self):
+        return self.date_creation + self.TERM_OF_EXPIRATION
+
+    def before_expiration(self):
+        expiration_term = self.date_of_expiration() - now()
+        return f"{expiration_term.days} days"
