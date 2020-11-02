@@ -19,7 +19,7 @@ class PlotterAdmin(admin.ModelAdmin):
     """Class is representation of a model Plotter in the admin interface."""
 
     form = PlotterForm
-    list_display = ('serial_number', 'dealer', 'user', 'available_film',
+    list_display = ('serial_number', 'dealer', 'user', 'available_films',
                     'account_actions',)
 
     def get_form(self, request, obj=None, **kwargs):
@@ -50,7 +50,7 @@ class PlotterAdmin(admin.ModelAdmin):
         # If user is `Dealer` or User
         if request.user.groups.filter(name='Dealer').exists():
             # without `scretch code`
-            return ['serial_number', 'dealer', 'user', 'available_film']
+            return ['serial_number', 'dealer', 'user', 'available_films']
         return super().get_list_display(request)
 
     def get_urls(self):
@@ -88,10 +88,7 @@ class PlotterAdmin(admin.ModelAdmin):
                                          'Scratch code not found')
                     return HttpResponseRedirect('./')
                 else:
-                    plotter.available_film += label.count
-                    plotter.save()
-                    label.is_active = True
-                    label.save()
+                    plotter.link_label(label)
 
             return HttpResponseRedirect('../..')
         else:
