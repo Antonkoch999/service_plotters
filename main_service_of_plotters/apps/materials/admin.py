@@ -6,11 +6,40 @@ from django.http import HttpResponseRedirect
 from import_export import resources
 from import_export.admin import ImportExportMixin
 
-
 from main_service_of_plotters.apps.users.models import User
 from main_service_of_plotters.apps.materials.models import Label, Template
 from .forms import (SelectUserForm, SelectDealerForm, LabelFormDealer,
-                    LabelFormUser, LabelFormAdmin)
+                    LabelFormUser, LabelFormAdmin, GenerationCodeForm)
+
+from django.contrib.admin.views.decorators import staff_member_required
+from django.urls import path
+from random import randint
+
+
+@staff_member_required
+def generation_code(request):
+    if request.method == "POST":
+        form = GenerationCodeForm(request.POST)
+        if form.is_valid():
+            count_label = form.cleaned_data['count_label']
+            count = form.cleaned_data['count']
+            for item in range(count_label):
+                scratch_code = randint(1000000000000000, 9999999999999999)
+                while Label.objects.filter(scratch_code=scratch_code).exists():
+                    scratch_code = randint(1000000000000000, 9999999999999999)
+                barcode = randint(1000000000000000, 9999999999999999)
+                while Label.objects.filter(barcode=barcode).exists():
+                    barcode = randint(1000000000000000, 9999999999999999)
+
+                create_label = Label.objects.create(
+                    scratch_code=scratch_code,
+                    barcode=barcode,
+                    count=count)
+            return HttpResponseRedirect('../')
+
+    else:
+        form = GenerationCodeForm()
+    return render(request, 'admin/generation_code.html', {'form': form})
 
 
 class LabelResource(resources.ModelResource):
@@ -51,7 +80,7 @@ class CustomLabelAdmin(ImportExportMixin, admin.ModelAdmin):
             form = SelectUserForm(
                 initial={
                     '_selected_action':
-                    request.POST.getlist(admin.ACTION_CHECKBOX_NAME)},
+                        request.POST.getlist(admin.ACTION_CHECKBOX_NAME)},
                 dealer=request.user)
             queryset = queryset.filter(user=None)
             return render(request, 'admin/multiple_owner_change.html',
@@ -151,14 +180,20 @@ class CustomLabelAdmin(ImportExportMixin, admin.ModelAdmin):
 
         filters = ('date_creation', 'user', 'dealer',)
         if CustomLabelAdmin._is_requested_user_dealer_or_user(request):
-            filters = ('date_creation', )
+            filters = ('date_creation',)
         return filters
 
     @staticmethod
     def _is_requested_user_dealer_or_user(request):
         """Identificate is authenticated user is dealer."""
         return request.user.groups.filter(name='Dealer').exists() \
-            or request.user.groups.filter(name='User').exists()
+               or request.user.groups.filter(name='User').exists()
+
+    def get_urls(self):
+        urls = super().get_urls()
+        my_urls = [path("generation_code/", generation_code,
+                        name='generation code'), ]
+        return my_urls + urls
 
 
 class TemplateAdmin(admin.ModelAdmin):

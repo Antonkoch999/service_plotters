@@ -5,6 +5,15 @@ from main_service_of_plotters.apps.materials.models import Label
 from main_service_of_plotters.apps.users.models import User
 
 
+class GenerationCodeForm(forms.ModelForm):
+    """From with one field `dealer` to add this dealer to multiple entities."""
+    count_label = forms.IntegerField()
+
+    class Meta:
+        model = Label
+        fields = ['count', 'count_label']
+
+
 class SelectDealerForm(forms.Form):
     """From with one field `dealer` to add this dealer to multiple entities."""
 

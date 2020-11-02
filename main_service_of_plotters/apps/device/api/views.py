@@ -4,7 +4,7 @@ from rest_framework.permissions import DjangoModelPermissions, IsAuthenticated
 from rest_framework.decorators import api_view
 import rest_framework.status as status
 from rest_framework.response import Response
-from django.http import FileResponse
+from django.http import HttpResponseRedirect
 
 from .serializers import PlotterSerializer, CutSerializer
 from ..models import Plotter
@@ -54,7 +54,6 @@ def cut(request):
 
         seria = TemplateBlueprintOnlySerializer(template,
                                                 context={'request': request})
-
         return Response(seria.data)
     else:
         return Response(status=status.HTTP_400_BAD_REQUEST)

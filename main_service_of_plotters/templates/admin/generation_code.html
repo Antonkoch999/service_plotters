@@ -1,0 +1,16 @@
+{% extends "admin/base_site.html" %}
+
+{% block content %}
+<form action="." method="post">
+  {% csrf_token %}
+  <div>
+    <p><label for='{{ form.count }}'>Количество пленки в упаковке: </label>
+        <input type="text" name="count"/></p>
+  </div>
+    <div>
+    <p><label for='{{ form.count_label }}'>Количество записей: </label>
+        <input type="text" name="count_label"/></p>
+  </div>
+    <input type="submit" name="apply" value="Сохранить" />
+</form>
+{% endblock %}

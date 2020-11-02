@@ -50,10 +50,12 @@ class Label(DateTimeDateUpdate):
 
     scratch_code = models.CharField(max_length=16, blank=True,
                                     validators=[validate_unique_code],
-                                    verbose_name='Unique scratch code')
+                                    verbose_name='Unique scratch code',
+                                    unique=True)
     barcode = models.CharField(max_length=16, blank=True,
                                validators=[validate_unique_code],
-                               verbose_name='Unique barcode')
+                               verbose_name='Unique barcode',
+                               unique=True)
     count = models.IntegerField(default=0)
     dealer = models.ForeignKey(User, on_delete=models.CASCADE,
                                verbose_name='instance model Dealer',
@@ -64,9 +66,6 @@ class Label(DateTimeDateUpdate):
                              limit_choices_to={'role': 'User'},
                              related_name='label_user', null=True, blank=True)
     is_active = models.BooleanField(default=False)
-
-    class Meta:
-        unique_together = [['scratch_code', 'barcode']]
 
     def get_absolute_url(self) -> str:
         return reverse('api:label-detail', kwargs={'pk': self.pk})
