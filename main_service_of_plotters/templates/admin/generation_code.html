@@ -4,13 +4,13 @@
 <form action="." method="post">
   {% csrf_token %}
   <div>
-    <p><label for='{{ form.count }}'>Amount of label in pack: </label>
+    <p><label for='{{ form.count }}'>{% trans 'Amount of label in pack' %}:  </label>
         <input type="text" name="count"/></p>
   </div>
     <div>
-    <p><label for='{{ form.count_label }}'>Amount of records: </label>
+    <p><label for='{{ form.count_label }}'>{% trans 'Amount of records' %}: </label>
         <input type="text" name="count_label"/></p>
   </div>
-    <input type="submit" name="apply" value="Сохранить" />
+    <input type="submit" name="apply" value="{% trans 'Save' %}" />
 </form>
 {% endblock %}

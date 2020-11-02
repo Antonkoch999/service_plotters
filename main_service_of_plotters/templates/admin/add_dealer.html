@@ -3,9 +3,9 @@
 {% block content %}
 <form action="" method="post">{% csrf_token %}
     {{ form }}
-    <p>Новая категория будет назначена для следующих позиций:</p>
+    <p>{% trans 'Dealer will be added to following instances' %}</p>
     <ul>{{ items|unordered_list }}</ul>
     <input type="hidden" name="action" value="add_dealer" />
-    <input type="submit" name="apply" value="Сохранить" />
+    <input type="submit" name="apply" value="{% trans 'Save' %}" />
 </form>
 {% endblock %}
