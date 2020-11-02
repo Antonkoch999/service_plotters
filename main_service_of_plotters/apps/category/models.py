@@ -1,16 +1,17 @@
-""""This module creates tables in the database."""
+"""This module creates tables in the database."""
 
 from django.db import models
 from main_service_of_plotters.utils.abstractmodel import DateTimeDateUpdate
+from django.utils.translation import gettext_lazy as _
 
 
 class DeviceCategory(DateTimeDateUpdate):
     """Create table device category in the database."""
 
     name = models.CharField(max_length=150, blank=True,
-                            verbose_name='Name of template device')
+                            verbose_name=_('Name of category of devices'))
     photo = models.ImageField(upload_to="device/%Y/%m/%d",
-                              verbose_name='Photo Device', blank=True,
+                              verbose_name=_('Photo Device'), blank=True,
                               null=True)
 
     def __str__(self):
@@ -22,7 +23,7 @@ class Manufacturer(DateTimeDateUpdate):
 
     device_category = models.ForeignKey(DeviceCategory,
                                         on_delete=models.CASCADE,
-                                        verbose_name='Instance model device',
+                                        verbose_name=_('Category of devices'),
                                         related_name='device')
     name = models.CharField(max_length=150, blank=True,
                             verbose_name='Name of template manufacturer')
@@ -41,7 +42,7 @@ class ModelsTemplate(DateTimeDateUpdate):
     manufacturer = models.ForeignKey(
         Manufacturer,
         on_delete=models.CASCADE,
-        verbose_name='Instance model manufacturer',
+        verbose_name=_('Manufacturer'),
         related_name='modelstemplate'
     )
     name = models.CharField(max_length=150, blank=True,
@@ -50,4 +51,3 @@ class ModelsTemplate(DateTimeDateUpdate):
     def __str__(self):
         return f'Category {self.manufacturer.device_category.name} | ' \
                f'Manufacturer {self.manufacturer.name} | Model {self.name}'
-
