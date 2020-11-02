@@ -158,7 +158,7 @@ class CustomLabelAdmin(ImportExportMixin, admin.ModelAdmin):
         elif request.user.role == 'Administrator':
             kwargs['form'] = LabelFormAdmin
             form = super().get_form(request, obj, **kwargs)
-            if obj.dealer is not None:
+            if obj is not None and obj.dealer is not None:
                 form.base_fields['dealer'].disabled = True
             return form
         return super().get_form(request, obj, **kwargs)
@@ -166,13 +166,16 @@ class CustomLabelAdmin(ImportExportMixin, admin.ModelAdmin):
     def get_list_display(self, request):
         """Change list_display list depended of logged user."""
 
-        # If user is `Dealer` or User
         list_display = ('scratch_code', 'barcode',
-                        'count', 'dealer', 'user', 'is_active')
+                        'count', 'available_count', 'dealer', 'user',
+                        'date_of_expiration',
+                        'days_before_expiration',
+                        'is_active')
+        # If user is `Dealer` or User
         if CustomLabelAdmin._is_requested_user_dealer_or_user(request):
             # without `scretch code`
-            list_display = ['barcode', 'count',
-                            'dealer', 'user', 'is_active']
+            list_display = ['barcode', 'count', 'available_count',
+                            'dealer', 'user', 'date_of_expiration', 'days_before_expiration', 'is_active']
         return list_display
 
     def get_list_filter(self, request):

@@ -11,7 +11,7 @@ class PlotterForm(forms.ModelForm):
 
     class Meta:
         model = Plotter
-        fields = ('dealer', 'user', 'serial_number', 'available_film', 'date_creation')
+        fields = ('dealer', 'user', 'serial_number', 'date_creation')
 
 
 class DealerPlotterForm(PlotterForm):
@@ -32,7 +32,7 @@ class UserPlotterForm(PlotterForm):
     """This class excludes field 'user' from model Plotter."""
 
     class Meta:
-        exclude = ('dealer', 'user', 'date_creation')
+        exclude = ('dealer', 'user', 'date_creation', 'available_film')
 
 
 class AddLabelForm(forms.ModelForm):

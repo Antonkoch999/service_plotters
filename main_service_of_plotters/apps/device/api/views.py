@@ -4,7 +4,6 @@ from rest_framework.permissions import DjangoModelPermissions, IsAuthenticated
 from rest_framework.decorators import api_view
 import rest_framework.status as status
 from rest_framework.response import Response
-from django.http import HttpResponseRedirect
 
 from .serializers import PlotterSerializer, CutSerializer
 from ..models import Plotter
@@ -31,11 +30,12 @@ def cut(request):
         print(serializer.validated_data)
         plotter = serializer.validated_data['plotter']
         template = serializer.validated_data['template']
-        if plotter.available_film <= 0:
+        if plotter.available_films <= 0:
             return Response(data='Available films is over', status=status.HTTP_403_FORBIDDEN)
         # TODO Check plotter ip with client ip
-        plotter.available_film -= 1
-        plotter.save()
+        label = plotter.first_linked_label
+        label.available_count -= 1
+        label.save()
         StatisticsPlotter.objects.create(
             plotter=plotter,
             ip=request.META['REMOTE_ADDR'],
@@ -54,6 +54,7 @@ def cut(request):
 
         seria = TemplateBlueprintOnlySerializer(template,
                                                 context={'request': request})
+
         return Response(seria.data)
     else:
         return Response(status=status.HTTP_400_BAD_REQUEST)
