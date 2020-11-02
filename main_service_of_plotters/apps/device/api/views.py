@@ -1,3 +1,5 @@
+from django.utils.translation import ugettext_lazy as _
+
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.decorators import permission_classes
 from rest_framework.permissions import DjangoModelPermissions, IsAuthenticated
@@ -31,7 +33,8 @@ def cut(request):
         plotter = serializer.validated_data['plotter']
         template = serializer.validated_data['template']
         if plotter.available_films <= 0:
-            return Response(data='Available films is over', status=status.HTTP_403_FORBIDDEN)
+            return Response(data=_('Available films is over'),
+                            status=status.HTTP_403_FORBIDDEN)
         # TODO Check plotter ip with client ip
         label = plotter.first_linked_label
         label.available_count -= 1
