@@ -41,6 +41,10 @@ class Template(DateTimeDateUpdate):
                                 verbose_name=_('Blueprint file (*.plt)'),
                                 validators=[validate_file_plt])
 
+    class Meta:
+        verbose_name = _("Template")
+        verbose_name_plural = _("Templates")
+
     def get_absolute_url(self) -> str:
         return reverse('api:template-detail', kwargs={'pk': self.pk})
 
@@ -60,8 +64,8 @@ class Label(DateTimeDateUpdate):
                                validators=[validate_unique_code],
                                verbose_name=_('Unique barcode'),
                                unique=True)
-    count = models.IntegerField(default=0)
-    available_count = models.IntegerField(default=0)
+    count = models.IntegerField(default=0, verbose_name=_("Start amount"))
+    available_count = models.IntegerField(default=0, verbose_name=_("Available amount"))
     dealer = models.ForeignKey(User, on_delete=models.CASCADE,
                                verbose_name=_('Related Dealer'),
                                limit_choices_to={'role': 'Dealer'},
@@ -96,20 +100,20 @@ class Label(DateTimeDateUpdate):
     def __str__(self):
         return f'Scratch code {self.scratch_code}'
 
-    @property
     def date_of_expiration(self):
         """Calculate date of expiretion from date of activation and constant term."""
         if self.date_of_activation is not None:
             return self.date_creation + self.TERM_OF_EXPIRATION
         else:
             return None
+    date_of_expiration.short_description = _("Date of expiration")
 
-    @property
     def days_before_expiration(self):
         """Calculate days before date of expiration until now."""
         if self.date_of_expiration:
             expiration_term = self.date_of_expiration - now()
-            return f"{expiration_term.days} days"
+            return expiration_term.days
+    days_before_expiration.short_description = _("Days before expiration")
 
     @property
     def is_in_terms_of_expiration(self):

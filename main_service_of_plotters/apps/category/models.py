@@ -14,6 +14,10 @@ class DeviceCategory(DateTimeDateUpdate):
                               verbose_name=_('Photo Device'), blank=True,
                               null=True)
 
+    class Meta:
+        verbose_name = _("Device category")
+        verbose_name_plural = _("Device categories")
+
     def __str__(self):
         return _('Category') + f' {self.name}'
 
@@ -31,6 +35,10 @@ class Manufacturer(DateTimeDateUpdate):
                               verbose_name=_('Manufacturer image'), blank=True,
                               null=True)
 
+    class Meta:
+        verbose_name = _("Manufacturer")
+        verbose_name_plural = _("Manufacturers")
+
     def __str__(self):
         return _('Category') + f'{self.device_category.name} | ' + \
                _('Manufacturer') + f' {self.name}'
@@ -47,6 +55,10 @@ class ModelsTemplate(DateTimeDateUpdate):
     )
     name = models.CharField(max_length=150, blank=True,
                             verbose_name=_('Name of model'))
+
+    class Meta:
+        verbose_name = _("Model")
+        verbose_name_plural = _("Models")
 
     def __str__(self):
         return f'Category {self.manufacturer.device_category.name} | ' \

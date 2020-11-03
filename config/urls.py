@@ -3,15 +3,16 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
 from django.views import defaults as default_views
+from django.conf.urls.i18n import i18n_patterns
 from rest_framework.authtoken.views import obtain_auth_token
 
-urlpatterns = [
+urlpatterns = i18n_patterns(
     # Django Admin, use {% url 'admin:index' %}
     path(settings.ADMIN_URL, admin.site.urls),
     path("users/", include("main_service_of_plotters.apps.users.urls", namespace="users")),
     path("accounts/", include("allauth.urls")),
     # Your stuff: custom urls includes go here
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+ ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # API URLS
 urlpatterns += [

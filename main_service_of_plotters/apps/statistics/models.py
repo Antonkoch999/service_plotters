@@ -18,7 +18,11 @@ class StatisticsPlotter(DateTimeDateUpdate):
     ip = models.CharField(max_length=150, verbose_name=_('IP address plotter'))
     last_request = models.DateField(
         verbose_name=_('Last connection to server'), default=now)
-    count_cut = models.IntegerField()
+    count_cut = models.IntegerField(verbose_name=_("Count cut"))
+
+    class Meta:
+        verbose_name = _("Plotter statistic")
+        verbose_name_plural = _("Plotter statistics")
 
 
 class StatisticsTemplate(DateTimeDateUpdate):
@@ -28,7 +32,11 @@ class StatisticsTemplate(DateTimeDateUpdate):
                                 verbose_name=_('Plotter serial number'))
     template = models.ForeignKey(Template, on_delete=models.CASCADE,
                                  verbose_name=_('Name of template'))
-    count = models.IntegerField()
+    count = models.IntegerField(verbose_name="Count")
+
+    class Meta:
+        verbose_name = _("Template Statistic")
+        verbose_name_plural = _("Template Statistics")
 
 
 class CuttingTransaction(DateTimeDateUpdate):
@@ -37,10 +45,14 @@ class CuttingTransaction(DateTimeDateUpdate):
     user = models.ForeignKey(User, on_delete=models.CASCADE,
                              verbose_name=_('User'))
     plotter = models.ForeignKey(Plotter, on_delete=models.CASCADE,
-                                verbose_name=_('Plotter serial number'))
+                                verbose_name=_('Plotter'))
     template = models.ForeignKey(Template, on_delete=models.CASCADE,
                                  verbose_name=_('Name of template'))
     # label = models.ForeignKey(Label, null=True, on_delete=models.SET_NULL,
     #                           verbose_name='instance model label')
     date_cutted = models.DateTimeField(verbose_name=_('Data of creation cut'),
                                        default=now)
+
+    class Meta:
+        verbose_name = _("Cutting Transaction")
+        verbose_name_plural = _("Cutting Transactions")
