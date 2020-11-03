@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-03 13:52+0000\n"
+"POT-Creation-Date: 2020-11-03 14:25+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -76,11 +76,15 @@ msgstr "模型"
 msgid "Models"
 msgstr "楷模"
 
-#: main_service_of_plotters/apps/device/admin.py:74
+#: main_service_of_plotters/apps/device/admin.py:71
+msgid "Add label"
+msgstr "添加标签"
+
+#: main_service_of_plotters/apps/device/admin.py:76
 msgid "Account Actions"
 msgstr "帐户动作"
 
-#: main_service_of_plotters/apps/device/admin.py:91
+#: main_service_of_plotters/apps/device/admin.py:93
 msgid "Scratch code not found"
 msgstr "找不到暂存码"
 
@@ -110,7 +114,20 @@ msgstr "用户"
 msgid "Serial number"
 msgstr "序列号"
 
-#: main_service_of_plotters/apps/device/models.py:33
+#: main_service_of_plotters/apps/device/models.py:26
+msgid "Available film"
+msgstr "可用电影"
+
+#: main_service_of_plotters/apps/device/models.py:29
+#: main_service_of_plotters/apps/statistics/models.py:48
+msgid "Plotter"
+msgstr "绘图仪"
+
+#: main_service_of_plotters/apps/device/models.py:30
+msgid "Plotters"
+msgstr "绘图仪"
+
+#: main_service_of_plotters/apps/device/models.py:37
 msgid "Available films"
 msgstr "可用电影"
 
@@ -199,7 +216,7 @@ msgstr "标签"
 msgid "Date of expiration"
 msgstr "到期日"
 
-#: main_service_of_plotters/apps/materials/models.py:134
+#: main_service_of_plotters/apps/materials/models.py:133
 msgid "Days before expiration"
 msgstr "到期前几天"
 
@@ -247,6 +264,10 @@ msgstr "绘图仪统计"
 msgid "Name of template"
 msgstr "模板名称"
 
+#: main_service_of_plotters/apps/statistics/models.py:35
+msgid "Count"
+msgstr "计数"
+
 #: main_service_of_plotters/apps/statistics/models.py:38
 msgid "Template Statistic"
 msgstr "模板统计"
@@ -254,10 +275,6 @@ msgstr "模板统计"
 #: main_service_of_plotters/apps/statistics/models.py:39
 msgid "Template Statistics"
 msgstr "模板统计"
-
-#: main_service_of_plotters/apps/statistics/models.py:48
-msgid "Plotter"
-msgstr "绘图仪"
 
 #: main_service_of_plotters/apps/statistics/models.py:53
 msgid "Data of creation cut"
@@ -285,6 +302,8 @@ msgstr "密码"
 msgid "Password confirmation"
 msgstr "确认密码"
 
+#: main_service_of_plotters/apps/users/forms.py:47
+#: main_service_of_plotters/apps/users/forms.py:55
 #: main_service_of_plotters/apps/users/models.py:17
 msgid "User role"
 msgstr "用户角色"
@@ -326,6 +345,14 @@ msgstr "注册"
 #: main_service_of_plotters/templates/base.html:68
 msgid "Sign In"
 msgstr "注册"
+
+#: main_service_of_plotters/utils/abstractmodel.py:7
+msgid "Data of creation"
+msgstr "创建切割数据"
+
+#: main_service_of_plotters/utils/abstractmodel.py:9
+msgid "Date of update"
+msgstr "到期日"
 
 #~ msgid "Amount of label in pack"
 #~ msgstr "包装内标签数量"

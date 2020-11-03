@@ -44,7 +44,7 @@ class DealerUserForm(UserCreationForm):
 
     role = forms.ChoiceField(choices=[
         (_('User'), _('User'))
-    ])
+    ], label=_('User role'))
 
 
 class AdministratorUserForm(UserCreationForm):
@@ -52,7 +52,7 @@ class AdministratorUserForm(UserCreationForm):
 
     role = forms.ChoiceField(choices=[
         (_('Dealer'), _('Dealer'))
-    ])
+    ], label=_('User role'))
 
 
 class UserChangeForm(forms.ModelForm):

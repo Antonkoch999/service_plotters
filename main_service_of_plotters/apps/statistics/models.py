@@ -32,7 +32,7 @@ class StatisticsTemplate(DateTimeDateUpdate):
                                 verbose_name=_('Plotter serial number'))
     template = models.ForeignKey(Template, on_delete=models.CASCADE,
                                  verbose_name=_('Name of template'))
-    count = models.IntegerField(verbose_name="Count")
+    count = models.IntegerField(verbose_name=_("Count"))
 
     class Meta:
         verbose_name = _("Template Statistic")
