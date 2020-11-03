@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-03 09:16+0000\n"
+"POT-Creation-Date: 2020-11-03 13:02+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -31,31 +31,54 @@ msgid "Photo Device"
 msgstr "照相设备"
 
 #: main_service_of_plotters/apps/category/models.py:18
-#: main_service_of_plotters/apps/category/models.py:35
+#, fuzzy
+#| msgid "Category"
+msgid "Device category"
+msgstr "类别"
+
+#: main_service_of_plotters/apps/category/models.py:19
+msgid "Device categories"
+msgstr ""
+
+#: main_service_of_plotters/apps/category/models.py:22
 msgid "Category"
 msgstr "类别"
 
-#: main_service_of_plotters/apps/category/models.py:26
-#: main_service_of_plotters/apps/materials/models.py:22
+#: main_service_of_plotters/apps/category/models.py:30
+#: main_service_of_plotters/apps/materials/models.py:24
 msgid "Category of devices"
 msgstr "设备类别"
 
-#: main_service_of_plotters/apps/category/models.py:29
+#: main_service_of_plotters/apps/category/models.py:33
 msgid "Name of manufacturer"
 msgstr "制造商名称"
 
-#: main_service_of_plotters/apps/category/models.py:31
+#: main_service_of_plotters/apps/category/models.py:35
 msgid "Manufacturer image"
 msgstr "制造商形象"
 
-#: main_service_of_plotters/apps/category/models.py:36
-#: main_service_of_plotters/apps/category/models.py:45
+#: main_service_of_plotters/apps/category/models.py:39
+#: main_service_of_plotters/apps/category/models.py:53
 msgid "Manufacturer"
 msgstr "制造商"
 
-#: main_service_of_plotters/apps/category/models.py:49
+#: main_service_of_plotters/apps/category/models.py:40
+#, fuzzy
+#| msgid "Manufacturer"
+msgid "Manufacturers"
+msgstr "制造商"
+
+#: main_service_of_plotters/apps/category/models.py:57
 msgid "Name of model"
 msgstr "型号名称"
+
+#: main_service_of_plotters/apps/category/models.py:60
+msgid "Model"
+msgstr ""
+
+#: main_service_of_plotters/apps/category/models.py:61
+msgid "Models"
+msgstr ""
 
 #: main_service_of_plotters/apps/device/admin.py:74
 msgid "Account Actions"
@@ -78,61 +101,102 @@ msgid "Dealer"
 msgstr ""
 
 #: main_service_of_plotters/apps/device/models.py:17
-#: main_service_of_plotters/apps/statistics/models.py:38
+#: main_service_of_plotters/apps/statistics/models.py:46
+#: main_service_of_plotters/apps/users/models.py:21
 msgid "User"
 msgstr "用户"
+
+#: main_service_of_plotters/apps/device/models.py:23
+#, fuzzy
+#| msgid "Plotter serial number"
+msgid "Serial number"
+msgstr "绘图仪序列号"
+
+#: main_service_of_plotters/apps/device/models.py:33
+#, fuzzy
+#| msgid "Available films is over"
+msgid "Available films"
+msgstr "可用的电影结束"
 
 #: main_service_of_plotters/apps/materials/apps.py:11
 msgid "Material"
 msgstr "材料"
 
-#: main_service_of_plotters/apps/materials/models.py:28
+#: main_service_of_plotters/apps/materials/models.py:30
 msgid "Manufacturer of the model"
 msgstr "模型制造商"
 
-#: main_service_of_plotters/apps/materials/models.py:32
+#: main_service_of_plotters/apps/materials/models.py:34
 msgid "Model of device"
 msgstr "设备型号"
 
-#: main_service_of_plotters/apps/materials/models.py:35
+#: main_service_of_plotters/apps/materials/models.py:37
 msgid "name of template"
 msgstr "模板名称"
 
-#: main_service_of_plotters/apps/materials/models.py:38
+#: main_service_of_plotters/apps/materials/models.py:40
 msgid "Schematic image of template"
 msgstr "模板示意图"
 
-#: main_service_of_plotters/apps/materials/models.py:41
+#: main_service_of_plotters/apps/materials/models.py:43
 msgid "Blueprint file (*.plt)"
 msgstr "蓝图文件（"
 
-#: main_service_of_plotters/apps/materials/models.py:57
+#: main_service_of_plotters/apps/materials/models.py:48
+msgid "Template"
+msgstr ""
+
+#: main_service_of_plotters/apps/materials/models.py:49
+msgid "Templates"
+msgstr ""
+
+#: main_service_of_plotters/apps/materials/models.py:66
 msgid "Unique scratch code"
 msgstr "独特的暂存码"
 
-#: main_service_of_plotters/apps/materials/models.py:61
+#: main_service_of_plotters/apps/materials/models.py:70
 msgid "Unique barcode"
 msgstr "独特的条形码"
 
-#: main_service_of_plotters/apps/materials/models.py:66
+#: main_service_of_plotters/apps/materials/models.py:72
+msgid "Start amount"
+msgstr ""
+
+#: main_service_of_plotters/apps/materials/models.py:73
+#, fuzzy
+#| msgid "Available films is over"
+msgid "Available amount"
+msgstr "可用的电影结束"
+
+#: main_service_of_plotters/apps/materials/models.py:75
 msgid "Related Dealer"
 msgstr "相关经销商"
 
-#: main_service_of_plotters/apps/materials/models.py:70
+#: main_service_of_plotters/apps/materials/models.py:79
 msgid "Related User"
 msgstr "相关使用者"
 
-#: main_service_of_plotters/apps/materials/models.py:77
+#: main_service_of_plotters/apps/materials/models.py:88
 msgid "Date of activation"
 msgstr "启用日期"
 
-#: main_service_of_plotters/apps/materials/models.py:85
+#: main_service_of_plotters/apps/materials/models.py:96
 msgid "Linked plotters"
 msgstr "链接绘图仪"
 
-#: main_service_of_plotters/apps/materials/models.py:90
+#: main_service_of_plotters/apps/materials/models.py:101
 msgid "Is active"
 msgstr "活跃"
+
+#: main_service_of_plotters/apps/materials/models.py:117
+#, fuzzy
+#| msgid "Date of activation"
+msgid "Date of expiration"
+msgstr "启用日期"
+
+#: main_service_of_plotters/apps/materials/models.py:124
+msgid "Days before expiration"
+msgstr ""
 
 #: main_service_of_plotters/apps/materials/validators.py:13
 #, python-brace-format
@@ -149,8 +213,7 @@ msgid "Statistics"
 msgstr "统计"
 
 #: main_service_of_plotters/apps/statistics/models.py:17
-#: main_service_of_plotters/apps/statistics/models.py:28
-#: main_service_of_plotters/apps/statistics/models.py:40
+#: main_service_of_plotters/apps/statistics/models.py:32
 msgid "Plotter serial number"
 msgstr "绘图仪序列号"
 
@@ -162,16 +225,55 @@ msgstr "IP地址绘图仪"
 msgid "Last connection to server"
 msgstr ""
 
-#: main_service_of_plotters/apps/statistics/models.py:30
-#: main_service_of_plotters/apps/statistics/models.py:42
+#: main_service_of_plotters/apps/statistics/models.py:21
+msgid "Count cut"
+msgstr ""
+
+#: main_service_of_plotters/apps/statistics/models.py:24
+msgid "Plotter statistic"
+msgstr ""
+
+#: main_service_of_plotters/apps/statistics/models.py:25
+#, fuzzy
+#| msgid "Statistics"
+msgid "Plotter statistics"
+msgstr "统计"
+
+#: main_service_of_plotters/apps/statistics/models.py:34
+#: main_service_of_plotters/apps/statistics/models.py:50
 msgid "Name of template"
 msgstr "模板名称"
 
-#: main_service_of_plotters/apps/statistics/models.py:45
+#: main_service_of_plotters/apps/statistics/models.py:38
+#, fuzzy
+#| msgid "Statistics"
+msgid "Template Statistic"
+msgstr "统计"
+
+#: main_service_of_plotters/apps/statistics/models.py:39
+#, fuzzy
+#| msgid "Statistics"
+msgid "Template Statistics"
+msgstr "统计"
+
+#: main_service_of_plotters/apps/statistics/models.py:48
+msgid "Plotter"
+msgstr ""
+
+#: main_service_of_plotters/apps/statistics/models.py:53
 msgid "Data of creation cut"
 msgstr "创建切割数据"
 
+#: main_service_of_plotters/apps/statistics/models.py:57
+msgid "Cutting Transaction"
+msgstr ""
+
+#: main_service_of_plotters/apps/statistics/models.py:58
+msgid "Cutting Transactions"
+msgstr ""
+
 #: main_service_of_plotters/apps/users/apps.py:11
+#: main_service_of_plotters/apps/users/models.py:22
 msgid "Users"
 msgstr "用户数"
 
@@ -184,17 +286,10 @@ msgid "Dealer will be added to following instances"
 msgstr "经销商将被添加到以下实例"
 
 #: main_service_of_plotters/templates/admin/add_dealer.html:10
-#: main_service_of_plotters/templates/admin/generation_code.html:15
+#: main_service_of_plotters/templates/admin/generation_code.html:8
+#: main_service_of_plotters/templates/admin/multiple_owner_change.html:10
 msgid "Save"
 msgstr "救"
-
-#: main_service_of_plotters/templates/admin/generation_code.html:8
-msgid "Amount of label in pack"
-msgstr "包装内标签数量"
-
-#: main_service_of_plotters/templates/admin/generation_code.html:12
-msgid "Amount of records"
-msgstr "记录量"
 
 #: main_service_of_plotters/templates/admin/import_export/change_list.html:8
 msgid "Generate code"
@@ -219,3 +314,9 @@ msgstr "注册"
 #: main_service_of_plotters/templates/base.html:68
 msgid "Sign In"
 msgstr "注册"
+
+#~ msgid "Amount of label in pack"
+#~ msgstr "包装内标签数量"
+
+#~ msgid "Amount of records"
+#~ msgstr "记录量"

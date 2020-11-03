@@ -17,6 +17,10 @@ class User(AbstractUser):
                             verbose_name=_('User role'))
     dealer_id = models.CharField(max_length=30, blank=True, null=True)
 
+    class Meta:
+        verbose_name = _("User")
+        verbose_name_plural = _("Users")
+
     def is_user(self):
         return self.groups.filter(name='User').exists()
 
