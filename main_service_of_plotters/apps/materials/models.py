@@ -42,8 +42,9 @@ class Template(DateTimeDateUpdate):
     file_plt = models.FileField(upload_to="documents/%Y/%m/%d",
                                 verbose_name=_('Blueprint file (*.plt)'),
                                 validators=[validate_file_plt])
-    size = models.CharField(max_length=1, choices=SIZE_TEMPLATE, blank=True,
-                            null=True, verbose_name=_('Size'))
+    size = models.CharField(max_length=1, choices=SIZE_TEMPLATE,
+                            verbose_name=_('Size'),
+                            blank=True, null=True)
 
     class Meta:
         verbose_name = _("Template")
@@ -71,7 +72,8 @@ class Label(DateTimeDateUpdate):
                                verbose_name=_('Unique barcode'),
                                unique=True)
     count = models.IntegerField(default=0, verbose_name=_("Start amount"))
-    available_count = models.IntegerField(default=0, verbose_name=_("Available amount"))
+    available_count = models.IntegerField(default=0,
+                                          verbose_name=_("Available amount"))
     dealer = models.ForeignKey(User, on_delete=models.CASCADE,
                                verbose_name=_('Related Dealer'),
                                limit_choices_to={'role': 'Dealer'},
@@ -81,8 +83,9 @@ class Label(DateTimeDateUpdate):
                              limit_choices_to={'role': 'User'},
                              related_name='label_user', null=True, blank=True)
 
-    size = models.CharField(max_length=1, choices=SIZE_TEMPLATE, blank=True,
-                            null=True, verbose_name=_("Size"))
+    size = models.CharField(max_length=1, choices=SIZE_TEMPLATE,
+                            verbose_name=_('Size'),
+                            blank=True, null=True)
 
     date_of_activation = models.DateTimeField(
         null=True,
@@ -111,7 +114,7 @@ class Label(DateTimeDateUpdate):
         return reverse('api:label-detail', kwargs={'pk': self.pk})
 
     def __str__(self):
-        return f'Scratch code {self.scratch_code}'
+        return f'{_("Scratch code")} {self.scratch_code}'
 
     def date_of_expiration(self):
         """Calculate date of expiretion from date of activation and constant term."""
@@ -132,6 +135,7 @@ class Label(DateTimeDateUpdate):
     @property
     def is_in_terms_of_expiration(self):
         """Check if instance in terms of expiration."""
+
         if self.date_of_activation:
             return self.date_of_activation < now() and \
                    now() < self.date_of_expiration()
@@ -141,10 +145,12 @@ class Label(DateTimeDateUpdate):
     @property
     def is_active_and_not_expired(self):
         """Check if instance is active and in terms of expiration."""
+
         return self.is_active and self.is_in_terms_of_expiration
 
     def link_to_plotter(self, plotter):
         """Create link between instance and plotter."""
+
         self.linked_plotter = plotter
         self.date_of_activation = now()
         self.is_active = True

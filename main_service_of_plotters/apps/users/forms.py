@@ -1,6 +1,8 @@
 """This module create forms."""
 
 from django import forms
+from django.utils.translation import gettext_lazy as _
+
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.core.exceptions import ValidationError
 
@@ -10,8 +12,8 @@ from main_service_of_plotters.apps.users.models import User
 class UserCreationForm(forms.ModelForm):
     """Creates form for creation user, using model User."""
 
-    password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
-    password2 = forms.CharField(label='Password confirmation',
+    password1 = forms.CharField(label=_('Password'), widget=forms.PasswordInput)
+    password2 = forms.CharField(label=_('Password confirmation'),
                                 widget=forms.PasswordInput)
 
     class Meta:
@@ -41,7 +43,7 @@ class DealerUserForm(UserCreationForm):
     """Creates form for creating users by dealer, using model User."""
 
     role = forms.ChoiceField(choices=[
-        ('User', 'User')
+        (_('User'), _('User'))
     ])
 
 
@@ -49,14 +51,14 @@ class AdministratorUserForm(UserCreationForm):
     """Creates form for creating dealer by Administrator, using model User."""
 
     role = forms.ChoiceField(choices=[
-        ('Dealer', 'Dealer')
+        (_('Dealer'), _('Dealer'))
     ])
 
 
 class UserChangeForm(forms.ModelForm):
     """Creates form for change user, using model User."""
 
-    password = ReadOnlyPasswordHashField()
+    password = ReadOnlyPasswordHashField(label=_('Password'))
 
     class Meta:
         model = User
