@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-02 15:16+0000\n"
+"POT-Creation-Date: 2020-11-03 07:55+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,208 +19,208 @@ msgstr ""
 
 #: main_service_of_plotters/apps/category/apps.py:11
 msgid "Category template"
-msgstr ""
+msgstr "Категория лекала"
 
 #: main_service_of_plotters/apps/category/models.py:12
 msgid "Name of category of devices"
-msgstr ""
+msgstr "Названия категории девайса"
 
 #: main_service_of_plotters/apps/category/models.py:14
 msgid "Photo Device"
-msgstr ""
+msgstr "Фотография Девайса"
 
 #: main_service_of_plotters/apps/category/models.py:18
 #: main_service_of_plotters/apps/category/models.py:35
 msgid "Category"
-msgstr ""
+msgstr "Категория"
 
 #: main_service_of_plotters/apps/category/models.py:26
 #: main_service_of_plotters/apps/materials/models.py:22
 msgid "Category of devices"
-msgstr ""
+msgstr "Категория девайса"
 
 #: main_service_of_plotters/apps/category/models.py:29
 msgid "Name of manufacturer"
-msgstr ""
+msgstr "Имя производителя"
 
 #: main_service_of_plotters/apps/category/models.py:31
 msgid "Manufacturer image"
-msgstr ""
+msgstr "Изображение производителя"
 
 #: main_service_of_plotters/apps/category/models.py:36
 #: main_service_of_plotters/apps/category/models.py:45
 msgid "Manufacturer"
-msgstr ""
+msgstr "Производитель"
 
 #: main_service_of_plotters/apps/category/models.py:49
 msgid "Name of model"
-msgstr ""
+msgstr "Имя модели"
 
 #: main_service_of_plotters/apps/device/admin.py:74
 msgid "Account Actions"
-msgstr ""
+msgstr "Действия аккаунта"
 
 #: main_service_of_plotters/apps/device/admin.py:91
 msgid "Scratch code not found"
-msgstr ""
+msgstr "Скретч код не найден"
 
 #: main_service_of_plotters/apps/device/api/views.py:36
 msgid "Available films is over"
-msgstr ""
+msgstr "Доступная плёнка закончилась"
 
 #: main_service_of_plotters/apps/device/apps.py:11
 msgid "Device"
-msgstr ""
+msgstr "Девайс"
 
 #: main_service_of_plotters/apps/device/models.py:13
 msgid "Dealer"
-msgstr ""
+msgstr "Дилер"
 
 #: main_service_of_plotters/apps/device/models.py:17
 #: main_service_of_plotters/apps/statistics/models.py:38
 msgid "User"
-msgstr ""
+msgstr "Пользователь"
 
 #: main_service_of_plotters/apps/materials/apps.py:11
 msgid "Material"
-msgstr ""
+msgstr "Материал"
 
 #: main_service_of_plotters/apps/materials/models.py:28
 msgid "Manufacturer of the model"
-msgstr ""
+msgstr "Производитеьл модели"
 
 #: main_service_of_plotters/apps/materials/models.py:32
 msgid "Model of device"
-msgstr ""
+msgstr "Модель девайса"
 
 #: main_service_of_plotters/apps/materials/models.py:35
 msgid "name of template"
-msgstr ""
+msgstr "имя лекала"
 
-#: main_service_of_plotters/apps/materials/models.py:37
-msgid "Scematic image of template"
-msgstr ""
+#: main_service_of_plotters/apps/materials/models.py:38
+msgid "Schematic image of template"
+msgstr "Схематическое изображение лекала"
 
-#: main_service_of_plotters/apps/materials/models.py:40
+#: main_service_of_plotters/apps/materials/models.py:41
 msgid "Blueprint file (*.plt)"
-msgstr ""
+msgstr "Файл чертрежа (*.plt)"
 
-#: main_service_of_plotters/apps/materials/models.py:56
+#: main_service_of_plotters/apps/materials/models.py:57
 msgid "Unique scratch code"
-msgstr ""
+msgstr "Уникальный скретч код"
 
-#: main_service_of_plotters/apps/materials/models.py:60
+#: main_service_of_plotters/apps/materials/models.py:61
 msgid "Unique barcode"
-msgstr ""
+msgstr "Уникальный штрих код"
 
-#: main_service_of_plotters/apps/materials/models.py:65
-msgid "Releated Dealer"
-msgstr ""
+#: main_service_of_plotters/apps/materials/models.py:66
+msgid "Related Dealer"
+msgstr "Связанный дилер"
 
-#: main_service_of_plotters/apps/materials/models.py:69
-msgid "Releated User"
-msgstr ""
+#: main_service_of_plotters/apps/materials/models.py:70
+msgid "Related User"
+msgstr "Связаный пользователь"
 
-#: main_service_of_plotters/apps/materials/models.py:76
+#: main_service_of_plotters/apps/materials/models.py:77
 msgid "Date of activation"
-msgstr ""
+msgstr "Дата активации"
 
-#: main_service_of_plotters/apps/materials/models.py:84
+#: main_service_of_plotters/apps/materials/models.py:85
 msgid "Linked plotters"
-msgstr ""
+msgstr "Связанный плоттер"
 
-#: main_service_of_plotters/apps/materials/models.py:89
+#: main_service_of_plotters/apps/materials/models.py:90
 msgid "Is active"
-msgstr ""
+msgstr "Активирован"
 
 #: main_service_of_plotters/apps/materials/validators.py:13
 #, python-brace-format
 msgid "{value} is not number"
-msgstr ""
+msgstr "{value} не число"
 
 #: main_service_of_plotters/apps/materials/validators.py:17
 #, python-brace-format
 msgid "{value} is not 16 characters"
-msgstr ""
+msgstr "{value} не состоит из 16-ти символов"
 
 #: main_service_of_plotters/apps/statistics/apps.py:11
 msgid "Statistics"
-msgstr ""
+msgstr "Статистика"
 
 #: main_service_of_plotters/apps/statistics/models.py:17
 #: main_service_of_plotters/apps/statistics/models.py:28
 #: main_service_of_plotters/apps/statistics/models.py:40
 msgid "Plotter serial number"
-msgstr ""
+msgstr "Серийный номер плоттера"
 
 #: main_service_of_plotters/apps/statistics/models.py:18
 msgid "IP address plotter"
-msgstr ""
+msgstr "IP адрес плоттера"
 
 #: main_service_of_plotters/apps/statistics/models.py:20
 msgid "Last connection to server"
-msgstr ""
+msgstr "Последнее соединение с плоттером"
 
 #: main_service_of_plotters/apps/statistics/models.py:30
 #: main_service_of_plotters/apps/statistics/models.py:42
 msgid "Name of template"
-msgstr ""
+msgstr "Название лекала"
 
 #: main_service_of_plotters/apps/statistics/models.py:45
 msgid "Data of creation cut"
-msgstr ""
+msgstr "Дата создания выреза"
 
 #: main_service_of_plotters/apps/users/apps.py:11
 msgid "Users"
-msgstr ""
+msgstr "Пользователи"
 
 #: main_service_of_plotters/apps/users/models.py:17
 msgid "User role"
-msgstr ""
+msgstr "Роль пользователя"
 
 #: main_service_of_plotters/templates/admin/add_dealer.html:6
 msgid "Dealer will be added to following instances"
-msgstr ""
+msgstr "Диллер будет добавлен сущностям ниже"
 
 #: main_service_of_plotters/templates/admin/add_dealer.html:9
 #: main_service_of_plotters/templates/admin/adding_label.html:7
 #: main_service_of_plotters/templates/admin/generation_code.html:14
 #: main_service_of_plotters/templates/admin/multiple_owner_change.html:9
 msgid "Save"
-msgstr ""
+msgstr "Сохранить"
 
 #: main_service_of_plotters/templates/admin/adding_label.html:5
 msgid "Enter scratch code, please:"
-msgstr ""
+msgstr "Введите скретч код"
 
 #: main_service_of_plotters/templates/admin/generation_code.html:7
 msgid "Amount of label in pack"
-msgstr ""
+msgstr "Количество плёнки в пачке"
 
 #: main_service_of_plotters/templates/admin/generation_code.html:11
 msgid "Amount of records"
-msgstr ""
+msgstr "Каоличество записей"
 
 #: main_service_of_plotters/templates/admin/import_export/change_list.html:7
 msgid "Generate code"
-msgstr ""
+msgstr "Сгенерировать код"
 
 #: main_service_of_plotters/templates/admin/multiple_owner_change.html:6
 msgid "User will be added to following instances"
-msgstr ""
+msgstr "Пользователь будет добавлен к сущностям ниже"
 
 #: main_service_of_plotters/templates/base.html:55
 msgid "My Profile"
-msgstr ""
+msgstr "Мой профиль"
 
 #: main_service_of_plotters/templates/base.html:59
 msgid "Sign Out"
-msgstr ""
+msgstr "Выйти"
 
 #: main_service_of_plotters/templates/base.html:64
 msgid "Sign Up"
-msgstr ""
+msgstr "Регистрация"
 
 #: main_service_of_plotters/templates/base.html:68
 msgid "Sign In"
-msgstr ""
+msgstr "Войти"
