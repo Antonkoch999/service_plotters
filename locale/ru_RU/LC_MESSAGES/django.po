@@ -87,7 +87,7 @@ msgstr "Материал"
 
 #: main_service_of_plotters/apps/materials/models.py:28
 msgid "Manufacturer of the model"
-msgstr "Производитеьл модели"
+msgstr "Производитель модели"
 
 #: main_service_of_plotters/apps/materials/models.py:32
 msgid "Model of device"

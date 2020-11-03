@@ -1,10 +1,11 @@
 {% extends "admin/change_list.html" %}
 {% block object-tools-items %}
+{% load i18n %}
 
     {{ block.super }}
 
     <li>
-        <a href="generation_code/" class="grp-state-focus addlink">{% trans 'Generate code' %}</a>
+        <a href="generation_code/" class="grp-state-focus addlink">{% trans "Generate code" %}</a>
     </li>
 
 {% endblock %}
