@@ -2,7 +2,7 @@
 
 from django.db import models
 from django.utils.timezone import now
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from main_service_of_plotters.apps.device.models import Plotter
 from main_service_of_plotters.apps.materials.models import Template
