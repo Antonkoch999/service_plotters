@@ -23,7 +23,7 @@ class Plotter(DateTimeDateUpdate):
         verbose_name=_("Serial number")
     )
 
-    available_film = models.BigIntegerField()
+    available_film = models.BigIntegerField(verbose_name=_("Available film"))
 
     def available_films(self):
         return sum(label.available_count
@@ -33,18 +33,20 @@ class Plotter(DateTimeDateUpdate):
     available_films.short_description = _("Available films")
 
     def __str__(self):
-        return f'Plotter {self.serial_number}'
+        return f'{_("Plotter")} {self.serial_number}'
 
     def get_absolute_url(self) -> str:
         return reverse('api:plotter-detail', kwargs={'pk': self.pk})
 
     def link_label(self, label):
         """Create link to the label."""
+
         label.link_to_plotter(self)
 
     @property
     def first_linked_label(self):
         """Return first linked label with positive amount of films, active and not expiered."""
+
         qs = self.linked_labels.filter(available_count__gt=0).order_by(
             'date_of_activation')
         return [label for label in qs.all() if

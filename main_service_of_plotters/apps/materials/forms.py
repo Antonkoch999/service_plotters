@@ -1,6 +1,8 @@
 """This module creates form."""
 
 from django import forms
+from django.utils.translation import gettext_lazy as _
+
 from main_service_of_plotters.apps.materials.models import Label
 from main_service_of_plotters.apps.users.models import User
 
@@ -20,7 +22,7 @@ class SelectDealerForm(forms.Form):
     _selected_action = forms.CharField(widget=forms.MultipleHiddenInput)
     dealer = forms.ModelChoiceField(
         queryset=User.objects.filter(role='Dealer'),
-        label=u'Dealer')
+        label=_('Dealer'))
 
 
 class SelectUserForm(forms.Form):
@@ -29,7 +31,7 @@ class SelectUserForm(forms.Form):
     _selected_action = forms.CharField(widget=forms.MultipleHiddenInput)
     user = forms.ModelChoiceField(
         queryset=User.objects.filter(role='User'),
-        label=u'User')
+        label=_('User'))
 
     def __init__(self, *args, dealer=None, **kwargs):
         super().__init__(*args, **kwargs)
