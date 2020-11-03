@@ -19,208 +19,208 @@ msgstr ""
 
 #: main_service_of_plotters/apps/category/apps.py:11
 msgid "Category template"
-msgstr ""
+msgstr "类别模板"
 
 #: main_service_of_plotters/apps/category/models.py:12
 msgid "Name of category of devices"
-msgstr ""
+msgstr "设备类别名称"
 
 #: main_service_of_plotters/apps/category/models.py:14
 msgid "Photo Device"
-msgstr ""
+msgstr "照相设备"
 
 #: main_service_of_plotters/apps/category/models.py:18
 #: main_service_of_plotters/apps/category/models.py:35
 msgid "Category"
-msgstr ""
+msgstr "类别"
 
 #: main_service_of_plotters/apps/category/models.py:26
 #: main_service_of_plotters/apps/materials/models.py:22
 msgid "Category of devices"
-msgstr ""
+msgstr "设备类别"
 
 #: main_service_of_plotters/apps/category/models.py:29
 msgid "Name of manufacturer"
-msgstr ""
+msgstr "制造商名称"
 
 #: main_service_of_plotters/apps/category/models.py:31
 msgid "Manufacturer image"
-msgstr ""
+msgstr "制造商形象"
 
 #: main_service_of_plotters/apps/category/models.py:36
 #: main_service_of_plotters/apps/category/models.py:45
 msgid "Manufacturer"
-msgstr ""
+msgstr "制造商"
 
 #: main_service_of_plotters/apps/category/models.py:49
 msgid "Name of model"
-msgstr ""
+msgstr "型号名称"
 
 #: main_service_of_plotters/apps/device/admin.py:74
 msgid "Account Actions"
-msgstr ""
+msgstr "帐户动作"
 
 #: main_service_of_plotters/apps/device/admin.py:91
 msgid "Scratch code not found"
-msgstr ""
+msgstr "找不到暂存码"
 
 #: main_service_of_plotters/apps/device/api/views.py:36
 msgid "Available films is over"
-msgstr ""
+msgstr "可用的电影结束"
 
 #: main_service_of_plotters/apps/device/apps.py:11
 msgid "Device"
-msgstr ""
+msgstr "设备"
 
 #: main_service_of_plotters/apps/device/models.py:13
 msgid "Dealer"
-msgstr ""
+msgstr "设备"
 
 #: main_service_of_plotters/apps/device/models.py:17
 #: main_service_of_plotters/apps/statistics/models.py:38
 msgid "User"
-msgstr ""
+msgstr "用户"
 
 #: main_service_of_plotters/apps/materials/apps.py:11
 msgid "Material"
-msgstr ""
+msgstr "材料"
 
 #: main_service_of_plotters/apps/materials/models.py:28
 msgid "Manufacturer of the model"
-msgstr ""
+msgstr "模型制造商"
 
 #: main_service_of_plotters/apps/materials/models.py:32
 msgid "Model of device"
-msgstr ""
+msgstr "设备型号"
 
 #: main_service_of_plotters/apps/materials/models.py:35
 msgid "name of template"
-msgstr ""
+msgstr "模板名称"
 
 #: main_service_of_plotters/apps/materials/models.py:37
-msgid "Scematic image of template"
-msgstr ""
+msgid "Schematic image of template"
+msgstr "模板示意图"
 
 #: main_service_of_plotters/apps/materials/models.py:40
 msgid "Blueprint file (*.plt)"
-msgstr ""
+msgstr "蓝图文件（* .plt)"
 
 #: main_service_of_plotters/apps/materials/models.py:56
 msgid "Unique scratch code"
-msgstr ""
+msgstr "独特的暂存码"
 
 #: main_service_of_plotters/apps/materials/models.py:60
 msgid "Unique barcode"
-msgstr ""
+msgstr "独特的条形码"
 
 #: main_service_of_plotters/apps/materials/models.py:65
-msgid "Releated Dealer"
-msgstr ""
+msgid "Related Dealer"
+msgstr "相关经销商"
 
 #: main_service_of_plotters/apps/materials/models.py:69
-msgid "Releated User"
-msgstr ""
+msgid "Related User"
+msgstr "相关使用者"
 
 #: main_service_of_plotters/apps/materials/models.py:76
 msgid "Date of activation"
-msgstr ""
+msgstr "启用日期"
 
 #: main_service_of_plotters/apps/materials/models.py:84
 msgid "Linked plotters"
-msgstr ""
+msgstr "链接绘图仪"
 
 #: main_service_of_plotters/apps/materials/models.py:89
 msgid "Is active"
-msgstr ""
+msgstr "活跃"
 
 #: main_service_of_plotters/apps/materials/validators.py:13
 #, python-brace-format
 msgid "{value} is not number"
-msgstr ""
+msgstr "{value}不是数字"
 
 #: main_service_of_plotters/apps/materials/validators.py:17
 #, python-brace-format
 msgid "{value} is not 16 characters"
-msgstr ""
+msgstr "{value}不是16个字符"
 
 #: main_service_of_plotters/apps/statistics/apps.py:11
 msgid "Statistics"
-msgstr ""
+msgstr "统计"
 
 #: main_service_of_plotters/apps/statistics/models.py:17
 #: main_service_of_plotters/apps/statistics/models.py:28
 #: main_service_of_plotters/apps/statistics/models.py:40
 msgid "Plotter serial number"
-msgstr ""
+msgstr "绘图仪序列号"
 
 #: main_service_of_plotters/apps/statistics/models.py:18
 msgid "IP address plotter"
-msgstr ""
+msgstr "IP地址绘图仪"
 
 #: main_service_of_plotters/apps/statistics/models.py:20
 msgid "Last connection to server"
-msgstr ""
+msgstr "上次连接到服务器"
 
 #: main_service_of_plotters/apps/statistics/models.py:30
 #: main_service_of_plotters/apps/statistics/models.py:42
 msgid "Name of template"
-msgstr ""
+msgstr "模板名称"
 
 #: main_service_of_plotters/apps/statistics/models.py:45
 msgid "Data of creation cut"
-msgstr ""
+msgstr "创建切割数据"
 
 #: main_service_of_plotters/apps/users/apps.py:11
 msgid "Users"
-msgstr ""
+msgstr "用户数"
 
 #: main_service_of_plotters/apps/users/models.py:17
 msgid "User role"
-msgstr ""
+msgstr "用户角色"
 
 #: main_service_of_plotters/templates/admin/add_dealer.html:6
 msgid "Dealer will be added to following instances"
-msgstr ""
+msgstr "经销商将被添加到以下实例"
 
 #: main_service_of_plotters/templates/admin/add_dealer.html:9
 #: main_service_of_plotters/templates/admin/adding_label.html:7
 #: main_service_of_plotters/templates/admin/generation_code.html:14
 #: main_service_of_plotters/templates/admin/multiple_owner_change.html:9
 msgid "Save"
-msgstr ""
+msgstr "救"
 
 #: main_service_of_plotters/templates/admin/adding_label.html:5
 msgid "Enter scratch code, please:"
-msgstr ""
+msgstr "输入临时代码，请:"
 
 #: main_service_of_plotters/templates/admin/generation_code.html:7
 msgid "Amount of label in pack"
-msgstr ""
+msgstr "包装内标签数量"
 
 #: main_service_of_plotters/templates/admin/generation_code.html:11
 msgid "Amount of records"
-msgstr ""
+msgstr "记录量"
 
 #: main_service_of_plotters/templates/admin/import_export/change_list.html:7
 msgid "Generate code"
-msgstr ""
+msgstr "产生程式码"
 
 #: main_service_of_plotters/templates/admin/multiple_owner_change.html:6
 msgid "User will be added to following instances"
-msgstr ""
+msgstr "用户将被添加到以下实例"
 
 #: main_service_of_plotters/templates/base.html:55
 msgid "My Profile"
-msgstr ""
+msgstr "我的简历"
 
 #: main_service_of_plotters/templates/base.html:59
 msgid "Sign Out"
-msgstr ""
+msgstr "登出"
 
 #: main_service_of_plotters/templates/base.html:64
 msgid "Sign Up"
-msgstr ""
+msgstr "注册"
 
 #: main_service_of_plotters/templates/base.html:68
 msgid "Sign In"
-msgstr ""
+msgstr "注册"

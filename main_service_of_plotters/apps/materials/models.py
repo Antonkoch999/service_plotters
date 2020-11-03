@@ -33,9 +33,10 @@ class Template(DateTimeDateUpdate):
                                        null=True, blank=True, )
     name = models.CharField(max_length=100, blank=True,
                             verbose_name=_('name of template'))
-    file_photo = models.FileField(upload_to="photo/%Y/%m/%d",
-                                  verbose_name=_('Scematic image of template'),
-                                  validators=[validate_file_photo])
+    file_photo = models.FileField(
+        upload_to="photo/%Y/%m/%d",
+        verbose_name=_('Schematic image of template'),
+        validators=[validate_file_photo])
     file_plt = models.FileField(upload_to="documents/%Y/%m/%d",
                                 verbose_name=_('Blueprint file (*.plt)'),
                                 validators=[validate_file_plt])
@@ -62,11 +63,11 @@ class Label(DateTimeDateUpdate):
     count = models.IntegerField(default=0)
     available_count = models.IntegerField(default=0)
     dealer = models.ForeignKey(User, on_delete=models.CASCADE,
-                               verbose_name=_('Releated Dealer'),
+                               verbose_name=_('Related Dealer'),
                                limit_choices_to={'role': 'Dealer'},
                                null=True, blank=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE,
-                             verbose_name=_('Releated User'),
+                             verbose_name=_('Related User'),
                              limit_choices_to={'role': 'User'},
                              related_name='label_user', null=True, blank=True)
 
@@ -115,7 +116,7 @@ class Label(DateTimeDateUpdate):
         """Check if instance in terms of expiration."""
         if self.date_of_activation:
             return self.date_of_activation < now() and \
-                now() < self.date_of_expiration
+                   now() < self.date_of_expiration
         else:
             return False
 
