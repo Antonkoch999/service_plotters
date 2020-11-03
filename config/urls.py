@@ -4,6 +4,7 @@ from django.contrib import admin
 from django.urls import include, path
 from django.views import defaults as default_views
 from rest_framework.authtoken.views import obtain_auth_token
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 urlpatterns = [
     # Django Admin, use {% url 'admin:index' %}
@@ -18,7 +19,10 @@ urlpatterns += [
     # API base url
     path("api/", include("config.api_router")),
     # DRF auth token
-    path("auth-token/", obtain_auth_token),
+    # path("auth-token/", obtain_auth_token),
+    # JWT auth token
+    path("api/token/", TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path("api/token/refresh/", TokenRefreshView.as_view(), name='token_refresh'),
     # FIXME api auth methods
     path('api-auth/', include(
         'rest_framework.urls',
