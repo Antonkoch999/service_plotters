@@ -40,8 +40,8 @@ class Manufacturer(DateTimeDateUpdate):
         verbose_name_plural = _("Manufacturers")
 
     def __str__(self):
-        return _('Category') + f'{self.device_category.name} | ' + \
-               _('Manufacturer') + f' {self.name}'
+        return f'{_("Category")} {self.device_category.name} | ' \
+               f'{_("Manufacturer")} {self.name}'
 
 
 class ModelsTemplate(DateTimeDateUpdate):

@@ -23,6 +23,7 @@ def generation_code(request):
         if form.is_valid():
             count_label = form.cleaned_data['count_label']
             count = form.cleaned_data['count']
+            size = form.cleaned_data['size']
             for item in range(count_label):
                 scratch_code = randint(1000000000000000, 9999999999999999)
                 while Label.objects.filter(scratch_code=scratch_code).exists():
@@ -31,10 +32,12 @@ def generation_code(request):
                 while Label.objects.filter(barcode=barcode).exists():
                     barcode = randint(1000000000000000, 9999999999999999)
 
-                create_label = Label.objects.create(
+                Label.objects.create(
                     scratch_code=scratch_code,
                     barcode=barcode,
-                    count=count)
+                    count=count,
+                    size=size,
+                )
             return HttpResponseRedirect('../')
 
     else:
@@ -170,12 +173,13 @@ class CustomLabelAdmin(ImportExportMixin, admin.ModelAdmin):
                         'count', 'available_count', 'dealer', 'user',
                         'date_of_expiration',
                         'days_before_expiration',
-                        'is_active')
+                        'is_active', 'size')
         # If user is `Dealer` or User
         if CustomLabelAdmin._is_requested_user_dealer_or_user(request):
             # without `scretch code`
             list_display = ['barcode', 'count', 'available_count',
-                            'dealer', 'user', 'date_of_expiration', 'days_before_expiration', 'is_active']
+                            'dealer', 'user', 'date_of_expiration',
+                            'days_before_expiration', 'is_active', 'size']
         return list_display
 
     def get_list_filter(self, request):
@@ -203,7 +207,7 @@ class TemplateAdmin(admin.ModelAdmin):
     """Class for `Template` admin representation."""
 
     list_display = ('name', 'device_category', 'manufacturer_category',
-                    'file_photo', 'file_plt')
+                    'file_photo', 'file_plt', 'size')
     exclude = ('date_creation',)
 
 

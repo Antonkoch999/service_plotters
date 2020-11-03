@@ -7,6 +7,6 @@
     <p>{% trans "Dealer will be added to following instances" %}</p>
     <ul>{{ items|unordered_list }}</ul>
     <input type="hidden" name="action" value="add_dealer" />
-    <input type="submit" name="apply" value="{% trans "Save" %}" />
+    <input type="submit" name="apply" value='{% trans "Save" %}' />
 </form>
 {% endblock %}

@@ -11,7 +11,7 @@ class GenerationCodeForm(forms.ModelForm):
 
     class Meta:
         model = Label
-        fields = ['count', 'count_label']
+        fields = ['count', 'count_label', 'size']
 
 
 class SelectDealerForm(forms.Form):
@@ -45,7 +45,8 @@ class LabelFormDealer(forms.ModelForm):
     class Meta:
         models = Label
         # User must't see scratch_code at own dealer (its obviouse)
-        exclude = ('dealer', 'scratch_code', 'is_active', 'date_creation', 'date_of_activation', 'linked_plotter')
+        exclude = ('dealer', 'scratch_code', 'is_active', 'date_creation',
+                   'date_of_activation', 'linked_plotter')
 
 
 class LabelFormUser(forms.ModelForm):
@@ -53,7 +54,8 @@ class LabelFormUser(forms.ModelForm):
 
     class Meta:
         models = Label
-        exclude = ('user', 'dealer', 'scratch_code', 'is_active', 'date_creation', 'available_count')
+        exclude = ('user', 'dealer', 'scratch_code', 'is_active',
+                   'date_creation', 'available_count')
 
 
 class LabelFormAdmin(forms.ModelForm):
@@ -61,4 +63,5 @@ class LabelFormAdmin(forms.ModelForm):
 
     class Meta:
         models = Label
-        exclude = ('date_creation', 'date_of_activation', 'linked_plotter', 'available_count')
+        exclude = ('date_creation', 'date_of_activation', 'linked_plotter',
+                   'available_count')

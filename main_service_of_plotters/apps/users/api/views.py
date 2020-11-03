@@ -2,7 +2,7 @@ from main_service_of_plotters.apps.users.models import User
 from rest_framework.viewsets import ModelViewSet
 from .serializers import (
     UserListSerializer, UserListSerializerForAdministrator,
-    UserListSerializerForDealer, )
+    UserListSerializerForDealer)
 from .permissions import UserPermission
 from rest_framework.decorators import permission_classes
 from rest_framework.permissions import IsAuthenticated

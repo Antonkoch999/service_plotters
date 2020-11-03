@@ -26,5 +26,3 @@ class UserListSerializerForDealer(UserListSerializer):
     role = serializers.ChoiceField(choices=[
         ('User', 'User')
     ])
-
-

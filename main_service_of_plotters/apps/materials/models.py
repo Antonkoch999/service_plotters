@@ -12,11 +12,13 @@ from main_service_of_plotters.apps.category.models import DeviceCategory, \
     Manufacturer, ModelsTemplate
 from main_service_of_plotters.apps.users.models import User
 from main_service_of_plotters.apps.device.models import Plotter
+from main_service_of_plotters.apps.users.constants import SIZE
 
 
 class Template(DateTimeDateUpdate):
     """This class creates template table."""
 
+    SIZE_TEMPLATE = ((SIZE[key], key) for key in SIZE.keys())
     device_category = models.ForeignKey(DeviceCategory,
                                         on_delete=models.CASCADE,
                                         verbose_name=_('Category of devices'),
@@ -40,6 +42,7 @@ class Template(DateTimeDateUpdate):
     file_plt = models.FileField(upload_to="documents/%Y/%m/%d",
                                 verbose_name=_('Blueprint file (*.plt)'),
                                 validators=[validate_file_plt])
+    size = models.CharField(max_length=1, choices=SIZE_TEMPLATE, blank=True, null=True)
 
     class Meta:
         verbose_name = _("Template")
@@ -49,11 +52,13 @@ class Template(DateTimeDateUpdate):
         return reverse('api:template-detail', kwargs={'pk': self.pk})
 
     def __str__(self):
-        return f'Template {self.name}'
+        return f'{_("Template")} {self.name}'
 
 
 class Label(DateTimeDateUpdate):
     """This class creates label table."""
+
+    SIZE_TEMPLATE = ((SIZE[key], key) for key in SIZE.keys())
     TERM_OF_EXPIRATION = timedelta(days=90)
 
     scratch_code = models.CharField(max_length=16, blank=True,
@@ -74,6 +79,8 @@ class Label(DateTimeDateUpdate):
                              verbose_name=_('Related User'),
                              limit_choices_to={'role': 'User'},
                              related_name='label_user', null=True, blank=True)
+
+    size = models.CharField(max_length=1, choices=SIZE_TEMPLATE, blank=True, null=True)
 
     date_of_activation = models.DateTimeField(
         null=True,
@@ -102,6 +109,7 @@ class Label(DateTimeDateUpdate):
 
     def date_of_expiration(self):
         """Calculate date of expiretion from date of activation and constant term."""
+
         if self.date_of_activation is not None:
             return self.date_creation + self.TERM_OF_EXPIRATION
         else:
