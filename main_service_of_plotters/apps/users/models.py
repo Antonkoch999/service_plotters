@@ -3,7 +3,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.urls import reverse
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from main_service_of_plotters.apps.users.constants import ROLE
 
@@ -16,7 +16,7 @@ class User(AbstractUser):
                             null=True, default='User',
                             verbose_name=_('User role'))
     dealer_id = models.CharField(max_length=30, blank=True, null=True,
-                                 verbose_name=_('Dealer id'))
+                                 verbose_name=_('Dealer'))
 
     class Meta:
         verbose_name = _("User")

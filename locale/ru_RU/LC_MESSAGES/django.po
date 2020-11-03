@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-03 13:58+0000\n"
+"POT-Creation-Date: 2020-11-03 14:14+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -96,18 +96,29 @@ msgid "Device"
 msgstr "Девайс"
 
 #: main_service_of_plotters/apps/device/models.py:13
+#: main_service_of_plotters/apps/materials/forms.py:25
+#: main_service_of_plotters/apps/users/forms.py:54
+#: main_service_of_plotters/apps/users/models.py:19
 msgid "Dealer"
 msgstr "Дилер"
 
 #: main_service_of_plotters/apps/device/models.py:17
+#: main_service_of_plotters/apps/materials/forms.py:34
 #: main_service_of_plotters/apps/statistics/models.py:46
-#: main_service_of_plotters/apps/users/models.py:21
+#: main_service_of_plotters/apps/users/forms.py:46
+#: main_service_of_plotters/apps/users/models.py:22
 msgid "User"
 msgstr "Пользователь"
 
 #: main_service_of_plotters/apps/device/models.py:23
 msgid "Serial number"
 msgstr "Серийный номер"
+
+#: main_service_of_plotters/apps/device/models.py:26
+#, fuzzy
+#| msgid "Available films"
+msgid "Available film"
+msgstr "Доступная плёнка"
 
 #: main_service_of_plotters/apps/device/models.py:29
 #: main_service_of_plotters/apps/statistics/models.py:48
@@ -147,66 +158,67 @@ msgid "Blueprint file (*.plt)"
 msgstr "Файл чертрежа (*.plt)"
 
 #: main_service_of_plotters/apps/materials/models.py:46
+#: main_service_of_plotters/apps/materials/models.py:87
 msgid "Size"
 msgstr "Размер"
 
-#: main_service_of_plotters/apps/materials/models.py:49
+#: main_service_of_plotters/apps/materials/models.py:50
 msgid "Template"
 msgstr "Лекало"
 
-#: main_service_of_plotters/apps/materials/models.py:50
+#: main_service_of_plotters/apps/materials/models.py:51
 msgid "Templates"
 msgstr "Лекала"
 
-#: main_service_of_plotters/apps/materials/models.py:67
+#: main_service_of_plotters/apps/materials/models.py:68
 msgid "Unique scratch code"
 msgstr "Уникальный скретч код"
 
-#: main_service_of_plotters/apps/materials/models.py:71
+#: main_service_of_plotters/apps/materials/models.py:72
 msgid "Unique barcode"
 msgstr "Уникальный штрих код"
 
-#: main_service_of_plotters/apps/materials/models.py:73
+#: main_service_of_plotters/apps/materials/models.py:74
 msgid "Start amount"
 msgstr "Начальное количество"
 
-#: main_service_of_plotters/apps/materials/models.py:74
+#: main_service_of_plotters/apps/materials/models.py:76
 msgid "Available amount"
 msgstr "Доступное количество"
 
-#: main_service_of_plotters/apps/materials/models.py:76
+#: main_service_of_plotters/apps/materials/models.py:78
 msgid "Related Dealer"
 msgstr "Связанный дилер"
 
-#: main_service_of_plotters/apps/materials/models.py:80
+#: main_service_of_plotters/apps/materials/models.py:82
 msgid "Related User"
 msgstr "Связаный пользователь"
 
-#: main_service_of_plotters/apps/materials/models.py:89
+#: main_service_of_plotters/apps/materials/models.py:93
 msgid "Date of activation"
 msgstr "Дата активации"
 
-#: main_service_of_plotters/apps/materials/models.py:97
+#: main_service_of_plotters/apps/materials/models.py:101
 msgid "Linked plotters"
 msgstr "Связанный плоттер"
 
-#: main_service_of_plotters/apps/materials/models.py:102
+#: main_service_of_plotters/apps/materials/models.py:106
 msgid "Is active"
 msgstr "Активирован"
 
-#: main_service_of_plotters/apps/materials/models.py:106
+#: main_service_of_plotters/apps/materials/models.py:110
 msgid "Label"
 msgstr "Плёнка"
 
-#: main_service_of_plotters/apps/materials/models.py:107
+#: main_service_of_plotters/apps/materials/models.py:111
 msgid "Labels"
 msgstr "Пленки"
 
-#: main_service_of_plotters/apps/materials/models.py:122
+#: main_service_of_plotters/apps/materials/models.py:126
 msgid "Date of expiration"
 msgstr "Срок действия"
 
-#: main_service_of_plotters/apps/materials/models.py:129
+#: main_service_of_plotters/apps/materials/models.py:133
 msgid "Days before expiration"
 msgstr "Дней до истечения срока действия"
 
@@ -254,6 +266,12 @@ msgstr "Статистики плоттеров"
 msgid "Name of template"
 msgstr "Название лекала"
 
+#: main_service_of_plotters/apps/statistics/models.py:35
+#, fuzzy
+#| msgid "Count cut"
+msgid "Count"
+msgstr "Количество вырезов"
+
 #: main_service_of_plotters/apps/statistics/models.py:38
 msgid "Template Statistic"
 msgstr "Статистика лекала"
@@ -275,9 +293,18 @@ msgid "Cutting Transactions"
 msgstr "Вырезы"
 
 #: main_service_of_plotters/apps/users/apps.py:11
-#: main_service_of_plotters/apps/users/models.py:22
+#: main_service_of_plotters/apps/users/models.py:23
 msgid "Users"
 msgstr "Пользователи"
+
+#: main_service_of_plotters/apps/users/forms.py:15
+#: main_service_of_plotters/apps/users/forms.py:61
+msgid "Password"
+msgstr ""
+
+#: main_service_of_plotters/apps/users/forms.py:16
+msgid "Password confirmation"
+msgstr ""
 
 #: main_service_of_plotters/apps/users/models.py:17
 msgid "User role"
