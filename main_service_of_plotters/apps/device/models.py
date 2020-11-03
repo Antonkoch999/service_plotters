@@ -1,6 +1,6 @@
 from django.db import models
 from django.urls import reverse
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from main_service_of_plotters.apps.users.models import User
 from main_service_of_plotters.utils.abstractmodel import DateTimeDateUpdate
@@ -24,6 +24,10 @@ class Plotter(DateTimeDateUpdate):
     )
 
     available_film = models.BigIntegerField()
+
+    class Meta:
+        verbose_name = _("Plotter")
+        verbose_name_plural = _("Plotters")
 
     def available_films(self):
         return sum(label.available_count

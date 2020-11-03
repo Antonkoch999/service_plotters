@@ -67,7 +67,9 @@ class PlotterAdmin(admin.ModelAdmin):
 
     def account_actions(self, obj):
         return format_html(
-            '<a class="button" href="{}">Add label</a>&nbsp;',
+            ''.join(['<a class="button" href="{}">',
+                    str(_('Add label')),
+                    '</a>&nbsp;']),
             reverse('admin:add_label', args=[obj.pk]),
 
         )

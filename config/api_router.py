@@ -4,7 +4,7 @@ from rest_framework.routers import DefaultRouter, SimpleRouter
 
 from main_service_of_plotters.apps.device.api.views import PlotterViewSet, cut
 
-from main_service_of_plotters.apps.users.api.views import UserViewSet, CreateUserAPIView
+from main_service_of_plotters.apps.users.api.views import UserViewSet
 
 from main_service_of_plotters.apps.materials.api.views import TemplateViewSet, LabelViewSet
 from main_service_of_plotters.apps.category.api.views import (

@@ -42,7 +42,8 @@ class Template(DateTimeDateUpdate):
     file_plt = models.FileField(upload_to="documents/%Y/%m/%d",
                                 verbose_name=_('Blueprint file (*.plt)'),
                                 validators=[validate_file_plt])
-    size = models.CharField(max_length=1, choices=SIZE_TEMPLATE, blank=True, null=True)
+    size = models.CharField(max_length=1, choices=SIZE_TEMPLATE, blank=True,
+                            null=True, verbose_name=_('Size'))
 
     class Meta:
         verbose_name = _("Template")
@@ -80,7 +81,8 @@ class Label(DateTimeDateUpdate):
                              limit_choices_to={'role': 'User'},
                              related_name='label_user', null=True, blank=True)
 
-    size = models.CharField(max_length=1, choices=SIZE_TEMPLATE, blank=True, null=True)
+    size = models.CharField(max_length=1, choices=SIZE_TEMPLATE, blank=True,
+                            null=True, verbose_name=_("Size"))
 
     date_of_activation = models.DateTimeField(
         null=True,
@@ -101,6 +103,10 @@ class Label(DateTimeDateUpdate):
         verbose_name=_('Is active')
     )
 
+    class Meta:
+        verbose_name = _("Label")
+        verbose_name_plural = _("Labels")
+
     def get_absolute_url(self) -> str:
         return reverse('api:label-detail', kwargs={'pk': self.pk})
 
@@ -118,8 +124,8 @@ class Label(DateTimeDateUpdate):
 
     def days_before_expiration(self):
         """Calculate days before date of expiration until now."""
-        if self.date_of_expiration:
-            expiration_term = self.date_of_expiration - now()
+        if self.date_of_expiration():
+            expiration_term = self.date_of_expiration() - now()
             return expiration_term.days
     days_before_expiration.short_description = _("Days before expiration")
 
@@ -128,7 +134,7 @@ class Label(DateTimeDateUpdate):
         """Check if instance in terms of expiration."""
         if self.date_of_activation:
             return self.date_of_activation < now() and \
-                   now() < self.date_of_expiration
+                   now() < self.date_of_expiration()
         else:
             return False
 
