@@ -76,20 +76,6 @@ class TestModelPlotter(TestCase):
         label_first.date_of_activation = now() - timedelta(days=5)
         label_first.save()
 
-        print(self.plotter.linked_labels.all())
-        print(self.plotter.linked_labels.filter(available_count__gt=0).all())
-        print(self.plotter.linked_labels.filter(available_count__gt=0).order_by('date_of_activation').all())
-        print(
-            [label
-            for label
-            in self.plotter.linked_labels.filter(available_count__gt=0).order_by('date_of_activation').all()
-            ])
-        print(
-            [label
-            for label
-            in self.plotter.linked_labels.filter(available_count__gt=0).order_by('date_of_activation').all()
-            if label.is_active_and_not_expired])
-
         first_returned = self.plotter.first_linked_label
         self.assertNotEqual(first_returned, label_no_count,
                             f"Label with {label_no_count.available_count} available counts returned as first")
@@ -102,3 +88,37 @@ class TestModelPlotter(TestCase):
                             f" must be older then {label_first.date_of_activation}")
 
         self.assertEqual(first_returned, label_first)
+
+    def test_available_film(self):
+        # not active label not countin
+        label_not_active = Label(barcode='1111111111111112',
+                                 scratch_code='2111111111111112',
+                                 count=1)
+        self.plotter.link_label(label_not_active)
+        label_not_active.is_active = False
+        label_not_active.save()
+
+        # expired label not countin
+        label_expired = Label(barcode='1111111111111113',
+                              scratch_code='2111111111111113',
+                              count=2)
+        self.plotter.link_label(label_expired)
+        label_expired.date_of_activation = datetime(1980, 1, 1, 1, 0, 0)
+        label_expired.save()
+
+        label_normal = Label(barcode='1111111111111118',
+                             scratch_code='2111111111111118',
+                             count=3)
+        self.plotter.link_label(label_normal)
+
+
+        label_not_linked = Label.objects.create(barcode='1111111111111114',
+                                 scratch_code='2111111111111114',
+                                 count=4)
+
+        label_normal2 = Label(barcode='1111111111111115',
+                             scratch_code='2111111111111115',
+                             count=100)
+        self.plotter.link_label(label_normal2)
+
+        self.assertEqual(self.plotter.available_films(), 103)
