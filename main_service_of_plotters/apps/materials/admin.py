@@ -172,10 +172,9 @@ class CustomLabelAdmin(ImportExportMixin, admin.ModelAdmin):
         list_display = ('scratch_code', 'barcode',
                         'count', 'available_count', 'dealer', 'user',
                         'date_of_expiration',
-                        'days_before_expiration',
                         'is_active', 'size')
         # If user is `Dealer` or User
-        if CustomLabelAdmin._is_requested_user_dealer_or_user(request):
+        if self._is_requested_user_dealer_or_user(request):
             # without `scretch code`
             list_display = ['barcode', 'count', 'available_count',
                             'dealer', 'user', 'date_of_expiration',
