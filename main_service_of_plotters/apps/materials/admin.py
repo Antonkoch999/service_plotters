@@ -150,7 +150,7 @@ class CustomLabelAdmin(ImportExportMixin, admin.ModelAdmin):
             # Dealer can add to label only user it own
             form = super().get_form(request, obj, **kwargs)
             form.base_fields['user'].queryset = User.objects.filter(
-                dealer_id=request.user.pk)
+                dealer=request.user)
             # For dealer barcode is unchangable
             form.base_fields['barcode'].disabled = True
             if obj.user is not None:

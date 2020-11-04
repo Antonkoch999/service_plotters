@@ -15,8 +15,13 @@ class User(AbstractUser):
     role = models.CharField(max_length=30, choices=ROLE_USER, blank=True,
                             null=True, default='User',
                             verbose_name=_('User role'))
-    dealer_id = models.CharField(max_length=30, blank=True, null=True,
-                                 verbose_name=_('Dealer'))
+    dealer = models.ForeignKey(
+        'self',
+        on_delete=models.CASCADE,
+        null=True,
+        verbose_name=_('Dealer'),
+        related_name='attached_users'
+    )
 
     class Meta:
         verbose_name = _("User")

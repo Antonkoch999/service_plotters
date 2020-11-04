@@ -28,14 +28,14 @@ class UsersTestCase(APITestCase):
             username='user',
             email='user',
             password='user',
-            dealer_id=self.user_dealer.pk,
+            dealer=self.user_dealer,
         )
 
         self.user = User.objects.create_user(
             username='test_user',
             email='test_user@test_user.com',
             password='test1user',
-            dealer_id=self.user_dealer.pk,
+            dealer=self.user_dealer,
         )
 
         self.user_administrator.groups.add(self.group_administrator)

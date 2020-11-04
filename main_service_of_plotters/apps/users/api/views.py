@@ -17,7 +17,7 @@ class UserViewSet(ModelViewSet):
     def get_queryset(self):
         qs = User.objects.all()
         if self.request.user.groups.filter(name='Dealer').exists():
-            qs = User.objects.filter(dealer_id=self.request.user.pk)
+            qs = User.objects.filter(dealer=self.request.user)
         elif self.request.user.groups.filter(name='Administrator').exists():
             qs = User.objects.all()
         return qs
@@ -34,7 +34,7 @@ class UserViewSet(ModelViewSet):
     def perform_create(self, serializer):
         if self.request.user.groups.filter(name='Dealer').exists():
             serializer.save(
-                dealer_id=self.request.user.pk,
+                dealer=self.request.user,
                 password=make_password(self.request.data['password']))
         else:
             serializer.save(

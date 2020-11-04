@@ -38,7 +38,7 @@ class SelectUserForm(forms.Form):
         # while form is created, filter by owner user
         if dealer:
             self.fields['user'].queryset = \
-                User.objects.filter(dealer_id=dealer.pk)
+                User.objects.filter(dealer=dealer)
 
 
 class LabelFormDealer(forms.ModelForm):

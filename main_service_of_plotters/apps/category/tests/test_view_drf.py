@@ -28,7 +28,7 @@ class UsersTestCase(APITestCase):
             username='user',
             email='user',
             password='user',
-            dealer_id=self.user_dealer.pk,
+            dealer=self.user_dealer,
         )
 
         self.user_administrator.groups.add(self.group_administrator)

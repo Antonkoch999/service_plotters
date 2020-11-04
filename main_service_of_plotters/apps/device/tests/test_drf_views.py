@@ -25,7 +25,7 @@ class TestPlotterViewSet:
         self.user = User.objects.create(
             username='user',
             password='user',
-            dealer_id=self.dealer
+            dealer=self.dealer
         )
         # Create groups
         self.group_administrator = Group.objects.get_or_create(
