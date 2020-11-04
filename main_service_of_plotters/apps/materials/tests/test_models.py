@@ -8,7 +8,6 @@ from main_service_of_plotters.apps.category.models import (DeviceCategory,
                                                            Manufacturer,
                                                            ModelsTemplate)
 from main_service_of_plotters.apps.users.models import User
-from main_service_of_plotters.apps.device.models import Plotter
 
 
 class MaterialsCreateTest(TestCase):
@@ -89,7 +88,3 @@ class MaterialsCreateTest(TestCase):
         self.label.date_of_activation = now() - timedelta(days=10000)
         self.assertGreater(now(), self.label.date_of_expiration())
         self.assertEqual(self.label.is_in_terms_of_expiration, False)
-
-
-
-

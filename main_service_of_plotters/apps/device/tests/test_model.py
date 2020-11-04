@@ -1,16 +1,11 @@
 from datetime import timedelta, datetime
 
-from django.test import TestCase, Client
-from django.http import HttpRequest
-from django.contrib.admin.sites import AdminSite
-from django.contrib.auth.models import Group
+from django.test import TestCase
 from django.utils.timezone import now
 
 from main_service_of_plotters.apps.device.models import Plotter
 from main_service_of_plotters.apps.users.models import User
 from main_service_of_plotters.apps.materials.models import Label
-from ...users.constants import ROLE
-from ..admin import PlotterAdmin
 
 
 class TestModelPlotter(TestCase):
@@ -111,14 +106,15 @@ class TestModelPlotter(TestCase):
                              count=3)
         self.plotter.link_label(label_normal)
 
-
         label_not_linked = Label.objects.create(barcode='1111111111111114',
-                                 scratch_code='2111111111111114',
-                                 count=4)
+                                                scratch_code='2111111111111114',
+                                                count=4)
 
         label_normal2 = Label(barcode='1111111111111115',
-                             scratch_code='2111111111111115',
-                             count=100)
+                              scratch_code='2111111111111115',
+                              count=100)
         self.plotter.link_label(label_normal2)
 
         self.assertEqual(self.plotter.available_films(), 103)
+
+        del label_not_linked
