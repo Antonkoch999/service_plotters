@@ -13,6 +13,7 @@ class UsersTestCase(APITestCase):
             name='Administrator')[0]
         self.group_dealer = Group.objects.get_or_create(name='Dealer')[0]
         self.group_user = Group.objects.get_or_create(name='User')[0]
+
         self.client = APIClient()
         self.user_administrator = User.objects.create_user(
             username='administrator',

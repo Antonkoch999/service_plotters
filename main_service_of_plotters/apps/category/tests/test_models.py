@@ -7,10 +7,10 @@ class CategoryCreateModelsTest(TestCase):
     def setUp(self):
         self.device = DeviceCategory.objects.create(name="Test")
         self.manufacturer = Manufacturer.objects.create(
-            device_category=DeviceCategory.objects.get(name='Test'),
+            device_category=self.device,
             name="Test")
         self.modelstemplate = ModelsTemplate.objects.create(
-            manufacturer=Manufacturer.objects.get(name="Test"),
+            manufacturer=self.manufacturer,
             name="Test")
 
     def test_device_category(self):
