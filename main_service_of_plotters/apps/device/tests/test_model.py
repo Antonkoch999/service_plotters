@@ -1,10 +1,14 @@
+from datetime import timedelta, datetime
+
 from django.test import TestCase, Client
 from django.http import HttpRequest
 from django.contrib.admin.sites import AdminSite
 from django.contrib.auth.models import Group
+from django.utils.timezone import now
 
 from main_service_of_plotters.apps.device.models import Plotter
 from main_service_of_plotters.apps.users.models import User
+from main_service_of_plotters.apps.materials.models import Label
 from ...users.constants import ROLE
 from ..admin import PlotterAdmin
 
@@ -18,6 +22,7 @@ class TestModelPlotter(TestCase):
         self.user.save()
         self.plotter = Plotter(user=self.user, serial_number=1111222233334444)
         self.plotter.save()
+        self.label1 = Label()
 
     def test_model_plotter(self):
         self.assertEqual(self.user.username, 'admin')
@@ -29,123 +34,71 @@ class TestModelPlotter(TestCase):
     def test_model_plotter_str(self):
         self.assertEqual(str(self.plotter), 'Plotter 1111222233334444')
 
+    def test_link_label(self):
+        self.assertEqual(self.plotter.linked_labels.count(), 0)
+        self.plotter.link_label(self.label1)
+        self.assertEqual(self.plotter.linked_labels.count(), 1)
+        self.assertIn(self.label1, self.plotter.linked_labels.all())
 
-class TestAdminPlotter(TestCase):
-    """Testing plotter admin page."""
+    def test_first_linked_label(self):
+        # Label without available count no returning
+        label_no_count = Label(barcode='1111111111111111',
+                               scratch_code='2111111111111111')
+        self.plotter.link_label(label_no_count)
+        label_no_count.available_count = 0
+        label_no_count.save()
 
-    def setUp(self):
-        """"Setting up environment."""
-        # Add users
-        self.superuser = User.objects.create_superuser(
-            username='supadmin',
-            password='supadmin'
-        )
-        self.user1 = User.objects.create(
-            username='user1',
-            password='user1'
-        )
-        self.user2 = User.objects.create(
-            username='user2',
-            password='user2'
-        )
-        self.admin = User.objects.create(
-            username='admin',
-            password='admin',
-            role=ROLE['Administrator']
-        )
-        self.dealer1 = User.objects.create(
-            username='dealer',
-            password='dealer',
-            role=ROLE['Dealer']
-        )
+        # not active label dont returning
+        label_not_active = Label(barcode='1111111111111112',
+                                 scratch_code='2111111111111112',
+                                 count=50)
+        self.plotter.link_label(label_not_active)
+        label_not_active.is_active = False
+        label_not_active.save()
 
-        # Create groups
-        self.group_administrator = Group.objects.get_or_create(
-            name='Administrator')[0]
-        self.group_dealer = Group.objects.get_or_create(name='Dealer')[0]
-        self.group_user = Group.objects.get_or_create(name='User')[0]
+        # expired label dont returning
+        label_expired = Label(barcode='1111111111111113',
+                              scratch_code='2111111111111113',
+                              count=50)
+        self.plotter.link_label(label_expired)
+        label_expired.date_of_activation = datetime(1980, 1, 1, 1, 0, 0)
+        label_expired.save()
 
-        # Assign Groups
-        self.admin.groups.add(self.group_administrator)
-        self.dealer1.groups.add(self.group_dealer)
-        self.user1.groups.add(self.group_user)
-        self.user2.groups.add(self.group_user)
+        label_second = Label(barcode='1111111111111115',
+                             scratch_code='2111111111111115',
+                             count=50)
+        self.plotter.link_label(label_second)
 
-        # Miscs
-        self.plotter1 = Plotter(user=None, dealer=None, serial_number=1)
-        self.plotter1.save()
-        self.plotter2 = Plotter(user=None,
-                                dealer=self.dealer1, serial_number=2)
-        self.plotter2.save()
-        self.plotter3 = Plotter(user=self.user1,
-                                dealer=self.dealer1, serial_number=3)
-        self.plotter3.save()
-        self.c = Client()
-        self.request = HttpRequest()
+        label_first = Label(barcode='1111111111111114',
+                            scratch_code='2111111111111114',
+                            count=50)
+        self.plotter.link_label(label_first)
+        label_first.date_of_activation = now() - timedelta(days=5)
+        label_first.save()
 
-    def get_model_admin_with_logged_user(self, user):
-        self.request.user = user
-        model_admin = PlotterAdmin(model=Plotter, admin_site=AdminSite())
-        return model_admin
+        print(self.plotter.linked_labels.all())
+        print(self.plotter.linked_labels.filter(available_count__gt=0).all())
+        print(self.plotter.linked_labels.filter(available_count__gt=0).order_by('date_of_activation').all())
+        print(
+            [label
+            for label
+            in self.plotter.linked_labels.filter(available_count__gt=0).order_by('date_of_activation').all()
+            ])
+        print(
+            [label
+            for label
+            in self.plotter.linked_labels.filter(available_count__gt=0).order_by('date_of_activation').all()
+            if label.is_active_and_not_expired])
 
-    def test_admin_queryset_all_plotters(self):
-        model_admin = self.get_model_admin_with_logged_user(self.admin)
-        qs = model_admin.get_queryset(request=self.request)
-        self.assertEqual(qs.count(), Plotter.objects.all().count())
+        first_returned = self.plotter.first_linked_label
+        self.assertNotEqual(first_returned, label_no_count,
+                            f"Label with {label_no_count.available_count} available counts returned as first")
+        self.assertNotEqual(first_returned, label_not_active,
+                            f"Label with is_active = {label_not_active.is_active} returned as first")
+        self.assertNotEqual(first_returned, label_expired,
+                            f"Expired label f{first_returned.date_of_expiration} returned, but now {now()}")
+        self.assertNotEqual(first_returned, label_second,
+                            f"Second label retruned but must be first. {first_returned.date_of_activation}"
+                            f" must be older then {label_first.date_of_activation}")
 
-    def test_dealer_queryset_only_owned_plotters(self):
-        model_admin = self.get_model_admin_with_logged_user(self.dealer1)
-        qs = model_admin.get_queryset(request=self.request)
-        for plotter in qs:
-            self.assertEqual(plotter.dealer, self.dealer1)
-
-    def test_user_queryset_only_owned_plotters(self):
-        model_admin = self.get_model_admin_with_logged_user(self.user1)
-        qs = model_admin.get_queryset(request=self.request)
-        for plotter in qs:
-            self.assertEqual(plotter.user, self.user1)
-
-    def test_user_without_plotters_queryset_O_plotters(self):
-        model_admin = self.get_model_admin_with_logged_user(self.user2)
-        qs = model_admin.get_queryset(request=self.request)
-        self.assertEqual(qs.count(), 0,
-                         'User2 can see another plotters')
-
-    def test_dealer_cannot_see_scratch_code_in_list_display(self):
-        model_admin = self.get_model_admin_with_logged_user(self.dealer1)
-        self.assertNotIn(
-            'scratch_code',
-            model_admin.get_list_display(self.request))
-
-    def test_url_list_have_additional_url_named_add_label(self):
-        model_admin = self.get_model_admin_with_logged_user(self.dealer1)
-        self.assertEqual(model_admin.get_urls()[0].name, 'add_label')
-
-    def test_account_action_return_button(self):
-        model_admin = self.get_model_admin_with_logged_user(self.dealer1)
-        action = model_admin.account_actions(obj=self.plotter1)
-        self.assertIn('<a class="button"', action)
-
-    def admin_have_action_button_in_list_display(self):
-        model_admin = self.get_model_admin_with_logged_user(self.admin)
-        self.assertIn(
-            'account_action',
-            model_admin.get_list_display(request=self.request)
-        )
-
-    def dealer_not_have_action_button_in_list_display(self):
-        model_admin = self.get_model_admin_with_logged_user(self.dealer1)
-        self.assertNotIn(
-            'account_action',
-            model_admin.get_list_display(request=self.request)
-        )
-
-    def user_have_action_button_in_list_display(self):
-        model_admin = self.get_model_admin_with_logged_user(self.user1)
-        self.assertIn(
-            'account_action',
-            model_admin.get_list_display(request=self.request)
-        )
-
-    # TODO test ModelAdmin from
-    # TODO test custom action
+        self.assertEqual(first_returned, label_first)

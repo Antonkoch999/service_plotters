@@ -120,7 +120,7 @@ class Label(DateTimeDateUpdate):
         """Calculate date of expiretion from date of activation and constant term."""
 
         if self.date_of_activation is not None:
-            return self.date_creation + self.TERM_OF_EXPIRATION
+            return self.date_of_activation + self.TERM_OF_EXPIRATION
         else:
             return None
     date_of_expiration.short_description = _("Date of expiration")
