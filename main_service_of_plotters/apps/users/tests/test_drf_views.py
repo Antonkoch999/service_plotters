@@ -9,27 +9,25 @@ from main_service_of_plotters.apps.users.api.views import UserViewSet
 class UsersTestCase(APITestCase):
 
     def setUp(self):
-        self.group_administrator = Group.objects.get_or_create(
-            name='Administrator')[0]
-        self.group_dealer = Group.objects.get_or_create(name='Dealer')[0]
-        self.group_user = Group.objects.get_or_create(name='User')[0]
-
         self.client = APIClient()
         self.user_administrator = User.objects.create_user(
             username='administrator',
             email='administrator@administrator.com',
             password='administrator',
+            role='Administrator'
         )
         self.user_dealer = User.objects.create_user(
             username='dealer',
             email='dealer@dealer.com',
             password='dealer',
+            role='Dealer'
         )
         self.user_user = User.objects.create_user(
             username='user',
             email='user',
             password='user',
             dealer=self.user_dealer,
+            role='User'
         )
 
         self.user = User.objects.create_user(
@@ -38,14 +36,6 @@ class UsersTestCase(APITestCase):
             password='test1user',
             dealer=self.user_dealer,
         )
-
-        self.user_administrator.groups.add(self.group_administrator)
-        self.user_dealer.groups.add(self.group_dealer)
-        self.user_user.groups.add(self.group_user)
-
-        self.user_administrator.save()
-        self.user_dealer.save()
-        self.user_user.save()
 
         self.view = UserViewSet()
 
