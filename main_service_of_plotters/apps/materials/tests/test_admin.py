@@ -165,7 +165,7 @@ class MaterialsAdminTest(TestCase):
             list(test_admin_model.get_form(request=self.request,
                                            obj=self.label).base_fields),
             ['scratch_code', 'barcode', 'count', 'dealer',
-             'user', 'is_active']
+             'user', 'size', 'is_active']
         )
 
     def test_label_get_form_dealer(self):
@@ -185,7 +185,7 @@ class MaterialsAdminTest(TestCase):
         self.assertEqual(
             list(test_admin_model.get_form(request=self.request,
                                            obj=self.label).base_fields),
-            ['barcode', 'count']
+            ['barcode', 'count', 'size', 'date_of_activation', 'linked_plotter']
         )
 
     def test_label_get_list_display_administrator(self):
@@ -195,7 +195,9 @@ class MaterialsAdminTest(TestCase):
         self.assertEqual(
             list(test_admin_model.get_list_display(request=self.request)),
             ['scratch_code', 'barcode',
-             'count', 'dealer', 'user', 'is_active']
+                        'count', 'available_count', 'dealer', 'user',
+                        'date_of_expiration',
+                        'is_active', 'size']
         )
 
     def test_label_get_list_display_dealer_or_user(self):
@@ -204,8 +206,9 @@ class MaterialsAdminTest(TestCase):
         self.request.user = self.dealer
         self.assertEqual(
             list(test_admin_model.get_list_display(request=self.request)),
-            ['barcode', 'count',
-             'dealer', 'user', 'is_active']
+            ['barcode', 'count', 'available_count',
+             'dealer', 'user', 'date_of_expiration', 'days_before_expiration',
+             'is_active', 'size']
         )
 
     def test_label_get_list_filter_administrator(self):

@@ -23,13 +23,12 @@ class Plotter(DateTimeDateUpdate):
         verbose_name=_("Serial number")
     )
 
-    available_film = models.BigIntegerField(verbose_name=_("Available film"))
-
     class Meta:
         verbose_name = _("Plotter")
         verbose_name_plural = _("Plotters")
 
     def available_films(self):
+        """Get total of available films."""
         return sum(label.available_count
                    for label
                    in self.linked_labels.all()

@@ -18,7 +18,7 @@ class UserCreationForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('email', 'username', 'role', 'dealer_id')
+        fields = ('email', 'username', 'role', 'dealer')
 
     def clean_password2(self):
         """Validate password."""
@@ -43,7 +43,7 @@ class DealerUserForm(UserCreationForm):
     """Creates form for creating users by dealer, using model User."""
 
     role = forms.ChoiceField(choices=[
-        (_('User'), _('User'))
+        ('User', _('User'))
     ], label=_('User role'))
 
 
@@ -51,7 +51,7 @@ class AdministratorUserForm(UserCreationForm):
     """Creates form for creating dealer by Administrator, using model User."""
 
     role = forms.ChoiceField(choices=[
-        (_('Dealer'), _('Dealer'))
+        ('Dealer', _('Dealer'))
     ], label=_('User role'))
 
 
@@ -62,7 +62,7 @@ class UserChangeForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('email', 'username', 'role', 'dealer_id')
+        fields = ('email', 'username', 'role', 'dealer')
 
     def clean_password(self):
         """Display hash password."""

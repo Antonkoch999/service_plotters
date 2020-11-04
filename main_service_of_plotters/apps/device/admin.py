@@ -7,7 +7,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 from django.utils.html import format_html
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from main_service_of_plotters.apps.device.models import Plotter
 from main_service_of_plotters.apps.materials.models import Label
@@ -29,7 +29,7 @@ class PlotterAdmin(admin.ModelAdmin):
             kwargs['form'] = DealerPlotterForm
             form = super().get_form(request, obj, **kwargs)
             form.base_fields['user'].queryset = User.objects.filter(
-                dealer_id=request.user.pk)
+                dealer=request.user)
             return form
         elif request.user.role == 'Administrator':
             kwargs['form'] = AdministratorPlotterForm

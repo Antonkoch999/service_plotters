@@ -13,7 +13,7 @@ class UserAdmin(BaseUserAdmin):
 
     form = forms.UserChangeForm
     add_form = forms.UserCreationForm
-    list_display = ('username', 'email', 'role', 'dealer_id')
+    list_display = ('username', 'email', 'role', 'dealer')
     list_filter = ('role',)
     fieldsets = (
         (None, {'fields': ('email', 'username', 'first_name', 'last_name',
@@ -47,7 +47,7 @@ class UserAdmin(BaseUserAdmin):
 
         qs = super().get_queryset(request)
         if request.user.groups.filter(name='Dealer').exists():
-            return qs.filter(dealer_id=request.user.pk)
+            return qs.filter(dealer=request.user)
         return qs
 
     def save_model(self, request, obj, form, change):
@@ -59,7 +59,7 @@ class UserAdmin(BaseUserAdmin):
         id user is authenticated.
         """
         if request.user.groups.filter(name='Dealer').exists():
-            obj.dealer_id = request.user.pk
+            obj.dealer = request.user
         super().save_model(request, obj, form, change)
 
 
