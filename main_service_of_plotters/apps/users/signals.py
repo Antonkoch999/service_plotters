@@ -29,10 +29,11 @@ def my_handler(sender, instance, created,  **kwargs):
                 group = Group.objects.get(name=ROLE['Administrator'])
                 instance.save()
                 instance.groups.add(group)
-            elif instance.role == ROLE['Chief_Administrator']:
-                instance.is_staff = True
-                group = Group.objects.get(name=ROLE['Chief_Administrator'])
-                instance.save()
-                instance.groups.add(group)
+            # Chief Administrator is removed
+            # elif instance.role == ROLE['Chief_Administrator']:
+            #     instance.is_staff = True
+            #     group = Group.objects.get(name=ROLE['Chief_Administrator'])
+            #     instance.save()
+            #     instance.groups.add(group)
         except Group.DoesNotExist:
             print('Group.DoesNotExist')

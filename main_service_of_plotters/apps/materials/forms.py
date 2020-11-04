@@ -48,7 +48,8 @@ class LabelFormDealer(forms.ModelForm):
         models = Label
         # User must't see scratch_code at own dealer (its obviouse)
         exclude = ('dealer', 'scratch_code', 'is_active', 'date_creation',
-                   'date_of_activation', 'linked_plotter')
+                   'date_of_activation', 'linked_plotter', 'available_count',
+                   'size')
 
 
 class LabelFormUser(forms.ModelForm):
