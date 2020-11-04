@@ -5,11 +5,13 @@ from django.http import HttpRequest
 from main_service_of_plotters.apps.materials.models import Template, Label
 from main_service_of_plotters.apps.users.models import User
 from django.contrib.auth.models import Group
-from main_service_of_plotters.apps.statistics.admin import PlotterAdmin
+from main_service_of_plotters.apps.statistics.admin import PlotterAdmin, CuttingAdmin
 from main_service_of_plotters.apps.statistics.models import (
     StatisticsPlotter, StatisticsTemplate, CuttingTransaction)
 from main_service_of_plotters.apps.device.models import Plotter
-
+from main_service_of_plotters.apps.category.models import (DeviceCategory,
+                                                           Manufacturer,
+                                                           ModelsTemplate)
 
 class StatisticsAdminTest(TestCase):
 
@@ -48,15 +50,37 @@ class StatisticsAdminTest(TestCase):
         self.dealer.save()
         self.user.save()
 
+        self.device = DeviceCategory.objects.create(name="Device")
+        self.manufacturer = Manufacturer.objects.create(
+            device_category=DeviceCategory.objects.get(name='Device'),
+            name="Manufacturer")
+        self.modelstemplate = ModelsTemplate.objects.create(
+            manufacturer=Manufacturer.objects.get(name="Manufacturer"),
+            name="Modelstemplate")
+
         self.plotter = Plotter(user=self.user,
                                serial_number=1111222233334444)
         self.plotter.save()
+
+        self.template = Template.objects.create(
+            device_category=self.device,
+            manufacturer_category=self.manufacturer,
+            model_category=self.modelstemplate,
+            name="Template",
+            file_photo=".main_service_of_plotters/static/test/test_image.png",
+            file_plt=".main_service_of_plotters/static/test/test_file.plt",
+        )
 
         self.statistics_plotter = StatisticsPlotter.objects.create(
             plotter=self.plotter,
             ip='132.144.21.31',
             last_request='2019-08-25',
             count_cut=30,
+        )
+        self.cuttingtransaction = CuttingTransaction.objects.create(
+            user=self.user,
+            plotter=self.plotter,
+            template=self.template,
         )
         self.request = HttpRequest()
 
@@ -95,3 +119,19 @@ class StatisticsAdminTest(TestCase):
             ['plotter', 'last_request', 'count_cut', 'date_creation',
              'date_update']
         )
+
+    def test_statistics_template_queryset_administrator(self):
+        test_admin_model = CuttingAdmin(model=CuttingTransaction,
+                                        admin_site=AdminSite())
+        self.request.user = self.administrator
+        self.assertEqual(
+            list(test_admin_model.get_queryset(request=self.request)),
+            [self.cuttingtransaction])
+
+    def test_statistics_template_queryset_dealer(self):
+        test_admin_model = CuttingAdmin(model=CuttingTransaction,
+                                        admin_site=AdminSite())
+        self.request.user = self.dealer
+        self.assertEqual(
+            list(test_admin_model.get_queryset(request=self.request)),
+            [])

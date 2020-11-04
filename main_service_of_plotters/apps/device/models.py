@@ -29,6 +29,7 @@ class Plotter(DateTimeDateUpdate):
 
     def available_films(self):
         """Get total of available films."""
+
         return sum(label.available_count
                    for label
                    in self.linked_labels.all()

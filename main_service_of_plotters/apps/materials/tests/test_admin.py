@@ -91,6 +91,7 @@ class MaterialsAdminTest(TestCase):
             user=self.user,
             is_active=False,
         )
+
         self.request = HttpRequest()
 
     def test_label_action_administrator(self):
