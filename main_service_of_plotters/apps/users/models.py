@@ -36,6 +36,9 @@ class User(AbstractUser):
     def is_administrator(self):
         return self.groups.filter(name='Administrator').exists()
 
+    def is_technical_specialist(self):
+        return self.groups.filter(name=ROLE['Technical_Specialist']).exists()
+
     def get_absolute_url(self) -> str:
         """"Get url for user's detail view.
 
