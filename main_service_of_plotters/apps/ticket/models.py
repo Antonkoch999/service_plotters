@@ -5,6 +5,7 @@ from django.utils.translation import gettext_lazy as _
 
 from main_service_of_plotters.utils.abstractmodel import DateTimeDateUpdate
 from main_service_of_plotters.apps.users.models import User
+from main_service_of_plotters.apps.users.constants import ROLE
 from main_service_of_plotters.apps.device.models import Plotter
 from .constants import StatusVariants
 
@@ -29,7 +30,8 @@ class Ticket(DateTimeDateUpdate):
     media_file = models.FileField(
         verbose_name=_('Attached media file'),
         upload_to='ticket_media/',
-        null=True
+        null=True,
+        blank=True
     )
     status = models.CharField(
         verbose_name=_("Status"),
@@ -39,9 +41,9 @@ class Ticket(DateTimeDateUpdate):
         default=StatusVariants.OPEN
     )
     reporter = models.ForeignKey(
-        verbose_name=_("Repoeter"),
+        verbose_name=_("Reporter"),
         to=User,
-        limit_choices_to={'is_user': True},
+        limit_choices_to={'role': ROLE["User"]},
         on_delete=models.CASCADE,
         related_name='created_tickets',
         help_text=_("User who create ticket"),
@@ -59,11 +61,11 @@ class Ticket(DateTimeDateUpdate):
     assignee = models.ForeignKey(
         verbose_name=_("Assignee"),
         to=User,
-        limit_choices_to={'is_technical_specialist': True},
+        limit_choices_to={'role': ROLE["Technical_Specialist"]},
         on_delete=models.SET_NULL,
         related_name='managed_tickets',
         null=True,
-        default=None,
+        blank=True,
         help_text=_('Technical Specialist who manage ticket')
     )
 
@@ -80,7 +82,7 @@ class PopularProblem(models.Model):
         verbose_name=_("Name"),
         max_length=100,
         help_text=_("Short name of porblem, will be displaied"),
-        blank=True
+        blank=False
     )
     populated_header = models.CharField(
         verbose_name=_("Populated Header"),
@@ -90,7 +92,8 @@ class PopularProblem(models.Model):
     )
     populated_text = models.TextField(
         verbose_name=_("Populated Text"),
-        help_text=_("Text what will be populated in created ticket text")
+        help_text=_("Text what will be populated in created ticket text"),
+        blank=True
     )
 
     class Meta:

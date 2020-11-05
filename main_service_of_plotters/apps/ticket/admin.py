@@ -8,5 +8,5 @@ class TicketAdmin(admin.ModelAdmin):
 
 
 @admin.register(PopularProblem)
-class PopularProblemAdmin(Ticket):
+class PopularProblemAdmin(admin.ModelAdmin):
     pass
