@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-03 14:14+0000\n"
+"POT-Creation-Date: 2020-11-04 14:51+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -98,7 +98,7 @@ msgstr "Девайс"
 #: main_service_of_plotters/apps/device/models.py:13
 #: main_service_of_plotters/apps/materials/forms.py:25
 #: main_service_of_plotters/apps/users/forms.py:54
-#: main_service_of_plotters/apps/users/models.py:19
+#: main_service_of_plotters/apps/users/models.py:22
 msgid "Dealer"
 msgstr "Дилер"
 
@@ -106,7 +106,7 @@ msgstr "Дилер"
 #: main_service_of_plotters/apps/materials/forms.py:34
 #: main_service_of_plotters/apps/statistics/models.py:46
 #: main_service_of_plotters/apps/users/forms.py:46
-#: main_service_of_plotters/apps/users/models.py:22
+#: main_service_of_plotters/apps/users/models.py:27
 msgid "User"
 msgstr "Пользователь"
 
@@ -114,18 +114,12 @@ msgstr "Пользователь"
 msgid "Serial number"
 msgstr "Серийный номер"
 
-#: main_service_of_plotters/apps/device/models.py:26
-#, fuzzy
-#| msgid "Available films"
-msgid "Available film"
-msgstr "Доступная плёнка"
-
-#: main_service_of_plotters/apps/device/models.py:29
+#: main_service_of_plotters/apps/device/models.py:27
 #: main_service_of_plotters/apps/statistics/models.py:48
 msgid "Plotter"
 msgstr "Плоттер"
 
-#: main_service_of_plotters/apps/device/models.py:30
+#: main_service_of_plotters/apps/device/models.py:28
 msgid "Plotters"
 msgstr "Плоттеры"
 
@@ -136,6 +130,10 @@ msgstr "Доступная плёнка"
 #: main_service_of_plotters/apps/materials/apps.py:11
 msgid "Material"
 msgstr "Материал"
+
+#: main_service_of_plotters/apps/materials/forms.py:12
+msgid "Count label"
+msgstr "Количество пачек"
 
 #: main_service_of_plotters/apps/materials/models.py:30
 msgid "Manufacturer of the model"
@@ -293,19 +291,21 @@ msgid "Cutting Transactions"
 msgstr "Вырезы"
 
 #: main_service_of_plotters/apps/users/apps.py:11
-#: main_service_of_plotters/apps/users/models.py:23
+#: main_service_of_plotters/apps/users/models.py:28
 msgid "Users"
 msgstr "Пользователи"
 
 #: main_service_of_plotters/apps/users/forms.py:15
 #: main_service_of_plotters/apps/users/forms.py:61
 msgid "Password"
-msgstr ""
+msgstr "Пароль"
 
 #: main_service_of_plotters/apps/users/forms.py:16
 msgid "Password confirmation"
-msgstr ""
+msgstr "Подтвердите пароль"
 
+#: main_service_of_plotters/apps/users/forms.py:47
+#: main_service_of_plotters/apps/users/forms.py:55
 #: main_service_of_plotters/apps/users/models.py:17
 msgid "User role"
 msgstr "Роль пользователя"
@@ -351,6 +351,11 @@ msgstr "Дата создания"
 #: main_service_of_plotters/utils/abstractmodel.py:9
 msgid "Date of update"
 msgstr "Дата обновления"
+
+#, fuzzy
+#~| msgid "Available films"
+#~ msgid "Available film"
+#~ msgstr "Доступная плёнка"
 
 #~ msgid "Amount of label in pack"
 #~ msgstr "Количество плёнки в пачке"

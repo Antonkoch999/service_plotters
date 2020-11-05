@@ -13,7 +13,7 @@ class User(AbstractUser):
 
     ROLE_USER = ((ROLE[key], key) for key in ROLE.keys())
     role = models.CharField(max_length=30, choices=ROLE_USER, blank=True,
-                            null=True, default='User',
+                            null=True,
                             verbose_name=_('User role'))
     dealer = models.ForeignKey(
         'self',

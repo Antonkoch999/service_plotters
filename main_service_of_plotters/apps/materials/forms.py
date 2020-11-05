@@ -9,7 +9,7 @@ from main_service_of_plotters.apps.users.models import User
 
 class GenerationCodeForm(forms.ModelForm):
     """From with one field `dealer` to add this dealer to multiple entities."""
-    count_label = forms.IntegerField()
+    count_label = forms.IntegerField(label=_('Count label'))
 
     class Meta:
         model = Label
