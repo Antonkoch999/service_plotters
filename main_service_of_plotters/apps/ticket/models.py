@@ -36,7 +36,7 @@ class Ticket(DateTimeDateUpdate):
     reporter = models.ForeignKey(
         verbose_name=_("Repoeter"),
         to=User,
-        limit_choices_to={'is_technical_specialist': True},
+        limit_choices_to={'is_user': True},
         on_delete=models.CASCADE,
         releated_name='created_tickets',
         help_text=_("User who create ticket"),
@@ -53,7 +53,7 @@ class Ticket(DateTimeDateUpdate):
     assignee = models.ForeignKey(
         verbose_name=_("Assignee"),
         to=User,
-        limit_choices_to={'is_user': True},
+        limit_choices_to={'is_technical_specialist': True},
         on_delete=models.SET_NULL,
         releated_name='managed_tickets',
         null=True,
