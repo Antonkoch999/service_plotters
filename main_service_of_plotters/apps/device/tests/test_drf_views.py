@@ -42,16 +42,13 @@ class TestPlotterViewSet:
 
         self.plotter1 = Plotter.objects.create(
             serial_number=1,
-            available_film=1
         )
         self.plotter2 = Plotter.objects.create(
             serial_number=2,
-            available_film=2,
             dealer=self.dealer
         )
         self.plotter2 = Plotter.objects.create(
             serial_number=3,
-            available_film=3,
             dealer=self.dealer,
             user=self.user
         )
