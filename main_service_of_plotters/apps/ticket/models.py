@@ -35,7 +35,7 @@ class Ticket(DateTimeDateUpdate):
         verbose_name=_("Status"),
         max_length=1,
         blank=False,
-        choices=StatusVariants,
+        choices=StatusVariants.choices,
         default=StatusVariants.OPEN
     )
     reporter = models.ForeignKey(
@@ -43,7 +43,7 @@ class Ticket(DateTimeDateUpdate):
         to=User,
         limit_choices_to={'is_user': True},
         on_delete=models.CASCADE,
-        releated_name='created_tickets',
+        related_name='created_tickets',
         help_text=_("User who create ticket"),
         null=False,
         blank=False
@@ -51,6 +51,7 @@ class Ticket(DateTimeDateUpdate):
     plotter = models.ForeignKey(
         verbose_name=_("Plotter"),
         to=Plotter,
+        related_name="tickets",
         on_delete=models.CASCADE,
         null=False,
         blank=False
@@ -60,7 +61,7 @@ class Ticket(DateTimeDateUpdate):
         to=User,
         limit_choices_to={'is_technical_specialist': True},
         on_delete=models.SET_NULL,
-        releated_name='managed_tickets',
+        related_name='managed_tickets',
         null=True,
         default=None,
         help_text=_('Technical Specialist who manage ticket')
