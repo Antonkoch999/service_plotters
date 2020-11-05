@@ -50,12 +50,10 @@ class Ticket(DateTimeDateUpdate):
         null=False,
         blank=False
     )
-    plotter = models.ForeignKey(
-        verbose_name=_("Plotter"),
+    plotters = models.ManyToManyField(
+        verbose_name=_("Plotters"),
         to=Plotter,
         related_name="tickets",
-        on_delete=models.CASCADE,
-        null=False,
         blank=False
     )
     assignee = models.ForeignKey(
