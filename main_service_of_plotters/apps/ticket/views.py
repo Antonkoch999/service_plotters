@@ -1,15 +1,13 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
-from django.views.generic.edit import CreateView
 
 from .models import Ticket, PopularProblem
 from .forms import ChoosePopularProblemForm, WARIANT_NOT_PRESENTED
-from main_service_of_plotters.apps.device.models import Plotter
 
 STEP_1_ACTION = 'step_1'
 
 
-# Create your views here.
+# TODO add permissions -- authenticated user and permissions
 class UserAddTicket(View):
     def get(self, request):
         form = ChoosePopularProblemForm(context={'request': request})
@@ -26,6 +24,7 @@ class UserAddTicket(View):
         action = request.POST.get('action')
         if action is not None \
                 and action[0] == STEP_1_ACTION\
+                # TODO refink the problem
                 and problem[0] == WARIANT_NOT_PRESENTED:
             # Do things when user chose not presented problemn
             pass

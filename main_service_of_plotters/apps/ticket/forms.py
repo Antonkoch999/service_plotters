@@ -8,13 +8,13 @@ WARIANT_NOT_PRESENTED = 'wariant_not_presented'
 
 
 def _list_of_popular_problems_plus_not_found():
-        choices = [
-            (f"{pp.id}", pp.name)
-            for pp
-            in PopularProblem.objects.all()
-        ]
-        choices.append((WARIANT_NOT_PRESENTED, _("My problem is not presented in this list")))
-        return choices
+    choices = [
+        (f"{pp.id}", pp.name)
+        for pp
+        in PopularProblem.objects.all()
+    ]
+    choices.append((WARIANT_NOT_PRESENTED, _("My problem is not presented in this list")))
+    return choices
 
 
 class ChoosePopularProblemForm(forms.Form):

@@ -66,6 +66,11 @@ class Ticket(DateTimeDateUpdate):
         blank=True,
         help_text=_('Technical Specialist who manage ticket')
     )
+    answer = models.TextField(
+        verbose_name=_("Answer"),
+        blank=True,
+        help_text=_("Answer of assigned technical specialist")
+    )
 
     class Meta:
 
@@ -76,7 +81,7 @@ class Ticket(DateTimeDateUpdate):
         """
         Return string representation of ticket
         """
-        return f"{_('Ticket')} #{self.id}: \"{self.header}\W""
+        return f"{_('Ticket')} #{self.id}: \"{self.header}\""
 
 
 class PopularProblem(models.Model):
