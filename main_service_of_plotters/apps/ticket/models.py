@@ -72,6 +72,12 @@ class Ticket(DateTimeDateUpdate):
         verbose_name = _("Ticket")
         verbose_name_plural = _("Tickets")
 
+    def __str__(self):
+        """
+        Return string representation of ticket
+        """
+        return f"{_('Ticket')} #{self.id}: \"{self.header}\W""
+
 
 class PopularProblem(models.Model):
     """Model descride list with popular problems."""
@@ -98,3 +104,9 @@ class PopularProblem(models.Model):
 
         verbose_name = _('Popular problem')
         verbose_name_plural = _('Popular problems')
+
+    def __str__(self):
+        """
+        Return string representation of popular problem
+        """
+        return f"{_('Popular problem')} \"{self.header}\""
