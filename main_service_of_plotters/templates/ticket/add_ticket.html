@@ -1,1 +1,10 @@
-{{ form }}
+
+{% load i18n %}
+
+{% block content %}
+<form action="" method="post">{% csrf_token %}
+    {{ form }}
+    <input type="hidden" name="action" value="{{ action }}" />
+    <input type="submit" name="apply" value='{% trans "Report" %}' />
+</form>
+{% endblock %}
