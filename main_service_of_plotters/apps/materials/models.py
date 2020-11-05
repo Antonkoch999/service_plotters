@@ -82,10 +82,10 @@ class Label(DateTimeDateUpdate):
                              verbose_name=_('Related User'),
                              limit_choices_to={'role': 'User'},
                              related_name='label_user', null=True, blank=True)
-
-    size = models.CharField(max_length=1, choices=SIZE_TEMPLATE,
-                            verbose_name=_('Size'),
-                            blank=True, null=True)
+    #
+    # size = models.CharField(max_length=1, choices=SIZE_TEMPLATE,
+    #                         verbose_name=_('Size'),
+    #                         blank=True, null=True)
 
     date_of_activation = models.DateTimeField(
         null=True,
