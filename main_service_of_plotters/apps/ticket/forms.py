@@ -30,3 +30,23 @@ class ChoosePopularProblemForm(forms.Form):
             self.fields['plotters'].queryset = request.user.plotter_user
 
 
+class DetailedProblemFrom(forms.ModelForm):
+
+    class Meta:
+        model = Ticket
+        fields = (
+            'header',
+            'text',
+            'media_file',
+            'plotters'
+        )
+
+    def __init__(self, *args, context = None, **kwargs):
+        super().__init__(*args, **kwargs)
+        # plotters field is read only
+        self.fields['plotters'].disabled = True
+        # limit only user's potters
+        if context is not None:
+            request = context.get('request')
+            self.fields['plotters'].queryset = request.user.plotter_user
+
