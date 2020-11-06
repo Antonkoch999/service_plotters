@@ -41,10 +41,9 @@ class DetailedProblemFrom(forms.ModelForm):
             'plotters'
         )
 
-    def __init__(self, *args, context = None, **kwargs):
+    def __init__(self, *args, context=None, **kwargs):
         super().__init__(*args, **kwargs)
         # limit only user's potters
         if context is not None:
             request = context.get('request')
             self.fields['plotters'].queryset = request.user.plotter_user
-

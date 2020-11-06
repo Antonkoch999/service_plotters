@@ -2,15 +2,11 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.http import HttpResponseNotFound
-from django.contrib.auth import get_user_model
 
 from .models import Ticket, PopularProblem
 from .forms import ChoosePopularProblemForm, WARIANT_NOT_PRESENTED, DetailedProblemFrom
-from main_service_of_plotters.apps.device.models import Plotter
 
 
-
-# TODO add permissions -- authenticated user and permissions
 class UserAddTicket(LoginRequiredMixin, PermissionRequiredMixin, View):
 
     permission_required = ('ticket.add_ticket',)
