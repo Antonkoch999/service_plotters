@@ -114,4 +114,4 @@ class PopularProblem(models.Model):
         """
         Return string representation of popular problem
         """
-        return f"{_('Popular problem')} \"{self.header}\""
+        return f"{_('Popular problem')} \"{self.name}\""

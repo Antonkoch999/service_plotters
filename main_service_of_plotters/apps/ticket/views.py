@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.http import HttpResponseNotFound
+from django.contrib.auth import get_user_model
 
 from .models import Ticket, PopularProblem
 from .forms import ChoosePopularProblemForm, WARIANT_NOT_PRESENTED, DetailedProblemFrom
@@ -30,31 +31,37 @@ class UserAddTicket(LoginRequiredMixin, PermissionRequiredMixin, View):
         )
 
     def post(self, request):
-        if self._is_popular_problem_choosed(request):
+        self.request = request
+        if self._is_popular_problem_choosed:
             return self._process_choosed_popular_problem(request)
-        elif self._is_warriant_not_presented_choosed(request):
+        elif self._is_warriant_not_presented_choosed:
             return self._process_warriant_not_presented(request)
-        elif self._is_detailed_problem_passed(request):
+        elif self._is_detailed_problem_passed:
             return self._process_detailed_problem_passed(request)
         else:
             return HttpResponseNotFound()
 
-    def _is_popular_problem_choosed(self, request):
-        return self._returned_after_page_with_popular_problem(request) \
-            and request.POST.get('problem') != WARIANT_NOT_PRESENTED
+    @property
+    def _is_popular_problem_choosed(self):
+        return self._returned_after_page_with_popular_problem \
+            and self.request.POST.get('problem') != WARIANT_NOT_PRESENTED
 
-    def _is_warriant_not_presented_choosed(self, request):
-        return self._returned_after_page_with_popular_problem(request) \
-            and request.POST.get('problem') == WARIANT_NOT_PRESENTED
+    @property
+    def _is_warriant_not_presented_choosed(self):
+        return self._returned_after_page_with_popular_problem \
+            and self.request.POST.get('problem') == WARIANT_NOT_PRESENTED
 
-    def _is_detailed_problem_passed(self, request):
-        return self._returned_after_page_with_detailed_problem(request)
+    @property
+    def _is_detailed_problem_passed(self):
+        return self._returned_after_page_with_detailed_problem
 
-    def _returned_after_page_with_popular_problem(self, request):
-        return request.POST.get('action') == self._STEP_1_ACTION
+    @property
+    def _returned_after_page_with_popular_problem(self):
+        return self.request.POST.get('action') == self._STEP_1_ACTION
 
-    def _returned_after_page_with_detailed_problem(self, request):
-        return request.POST.get('action') == self._STEP_2_ACTION
+    @property
+    def _returned_after_page_with_detailed_problem(self):
+        return self.request.POST.get('action') == self._STEP_2_ACTION
 
     def _process_choosed_popular_problem(self, request):
         form = ChoosePopularProblemForm(request.POST)
@@ -86,11 +93,16 @@ class UserAddTicket(LoginRequiredMixin, PermissionRequiredMixin, View):
 
     def _process_detailed_problem_passed(self, request):
         form = DetailedProblemFrom(request.POST)
-        print(form)
         if form.is_valid():
-            form.save()
+            ticket = form.save(commit=False)
+            ticket.reporter = request.user
+            ticket.save()
+            ticket.plotters.set(form.cleaned_data['plotters'])
+            ticket.save()
+            print(ticket)
             return self._problem_posted_redirect()
         else:
+            print(form.errors)
             return HttpResponseNotFound()
 
     def _problem_posted_redirect(self):

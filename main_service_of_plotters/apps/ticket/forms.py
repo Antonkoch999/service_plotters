@@ -43,8 +43,6 @@ class DetailedProblemFrom(forms.ModelForm):
 
     def __init__(self, *args, context = None, **kwargs):
         super().__init__(*args, **kwargs)
-        # plotters field is read only
-        self.fields['plotters'].disabled = True
         # limit only user's potters
         if context is not None:
             request = context.get('request')
