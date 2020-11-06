@@ -81,7 +81,7 @@ class Ticket(DateTimeDateUpdate):
         """
         Return string representation of ticket
         """
-        return f"{_('Ticket')} #{self.id}: \"{self.header}\""
+        return f"{_('Ticket')} #{self.pk}: \"{self.header}\""
 
 
 class PopularProblem(models.Model):
@@ -114,4 +114,4 @@ class PopularProblem(models.Model):
         """
         Return string representation of popular problem
         """
-        return f"{_('Popular problem')} \"{self.header}\""
+        return f"{_('Popular problem')} \"{self.name}\""

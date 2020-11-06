@@ -8,7 +8,6 @@ from .forms import ChoosePopularProblemForm, WARIANT_NOT_PRESENTED, DetailedProb
 from main_service_of_plotters.apps.device.models import Plotter
 
 
-
 # TODO add permissions -- authenticated user and permissions
 class UserAddTicket(LoginRequiredMixin, PermissionRequiredMixin, View):
 

@@ -23,7 +23,7 @@ def generation_code(request):
         if form.is_valid():
             count_label = form.cleaned_data['count_label']
             count = form.cleaned_data['count']
-            size = form.cleaned_data['size']
+            # size = form.cleaned_data['size']
             for item in range(count_label):
                 scratch_code = randint(1000000000000000, 9999999999999999)
                 while Label.objects.filter(scratch_code=scratch_code).exists():
@@ -36,7 +36,7 @@ def generation_code(request):
                     scratch_code=scratch_code,
                     barcode=barcode,
                     count=count,
-                    size=size,
+                    # size=size,
                 )
             return HttpResponseRedirect('../')
 
@@ -172,13 +172,13 @@ class CustomLabelAdmin(ImportExportMixin, admin.ModelAdmin):
         list_display = ('scratch_code', 'barcode',
                         'count', 'available_count', 'dealer', 'user',
                         'date_of_expiration',
-                        'is_active', 'size')
+                        'is_active',)
         # If user is `Dealer` or User
         if self._is_requested_user_dealer_or_user(request):
             # without `scretch code`
             list_display = ['barcode', 'count', 'available_count',
                             'dealer', 'user', 'date_of_expiration',
-                            'days_before_expiration', 'is_active', 'size']
+                            'days_before_expiration', 'is_active',]
         return list_display
 
     def get_list_filter(self, request):
