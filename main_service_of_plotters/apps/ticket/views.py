@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 
 from .models import Ticket, PopularProblem
 from .forms import ChoosePopularProblemForm, WARIANT_NOT_PRESENTED
@@ -8,7 +9,7 @@ STEP_1_ACTION = 'step_1'
 
 
 # TODO add permissions -- authenticated user and permissions
-class UserAddTicket(View):
+class UserAddTicket(LoginRequiredMixin, PermissionRequiredMixin, View):
     def get(self, request):
         form = ChoosePopularProblemForm(context={'request': request})
         context = {'form': form}
@@ -24,8 +25,7 @@ class UserAddTicket(View):
         action = request.POST.get('action')
         if action is not None \
                 and action[0] == STEP_1_ACTION\
-                # TODO refink the problem
-                and problem[0] == WARIANT_NOT_PRESENTED:
+                and request.POST.get('problem')[0] == WARIANT_NOT_PRESENTED:
             # Do things when user chose not presented problemn
             pass
         else:
