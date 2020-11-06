@@ -17,7 +17,7 @@ class UserAdmin(BaseUserAdmin):
     list_filter = ('role',)
     fieldsets = (
         (None, {'fields': ('email', 'username', 'first_name', 'last_name',
-                           'role', 'is_active',
+                           'role', 'dealer', 'is_active',
                            )
                 }
          ),
