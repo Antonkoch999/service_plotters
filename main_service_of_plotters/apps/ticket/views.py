@@ -5,10 +5,8 @@ from django.http import HttpResponseNotFound
 
 from .models import Ticket, PopularProblem
 from .forms import ChoosePopularProblemForm, WARIANT_NOT_PRESENTED, DetailedProblemFrom
-from main_service_of_plotters.apps.device.models import Plotter
 
 
-# TODO add permissions -- authenticated user and permissions
 class UserAddTicket(LoginRequiredMixin, PermissionRequiredMixin, View):
 
     permission_required = ('ticket.add_ticket',)

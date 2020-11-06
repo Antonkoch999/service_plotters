@@ -71,6 +71,13 @@ class Ticket(DateTimeDateUpdate):
         blank=True,
         help_text=_("Answer of assigned technical specialist")
     )
+    answer_attached_file = models.FileField(
+        verbose_name=_('Answer media file'),
+        upload_to='ticket_media/',
+        null=True,
+        blank=True,
+        help_text=_("Media file attached by assigned technical specailist")
+    )
 
     class Meta:
 

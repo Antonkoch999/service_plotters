@@ -3,7 +3,6 @@ from django.utils.translation import gettext_lazy as _
 
 from .models import Ticket, PopularProblem
 from main_service_of_plotters.apps.device.models import Plotter
-from main_service_of_plotters.apps.users.models import User
 
 WARIANT_NOT_PRESENTED = 'wariant_not_presented'
 
@@ -42,7 +41,7 @@ class DetailedProblemFrom(forms.ModelForm):
             'plotters'
         )
 
-    def __init__(self, *args, context=None, **kwargs):
+    def __init__(self, *args, context = None, **kwargs):
         super().__init__(*args, **kwargs)
         # plotters field is read only
         self.fields['plotters'].disabled = True
