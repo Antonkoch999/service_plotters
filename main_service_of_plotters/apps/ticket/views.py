@@ -92,3 +92,5 @@ class UserAddTicket(LoginRequiredMixin, PermissionRequiredMixin, View):
 
     def _problem_posted_redirect(self):
         return redirect('tickets:user_add_ticket')
+
+
