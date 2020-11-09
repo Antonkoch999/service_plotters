@@ -1,10 +1,28 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
+from django.views.generic import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.http import HttpResponseNotFound
+from django.db.models import Q
 
 from .models import Ticket, PopularProblem
 from .forms import ChoosePopularProblemForm, WARIANT_NOT_PRESENTED, DetailedProblemFrom
+
+
+class TicketListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+
+    permission_required = ('ticket.view_ticket',)
+
+    def get_queryset(self):
+        qs = Ticket.objects.all()
+        if self.request.user.is_user():
+            qs = qs.filter(reporter=self.request.user)
+        elif self.request.user.is_technical_specialist():
+            qs = qs.filter(
+                Q(status=Ticket.status_variants.OPENED) |
+                Q(assignee=self.request.user)
+            )
+        return qs
 
 
 class UserAddTicket(LoginRequiredMixin, PermissionRequiredMixin, View):
@@ -95,6 +113,4 @@ class UserAddTicket(LoginRequiredMixin, PermissionRequiredMixin, View):
             return HttpResponseNotFound()
 
     def _problem_posted_redirect(self):
-        return redirect('tickets:user_add_ticket')
-
-
+        return redirect('tickets:ticket_list')
