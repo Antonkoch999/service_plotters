@@ -1,0 +1,31 @@
+{% load i18n %}
+
+{% block content %}
+
+<ul>{% for ticket in ticket_list %}
+  <li><a href="{% url 'tickets:ticket_detail' ticket.pk %}">
+    {{ ticket }}<a>
+    {% trans "Status" %} - {{ ticket.get_status_display }}
+  </li>
+{% endfor %} </ul>
+
+{% if perms.ticket.can_report_problem %}
+  <a href='{% url 'tickets:user_add_ticket' %}'>{% trans "Report a problem" %}</a>
+{% endif %}
+
+<h2>{% trans "Filters" %}</h2>
+<ul>
+  {% for status in status_variants %}
+    <li>
+      <a href="{% url 'tickets:ticket_list' %}?filter_status={{ status }}">
+        {{ status.label }}
+      </a>
+    </li>
+  {% endfor %}
+    <li>
+      <a href="{% url 'tickets:ticket_list' %}">
+        {% trans "All" %}
+      </a>
+    </li>
+</ul>
+{% endblock %}

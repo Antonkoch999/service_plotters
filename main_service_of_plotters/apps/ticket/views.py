@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.http import HttpResponseNotFound
 from django.db.models import Q
@@ -19,10 +19,26 @@ class TicketListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
             qs = qs.filter(reporter=self.request.user)
         elif self.request.user.is_technical_specialist():
             qs = qs.filter(
-                Q(status=Ticket.status_variants.OPENED) |
+                Q(status=Ticket.status_variants.OPEN) |
                 Q(assignee=self.request.user)
             )
+
+        # filtering
+        if filter_status := self.request.GET.get('filter_status', False):
+            qs = qs.filter(status=filter_status)
         return qs
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["status_variants"] = Ticket.status_variants
+        return context
+
+
+
+class TicketDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
+
+    permission_required = ('ticket.view_ticket')
+    queryset=Ticket.objects.all()
 
 
 class UserAddTicket(LoginRequiredMixin, PermissionRequiredMixin, View):
