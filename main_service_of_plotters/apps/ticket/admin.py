@@ -37,6 +37,8 @@ class TicketAdmin(admin.ModelAdmin):
         qs = super().get_queryset(request)
         if request.user.groups.filter(name='Technical_Specialist').exists():
             qs = qs.filter(Q(status='O') | Q(assignee=request.user.pk))
+        if request.user.is_user():
+            qs = qs.filter(reporter=request.user.pk)
         return qs
 
     def get_list_filter(self, request):
