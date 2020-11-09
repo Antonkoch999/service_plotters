@@ -85,7 +85,11 @@ class UserAddTicket(LoginRequiredMixin, PermissionRequiredMixin, View):
         form = DetailedProblemFrom(request.POST)
         print(form)
         if form.is_valid():
-            form.save()
+            ticket = form.save(commit=False)
+            ticket.reporter = request.user
+            ticket.save()
+            ticket.plotters.set(form.cleaned_data['plotters'])
+            ticket.save()
             return self._problem_posted_redirect()
         else:
             return HttpResponseNotFound()
