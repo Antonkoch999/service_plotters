@@ -60,7 +60,6 @@ class Template(DateTimeDateUpdate):
 class Label(DateTimeDateUpdate):
     """This class creates label table."""
 
-    SIZE_TEMPLATE = ((SIZE[key], key) for key in SIZE.keys())
     TERM_OF_EXPIRATION = timedelta(days=90)
 
     scratch_code = models.CharField(max_length=16, blank=True,
@@ -82,10 +81,6 @@ class Label(DateTimeDateUpdate):
                              verbose_name=_('Related User'),
                              limit_choices_to={'role': 'User'},
                              related_name='label_user', null=True, blank=True)
-    #
-    # size = models.CharField(max_length=1, choices=SIZE_TEMPLATE,
-    #                         verbose_name=_('Size'),
-    #                         blank=True, null=True)
 
     date_of_activation = models.DateTimeField(
         null=True,

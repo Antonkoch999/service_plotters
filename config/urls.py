@@ -10,6 +10,7 @@ urlpatterns = i18n_patterns(
     # Django Admin, use {% url 'admin:index' %}
     path(settings.ADMIN_URL, admin.site.urls),
     path("users/", include("main_service_of_plotters.apps.users.urls", namespace="users")),
+    path("tickets/", include("main_service_of_plotters.apps.ticket.urls", namespace="tickets")),
     path("accounts/", include("allauth.urls")),
     path('i18n/', include('django.conf.urls.i18n'))
     # Your stuff: custom urls includes go here

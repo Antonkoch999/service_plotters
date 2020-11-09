@@ -121,6 +121,10 @@ msgid "Plotter"
 msgstr "绘图仪"
 
 #: main_service_of_plotters/apps/device/models.py:28
+<<<<<<< HEAD
+=======
+#: main_service_of_plotters/apps/ticket/models.py:56
+>>>>>>> ticket_feature
 msgid "Plotters"
 msgstr "绘图仪"
 
@@ -159,7 +163,6 @@ msgid "Blueprint file (*.plt)"
 msgstr "蓝图文件（"
 
 #: main_service_of_plotters/apps/materials/models.py:46
-#: main_service_of_plotters/apps/materials/models.py:87
 msgid "Size"
 msgstr "尺寸"
 
@@ -171,55 +174,55 @@ msgstr "模板"
 msgid "Templates"
 msgstr "范本"
 
-#: main_service_of_plotters/apps/materials/models.py:68
+#: main_service_of_plotters/apps/materials/models.py:67
 msgid "Unique scratch code"
 msgstr "独特的暂存码"
 
-#: main_service_of_plotters/apps/materials/models.py:72
+#: main_service_of_plotters/apps/materials/models.py:71
 msgid "Unique barcode"
 msgstr "独特的条形码"
 
-#: main_service_of_plotters/apps/materials/models.py:74
+#: main_service_of_plotters/apps/materials/models.py:73
 msgid "Start amount"
 msgstr "起始金额"
 
-#: main_service_of_plotters/apps/materials/models.py:76
+#: main_service_of_plotters/apps/materials/models.py:75
 msgid "Available amount"
 msgstr "可用金额"
 
-#: main_service_of_plotters/apps/materials/models.py:78
+#: main_service_of_plotters/apps/materials/models.py:77
 msgid "Related Dealer"
 msgstr "相关经销商"
 
-#: main_service_of_plotters/apps/materials/models.py:82
+#: main_service_of_plotters/apps/materials/models.py:81
 msgid "Related User"
 msgstr "相关使用者"
 
-#: main_service_of_plotters/apps/materials/models.py:93
+#: main_service_of_plotters/apps/materials/models.py:88
 msgid "Date of activation"
 msgstr "启用日期"
 
-#: main_service_of_plotters/apps/materials/models.py:101
+#: main_service_of_plotters/apps/materials/models.py:96
 msgid "Linked plotters"
 msgstr "链接绘图仪"
 
-#: main_service_of_plotters/apps/materials/models.py:106
+#: main_service_of_plotters/apps/materials/models.py:101
 msgid "Is active"
 msgstr "活跃"
 
-#: main_service_of_plotters/apps/materials/models.py:110
+#: main_service_of_plotters/apps/materials/models.py:105
 msgid "Label"
 msgstr "标签"
 
-#: main_service_of_plotters/apps/materials/models.py:111
+#: main_service_of_plotters/apps/materials/models.py:106
 msgid "Labels"
 msgstr "标签"
 
-#: main_service_of_plotters/apps/materials/models.py:126
+#: main_service_of_plotters/apps/materials/models.py:121
 msgid "Date of expiration"
 msgstr "到期日"
 
-#: main_service_of_plotters/apps/materials/models.py:133
+#: main_service_of_plotters/apps/materials/models.py:128
 msgid "Days before expiration"
 msgstr "到期前几天"
 
@@ -291,6 +294,128 @@ msgstr "减少交易"
 msgid "Cutting Transactions"
 msgstr "减少交易"
 
+#: main_service_of_plotters/apps/ticket/admin.py:67
+msgid "You dont have permission to close this ticket"
+msgstr "您无权关闭此票证"
+
+#: main_service_of_plotters/apps/ticket/apps.py:8
+#: main_service_of_plotters/apps/ticket/models.py:87
+msgid "Tickets"
+msgstr "入场券"
+
+#: main_service_of_plotters/apps/ticket/constants.py:14
+msgid "Open"
+msgstr "打开"
+
+#: main_service_of_plotters/apps/ticket/constants.py:15
+#: main_service_of_plotters/templates/ticket/admin_change_form.html:12
+msgid "In Work"
+msgstr "工作中"
+
+#: main_service_of_plotters/apps/ticket/constants.py:16
+msgid "Solved"
+msgstr "解决了"
+
+#: main_service_of_plotters/apps/ticket/constants.py:17
+msgid "Closed"
+msgstr "关闭"
+
+#: main_service_of_plotters/apps/ticket/forms.py:16
+msgid "My problem is not presented in this list"
+msgstr "我的问题不在此列表中"
+
+#: main_service_of_plotters/apps/ticket/models.py:22
+msgid "Header"
+msgstr "标头"
+
+#: main_service_of_plotters/apps/ticket/models.py:25
+msgid "Short description of problem."
+msgstr "问题的简短描述"
+
+#: main_service_of_plotters/apps/ticket/models.py:28
+msgid "Text"
+msgstr "文本"
+
+#: main_service_of_plotters/apps/ticket/models.py:29
+msgid "Description of problem"
+msgstr "问题描述"
+
+#: main_service_of_plotters/apps/ticket/models.py:33
+msgid "Attached media file"
+msgstr "附加媒体文件"
+
+#: main_service_of_plotters/apps/ticket/models.py:39
+msgid "Status"
+msgstr "统计"
+
+#: main_service_of_plotters/apps/ticket/models.py:46
+msgid "Reporter"
+msgstr "记者"
+
+#: main_service_of_plotters/apps/ticket/models.py:51
+msgid "User who create ticket"
+msgstr "创建票证的用户"
+
+#: main_service_of_plotters/apps/ticket/models.py:62
+msgid "Assignee"
+msgstr "受让人"
+
+#: main_service_of_plotters/apps/ticket/models.py:69
+msgid "Technical Specialist who manage ticket"
+msgstr "管理票务的技术专家"
+
+#: main_service_of_plotters/apps/ticket/models.py:72
+msgid "Answer"
+msgstr "回答"
+
+#: main_service_of_plotters/apps/ticket/models.py:74
+msgid "Answer of assigned technical specialist"
+msgstr "指派技术专家的答案"
+
+#: main_service_of_plotters/apps/ticket/models.py:77
+msgid "Answer media file"
+msgstr "回答媒体文件"
+
+#: main_service_of_plotters/apps/ticket/models.py:81
+msgid "Media file attached by assigned technical specialist"
+msgstr "由指定技术专员附加的媒体文件"
+
+#: main_service_of_plotters/apps/ticket/models.py:86
+msgid "Ticket"
+msgstr "票"
+
+#: main_service_of_plotters/apps/ticket/models.py:103
+msgid "Name"
+msgstr "名称"
+
+#: main_service_of_plotters/apps/ticket/models.py:105
+msgid "Short name of problem, will be displayed"
+msgstr "问题的简称，将显示"
+
+#: main_service_of_plotters/apps/ticket/models.py:109
+msgid "Populated Header"
+msgstr "相关经销商"
+
+#: main_service_of_plotters/apps/ticket/models.py:112
+msgid "Text what will be populated in created ticket header"
+msgstr "输入将在创建的票证标题中填充的内容"
+
+#: main_service_of_plotters/apps/ticket/models.py:115
+msgid "Populated Text"
+msgstr "填充文字"
+
+#: main_service_of_plotters/apps/ticket/models.py:116
+msgid "Text what will be populated in created ticket text"
+msgstr "输入将在创建的票证文本中填充的内容"
+
+#: main_service_of_plotters/apps/ticket/models.py:122
+msgid "Popular problem"
+msgstr "热门问题"
+
+#: main_service_of_plotters/apps/ticket/models.py:123
+msgid "Popular problems"
+msgstr "热门问题"
+
 #: main_service_of_plotters/apps/users/apps.py:11
 #: main_service_of_plotters/apps/users/models.py:28
 msgid "Users"
@@ -321,6 +446,10 @@ msgstr "经销商将被添加到以下实例"
 msgid "Save"
 msgstr "救"
 
+#: main_service_of_plotters/templates/admin/change_list_ticket.html:5
+msgid "Report problem"
+msgstr "报告问题"
+
 #: main_service_of_plotters/templates/admin/import_export/change_list.html:8
 msgid "Generate code"
 msgstr "产生程式码"
@@ -344,6 +473,18 @@ msgstr "注册"
 #: main_service_of_plotters/templates/base.html:68
 msgid "Sign In"
 msgstr "注册"
+
+#: main_service_of_plotters/templates/ticket/add_ticket.html:7
+msgid "Report"
+msgstr "报告"
+
+#: main_service_of_plotters/templates/ticket/admin_change_form.html:8
+msgid "Close ticket"
+msgstr "闭票"
+
+#: main_service_of_plotters/templates/ticket/ticket_list.html:10
+msgid "Report a problem"
+msgstr "报告一个问题"
 
 #: main_service_of_plotters/utils/abstractmodel.py:7
 msgid "Data of creation"

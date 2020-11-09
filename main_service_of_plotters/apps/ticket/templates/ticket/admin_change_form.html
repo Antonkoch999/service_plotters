@@ -1,0 +1,15 @@
+{% extends 'admin/change_form.html' %}
+{% load i18n %}
+{% load auth_extras %}
+{% block submit_buttons_bottom %}
+    {{ block.super }}
+    {% if request.user|has_group:"User" %}
+    <div class="submit-row">
+            <input type="submit" value='{% trans "Close ticket" %}' name="_make_close">
+    </div>
+    {% elif request.user|has_group:"Technical_Specialist" %}
+    <div class="submit-row">
+            <input type="submit" value='{% trans "In Work" %}' name="_make_close">
+    </div>
+    {% endif %}
+{% endblock %}

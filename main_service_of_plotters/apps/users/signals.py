@@ -24,9 +24,14 @@ def my_handler(sender, instance, created,  **kwargs):
                 group = Group.objects.get(name=ROLE['User'])
                 instance.save()
                 instance.groups.add(group)
-            elif instance.role == 'Administrator':
+            elif instance.role == ROLE['Administrator']:
                 instance.is_staff = True
                 group = Group.objects.get(name=ROLE['Administrator'])
+                instance.save()
+                instance.groups.add(group)
+            elif instance.role == ROLE['Technical_Specialist']:
+                instance.is_staff = True
+                group = Group.objects.get(name=ROLE['Technical_Specialist'])
                 instance.save()
                 instance.groups.add(group)
             # Chief Administrator is removed

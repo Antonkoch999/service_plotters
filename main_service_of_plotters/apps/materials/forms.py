@@ -13,7 +13,7 @@ class GenerationCodeForm(forms.ModelForm):
 
     class Meta:
         model = Label
-        fields = ['count', 'count_label',]
+        fields = ['count', 'count_label', ]
 
 
 class SelectDealerForm(forms.Form):
