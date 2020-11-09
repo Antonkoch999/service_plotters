@@ -54,7 +54,7 @@ class TechSpecialistForm(forms.ModelForm):
     class Meta:
         models = Ticket
         fields = ['header', 'text', 'media_file', 'status', 'assignee',
-                  'answer']
+                  'answer', 'answer_attached_file']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

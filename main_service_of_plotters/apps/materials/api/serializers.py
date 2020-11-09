@@ -7,7 +7,7 @@ class TemplateListSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Template
-        fields = ['id', 'name', 'file_photo', 'file_plt', 'url']
+        fields = ['id', 'name', 'file_photo', 'file_plt', 'size', 'url']
         extra_kwargs = {
             'url': {
                 'view_name': 'api:template-detail'
