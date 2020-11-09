@@ -1,5 +1,7 @@
 from django.contrib import admin
 from django.db.models import Q
+from django.utils.translation import gettext as _
+from django.http import HttpResponseRedirect
 
 from .models import Ticket, PopularProblem
 from .forms import TechSpecialistForm
@@ -9,6 +11,7 @@ from main_service_of_plotters.apps.users.models import User
 @admin.register(Ticket)
 class TicketAdmin(admin.ModelAdmin):
     list_display = ['header', 'status', 'reporter', 'assignee']
+    change_form_template = 'ticket/admin_change_form.html'
 
     def get_form(self, request, obj=None, **kwargs):
 
@@ -43,6 +46,19 @@ class TicketAdmin(admin.ModelAdmin):
         if request.user.groups.filter(name='Technical_Specialist').exists():
             filters = ('status',)
         return filters
+
+    def response_change(self, request, obj):
+        # TODO user must have change permission to close ticket but this is not propper condition
+        # Rethink it
+        if '_make_close' in request.POST:
+            if obj.reporter != request.user:
+                self.message_user(request, _('You dont have permission to close this ticket'))
+            else:
+                obj.status = Ticket.status_variants.CLOSED
+                obj.save()
+                self.message_user(request, f'{obj} {_("changes status to ")}{obj.status.label}')
+            return HttpResponseRedirect('.')
+        return super().response_change(request, obj)
 
 
 @admin.register(PopularProblem)

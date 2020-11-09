@@ -16,6 +16,8 @@ HEADER_MAX_LENGTH = 50
 class Ticket(DateTimeDateUpdate):
     """Request for a technical support with description of the problem."""
 
+    status_variants = StatusVariants
+
     header = models.CharField(
         verbose_name=_("Header"),
         max_length=HEADER_MAX_LENGTH,
