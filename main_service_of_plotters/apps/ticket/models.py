@@ -78,7 +78,7 @@ class Ticket(DateTimeDateUpdate):
         upload_to='ticket_media/',
         null=True,
         blank=True,
-        help_text=_("Media file attached by assigned technical specailist")
+        help_text=_("Media file attached by assigned technical specialist")
     )
 
     class Meta:
@@ -102,7 +102,7 @@ class PopularProblem(models.Model):
     name = models.CharField(
         verbose_name=_("Name"),
         max_length=100,
-        help_text=_("Short name of porblem, will be displaied"),
+        help_text=_("Short name of problem, will be displayed"),
         blank=False
     )
     populated_header = models.CharField(
