@@ -1,0 +1,39 @@
+version: '3.2'
+
+volumes:
+  local_main_service_postgres_data_v2: {}
+  local_main_service_postgres_data_backups_v2: {}
+
+services:
+  django_v2: &django_v2
+    build:
+      context: .
+      dockerfile: ./compose/local/django/Dockerfile
+      cache_from:
+        - main_service_of_plotters_local_django_v2
+    image: main_service_of_plotters_local_django_v2
+    container_name: django_v2
+    depends_on:
+      - postgres_v2
+    volumes:
+      - .:/app:z
+    env_file:
+      - ./.envs/.local/.django
+      - ./.envs/.local/.postgres_copy2
+    ports:
+      - 8000:8000
+    command: /start
+
+  postgres_v2:
+    build:
+      context: .
+      dockerfile: ./compose/production/postgres/Dockerfile
+    image: main_service_of_plotters_production_postgres_v2
+    container_name: postgres_v2
+    volumes:
+      - local_main_service_postgres_data_v2:/var/lib/postgresql/data:Z
+      - local_main_service_postgres_data_backups_v2:/backups:z
+    env_file:
+      - ./.envs/.local/.postgres_copy2
+    ports:
+      - 55555:5432
