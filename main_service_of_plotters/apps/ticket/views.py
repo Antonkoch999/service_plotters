@@ -27,7 +27,7 @@ class TicketListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
 
 class UserAddTicket(LoginRequiredMixin, PermissionRequiredMixin, View):
 
-    permission_required = ('ticket.add_ticket',)
+    permission_required = ('ticket.can_report_problem',)
 
     _STEP_1_ACTION = 'step_1'
     _STEP_2_ACTION = 'step_2'
