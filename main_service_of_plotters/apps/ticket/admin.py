@@ -9,9 +9,6 @@ from .models import Ticket, PopularProblem
 from .forms import TechSpecialistForm, UserForm
 from main_service_of_plotters.apps.users.models import User
 
-@staff_member_required
-def user_add_ticket(request):
-    return HttpResponseRedirect('ticket:user_add_ticket')
 
 @admin.register(Ticket)
 class TicketAdmin(admin.ModelAdmin):
@@ -82,16 +79,6 @@ class TicketAdmin(admin.ModelAdmin):
                                   f'{obj}{_("Change status to")}{obj.status.label}')
                 return HttpResponseRedirect('.')
         return super().response_change(request, obj)
-
-    def get_urls(self):
-        urls = super().get_urls()
-        my_urls = [
-            path('user-add-tikcet/', user_add_ticket, name='user_add_ticket'),
-        ]
-        return urls + my_urls
-
-
-
 
 
 @admin.register(PopularProblem)
