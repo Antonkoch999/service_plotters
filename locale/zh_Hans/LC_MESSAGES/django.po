@@ -121,10 +121,7 @@ msgid "Plotter"
 msgstr "绘图仪"
 
 #: main_service_of_plotters/apps/device/models.py:28
-<<<<<<< HEAD
-=======
 #: main_service_of_plotters/apps/ticket/models.py:56
->>>>>>> ticket_feature
 msgid "Plotters"
 msgstr "绘图仪"
 
@@ -346,7 +343,7 @@ msgstr "附加媒体文件"
 
 #: main_service_of_plotters/apps/ticket/models.py:39
 msgid "Status"
-msgstr "统计"
+msgstr "状态"
 
 #: main_service_of_plotters/apps/ticket/models.py:46
 msgid "Reporter"

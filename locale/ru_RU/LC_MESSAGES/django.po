@@ -120,10 +120,7 @@ msgid "Plotter"
 msgstr "Плоттер"
 
 #: main_service_of_plotters/apps/device/models.py:28
-<<<<<<< HEAD
-=======
 #: main_service_of_plotters/apps/ticket/models.py:56
->>>>>>> ticket_feature
 msgid "Plotters"
 msgstr "Плоттеры"
 
@@ -343,7 +340,7 @@ msgstr "Прикрепленный файл"
 
 #: main_service_of_plotters/apps/ticket/models.py:39
 msgid "Status"
-msgstr "Статистика"
+msgstr "Статус"
 
 #: main_service_of_plotters/apps/ticket/models.py:46
 msgid "Reporter"
