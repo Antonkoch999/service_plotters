@@ -4,7 +4,7 @@ from django.utils.translation import gettext as _
 from django.http import HttpResponseRedirect
 
 from .models import Ticket, PopularProblem
-from .forms import TechSpecialistForm
+from .forms import TechSpecialistForm, UserForm
 from main_service_of_plotters.apps.users.models import User
 
 
@@ -21,15 +21,20 @@ class TicketAdmin(admin.ModelAdmin):
             form.base_fields['assignee'].queryset = User.objects.filter(
                 id=request.user.pk)
             return form
+        elif request.user.groups.filter(name='User').exists():
+            kwargs['form'] = UserForm
+            form = super().get_form(request, obj, **kwargs)
+            return form
         return super().get_form(request, obj, **kwargs)
 
     def get_list_display(self, request):
 
-        list_display = ['header', 'status', 'assignee']
+        list_display = ['header', 'assignee', 'reporter', 'status']
         # If user is `Dealer` or User
         if request.user.groups.filter(name='Technical_Specialist').exists():
             # without `scretch code`
             list_display = ['header', 'status', 'assignee']
+
         return list_display
 
     def get_queryset(self, request):
@@ -37,6 +42,8 @@ class TicketAdmin(admin.ModelAdmin):
         qs = super().get_queryset(request)
         if request.user.groups.filter(name='Technical_Specialist').exists():
             qs = qs.filter(Q(status='O') | Q(assignee=request.user.pk))
+        elif request.user.groups.filter(name='User').exists():
+            qs = qs.filter(reporter=request.user.pk)
         return qs
 
     def get_list_filter(self, request):
@@ -51,13 +58,23 @@ class TicketAdmin(admin.ModelAdmin):
         # TODO user must have change permission to close ticket but this is not propper condition
         # Rethink it
         if '_make_close' in request.POST:
-            if obj.reporter != request.user:
-                self.message_user(request, _('You dont have permission to close this ticket'))
-            else:
-                obj.status = Ticket.status_variants.CLOSED
+            if request.user.groups.filter(name='User').exists():
+                if obj.reporter != request.user:
+                    self.message_user(request, _(
+                        'You dont have permission to close this ticket'))
+                else:
+                    obj.status = Ticket.status_variants.CLOSED
+                    obj.save()
+                    self.message_user(request,
+                                      f'{obj} {_("changes status to ")}{obj.status.label}')
+                return HttpResponseRedirect('.')
+            elif request.user.groups.filter(name='Technical_Specialist').exists():
+                obj.assignee = request.user
+                obj.status = Ticket.status_variants.IN_WORK
                 obj.save()
-                self.message_user(request, f'{obj} {_("changes status to ")}{obj.status.label}')
-            return HttpResponseRedirect('.')
+                self.message_user(request,
+                                  f'{obj}{_("Change status to")}{obj.status.label}')
+                return HttpResponseRedirect('.')
         return super().response_change(request, obj)
 
 

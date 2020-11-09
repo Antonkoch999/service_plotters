@@ -64,3 +64,20 @@ class TechSpecialistForm(forms.ModelForm):
         self.fields['text'].disabled = True
         self.fields['media_file'].disabled = True
 
+
+class UserForm(forms.ModelForm):
+
+    class Meta:
+        models = Ticket
+        fields = ['header', 'text', 'media_file', 'status', 'plotters',
+                  'assignee', 'answer', 'answer_attached_file']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['status'].disabled = True
+        self.fields['plotters'].disabled = True
+        self.fields['assignee'].disabled = True
+        self.fields['answer'].disabled = True
+        self.fields['answer_attached_file'].disabled = True
+
+
