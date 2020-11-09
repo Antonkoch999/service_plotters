@@ -5,12 +5,11 @@ from .serializers import (
     ModelsTemplateListSerializer, DeviceCategoryInstSerializer,
     ManufacturerInstSerializer)
 from rest_framework.decorators import permission_classes
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, DjangoModelPermissions
 from rest_framework import viewsets
-from .permissions import AdministratorPermission
 
 
-@permission_classes([IsAuthenticated, AdministratorPermission])
+@permission_classes([IsAuthenticated, DjangoModelPermissions])
 class DeviceCategoryViewSet(viewsets.ReadOnlyModelViewSet):
 
     serializer_class = DeviceCategoryListSerializer
@@ -25,7 +24,7 @@ class DeviceCategoryViewSet(viewsets.ReadOnlyModelViewSet):
         return serializer_class
 
 
-@permission_classes([IsAuthenticated, AdministratorPermission])
+@permission_classes([IsAuthenticated, DjangoModelPermissions])
 class ManufacturerViewSet(viewsets.ReadOnlyModelViewSet):
 
     serializer_class = ManufacturerListSerializer
@@ -40,7 +39,7 @@ class ManufacturerViewSet(viewsets.ReadOnlyModelViewSet):
         return serializer_class
 
 
-@permission_classes([IsAuthenticated, AdministratorPermission])
+@permission_classes([IsAuthenticated, DjangoModelPermissions])
 class ModelsTemplateViewSet(viewsets.ReadOnlyModelViewSet):
 
     serializer_class = ModelsTemplateListSerializer
