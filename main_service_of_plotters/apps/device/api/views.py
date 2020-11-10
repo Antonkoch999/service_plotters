@@ -1,4 +1,5 @@
-from rest_framework.viewsets import ModelViewSet
+from rest_framework.viewsets import ModelViewSet, GenericViewSet
+from rest_framework.mixins import RetrieveModelMixin
 from rest_framework.decorators import permission_classes
 from rest_framework.permissions import DjangoModelPermissions, IsAuthenticated
 from rest_framework.decorators import api_view
@@ -21,6 +22,15 @@ class PlotterViewSet(ModelViewSet):
     serializer_class = PlotterSerializer
     queryset = Plotter.objects.all()
     filter_backends = (IsUserOwnFilter, IsDealerOwnFilter)
+
+
+class PlotterViewSetByDID(RetrieveModelMixin, GenericViewSet):
+
+    serializer_class = PlotterSerializer
+    queryset = Plotter.objects.all()
+
+    lookup_field = 'device_id'
+
 
 
 # Actions with cutting
