@@ -12,7 +12,6 @@ from main_service_of_plotters.apps.users.models import User
 
 @admin.register(Ticket)
 class TicketAdmin(admin.ModelAdmin):
-    list_display = ['header', 'status', 'reporter', 'assignee']
     change_form_template = 'ticket/admin_change_form.html'
     change_list_template = 'admin/change_list_ticket.html'
 
@@ -54,7 +53,7 @@ class TicketAdmin(admin.ModelAdmin):
 
         filters = ('status', )
         if request.user.groups.filter(name='Technical_Specialist').exists():
-            filters = ('status',)
+            filters = ('status', )
         return filters
 
     def response_change(self, request, obj):
@@ -68,15 +67,18 @@ class TicketAdmin(admin.ModelAdmin):
                 else:
                     obj.status = Ticket.status_variants.CLOSED
                     obj.save()
-                    self.message_user(request,
-                                      f'{obj} {_("changes status to ")}{obj.status.label}')
+                    self.message_user(
+                        request,
+                        f'{obj} {_("changes status to ")}{obj.status.label}')
                 return HttpResponseRedirect('.')
-            elif request.user.groups.filter(name='Technical_Specialist').exists():
+            elif request.user.groups.filter(
+                name='Technical_Specialist').exists():
                 obj.assignee = request.user
                 obj.status = Ticket.status_variants.IN_WORK
                 obj.save()
-                self.message_user(request,
-                                  f'{obj}{_("Change status to")}{obj.status.label}')
+                self.message_user(
+                    request,
+                    f'{obj}{_("Change status to")}{obj.status.label}')
                 return HttpResponseRedirect('.')
         return super().response_change(request, obj)
 
