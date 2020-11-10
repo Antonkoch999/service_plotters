@@ -4,16 +4,16 @@ from django.utils.translation import gettext_lazy as _
 from .models import Ticket, PopularProblem
 from main_service_of_plotters.apps.device.models import Plotter
 
-WARIANT_NOT_PRESENTED = 'wariant_not_presented'
+VARIANT_NOT_PRESENTED = 'variant_not_presented'
 
 
 def _list_of_popular_problems_plus_not_found():
     choices = [
-        (f"{pp.id}", pp.name)
+        (str(pp.id), pp.name)
         for pp
         in PopularProblem.objects.all()
     ]
-    choices.append((WARIANT_NOT_PRESENTED, _("My problem is not presented in this list")))
+    choices.append((VARIANT_NOT_PRESENTED, _("My problem is not presented in this list")))
     return choices
 
 
@@ -52,21 +52,22 @@ class DetailedProblemFrom(forms.ModelForm):
 class TechSpecialistForm(forms.ModelForm):
 
     class Meta:
-        models = Ticket
-        fields = ['header', 'text', 'media_file', 'status', 'assignee',
-                  'answer', 'answer_attached_file']
+        model = Ticket
+        fields = ['header', 'text', 'media_file', 'status', 'plotters',
+                  'assignee', 'answer', 'answer_attached_file']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['header'].disabled = True
         self.fields['text'].disabled = True
         self.fields['media_file'].disabled = True
+        self.fields['plotters'].disabled = True
 
 
 class UserForm(forms.ModelForm):
 
     class Meta:
-        models = Ticket
+        model = Ticket
         fields = ['header', 'text', 'media_file', 'status', 'plotters',
                   'assignee', 'answer', 'answer_attached_file']
 

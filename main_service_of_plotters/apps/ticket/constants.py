@@ -15,3 +15,7 @@ class StatusVariants(models.TextChoices):
     IN_WORK = 'W', _('In Work')
     SOLVED = 'S', _('Solved')
     CLOSED = 'C', _('Closed')
+
+
+# length of header of ticket in model
+HEADER_MAX_LENGTH = 50
