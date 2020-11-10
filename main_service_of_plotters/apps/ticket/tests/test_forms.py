@@ -2,7 +2,6 @@
 import pytest
 from django.test import RequestFactory
 from django.contrib.auth import get_user_model
-from django.contrib.auth.models import Group
 
 from ..forms import ChoosePopularProblemForm, DetailedProblemFrom, \
                     VARIANT_NOT_PRESENTED, TechSpecialistForm, UserForm
@@ -155,7 +154,6 @@ class ModelFieldsCheckMixin:
         assert self.form.fields[field].disabled, "field is not disabled"
 
 
-
 class TestTechSpecialistForm(ModelFieldsCheckMixin):
     def setup(self):
         super().setup(TechSpecialistForm)
@@ -181,6 +179,7 @@ class TestTechSpecialistForm(ModelFieldsCheckMixin):
     def test_reporter_field_not_presented(self):
         self.assert_field_not_presented('reporter')
 
+
 class TestUserForm(ModelFieldsCheckMixin):
     def setup(self):
         super().setup(UserForm)
@@ -193,5 +192,3 @@ class TestUserForm(ModelFieldsCheckMixin):
 
     def test_techspec_answer_attached_file_field_presented_and_disabled(self):
         self.assert_field_presented_and_disabled('answer_attached_file')
-
-

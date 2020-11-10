@@ -79,4 +79,3 @@ class UserForm(forms.ModelForm):
         self.fields['answer'].disabled = True
         self.fields['answer_attached_file'].disabled = True
 
-

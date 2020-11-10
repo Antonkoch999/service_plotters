@@ -34,11 +34,10 @@ class TicketListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
         return context
 
 
-
 class TicketDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
 
     permission_required = ('ticket.view_ticket')
-    queryset=Ticket.objects.all()
+    queryset = Ticket.objects.all()
 
 
 class UserAddTicket(LoginRequiredMixin, PermissionRequiredMixin, View):
