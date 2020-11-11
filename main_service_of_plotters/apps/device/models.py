@@ -6,8 +6,10 @@ from django.urls import reverse
 from main_service_of_plotters.apps.users.models import User
 from main_service_of_plotters.utils.abstractmodel import DateTimeDateUpdate
 
+
 def random_string():
     return str(random.random)[:15]
+
 
 class Plotter(DateTimeDateUpdate):
     """This class creates plotter table."""
@@ -26,7 +28,6 @@ class Plotter(DateTimeDateUpdate):
     device_id = models.CharField(
         max_length=15,
     )
-
 
     def __str__(self):
         return f'Plotter {self.serial_number}'

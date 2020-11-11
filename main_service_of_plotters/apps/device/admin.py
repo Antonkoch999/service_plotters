@@ -79,7 +79,8 @@ class PlotterAdmin(admin.ModelAdmin):
             form = AddLabelForm(request.POST)
             if form.is_valid():
                 try:
-                    label = Label.objects.filter(is_active=False).get(scratch_code=form.cleaned_data['scratch_code'])
+                    label = Label.objects.filter(is_active=False).get(
+                        scratch_code=form.cleaned_data['scratch_code'])
                     if not (label.dealer == plotter.dealer or
                             label.user == plotter.user):
                         raise ObjectDoesNotExist

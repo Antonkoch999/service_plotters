@@ -3,7 +3,7 @@
 from rest_framework import serializers
 
 from ..models import Plotter
-from main_service_of_plotters.apps.materials.models import Template
+from main_service_of_plotters.apps.materials.models import Template, Label
 
 
 class PlotterSerializer(serializers.HyperlinkedModelSerializer):
@@ -48,3 +48,8 @@ class PlotterSerializer(serializers.HyperlinkedModelSerializer):
 class CutSerializer(serializers.Serializer):
     plotter = serializers.PrimaryKeyRelatedField(queryset=Plotter.objects.all())
     template = serializers.PrimaryKeyRelatedField(queryset=Template.objects.all())
+
+
+class AddLabelSerializer(serializers.Serializer):
+    plotter = serializers.PrimaryKeyRelatedField(queryset=Plotter.objects.all())
+    scratch_code = serializers.CharField(max_length=16)

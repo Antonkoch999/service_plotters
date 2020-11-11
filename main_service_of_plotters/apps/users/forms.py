@@ -56,13 +56,7 @@ class AdministratorUserForm(UserCreationForm):
 class UserChangeForm(forms.ModelForm):
     """Creates form for change user, using model User."""
 
-    password = ReadOnlyPasswordHashField()
-
     class Meta:
         model = User
-        fields = ('email', 'username', 'role', 'dealer_id')
+        fields = ('email', 'username', 'role', 'dealer_id', 'password')
 
-    def clean_password(self):
-        """Display hash password."""
-
-        return self.initial["password"]

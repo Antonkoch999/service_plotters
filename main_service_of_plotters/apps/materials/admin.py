@@ -113,7 +113,7 @@ class CustomLabelAdmin(ImportExportMixin, admin.ModelAdmin):
     def get_form(self, request, obj=None, **kwargs):
         """Change form of admin page depended of logged user."""
 
-        if request.user.role == 'Dealer':
+        if request.user.groups.filter(name='Dealer').exists():
             kwargs['form'] = LabelFormDealer
             # Dealer can add to label only user it own
             form = super().get_form(request, obj, **kwargs)
@@ -124,9 +124,9 @@ class CustomLabelAdmin(ImportExportMixin, admin.ModelAdmin):
             if obj.user is not None:
                 form.base_fields['user'].disabled = True
             return form
-        elif request.user.role == 'User':
+        elif request.user.groups.filter(name='User').exists():
             kwargs['form'] = LabelFormUser
-        elif request.user.role == 'Administrator':
+        elif request.user.groups.filter(name='Administrator').exists():
             kwargs['form'] = LabelFormAdmin
             form = super().get_form(request, obj, **kwargs)
             if obj.dealer is not None:
