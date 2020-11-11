@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from functools import wraps
 
+
 def http_basic_auth(func):
     @wraps(func)
     def _decorator(request, *args, **kwargs):
