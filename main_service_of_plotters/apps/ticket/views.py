@@ -6,7 +6,7 @@ from django.http import HttpResponseNotFound
 from django.db.models import Q
 
 from .models import Ticket, PopularProblem
-from .forms import ChoosePopularProblemForm, WARIANT_NOT_PRESENTED, DetailedProblemFrom
+from .forms import ChoosePopularProblemForm, VARIANT_NOT_PRESENTED, DetailedProblemFrom
 
 
 class TicketListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
@@ -34,11 +34,10 @@ class TicketListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
         return context
 
 
-
 class TicketDetailView(LoginRequiredMixin, PermissionRequiredMixin, DetailView):
 
     permission_required = ('ticket.view_ticket')
-    queryset=Ticket.objects.all()
+    queryset = Ticket.objects.all()
 
 
 class UserAddTicket(LoginRequiredMixin, PermissionRequiredMixin, View):
@@ -72,11 +71,11 @@ class UserAddTicket(LoginRequiredMixin, PermissionRequiredMixin, View):
 
     def _is_popular_problem_choosed(self, request):
         return self._returned_after_page_with_popular_problem(request) \
-            and request.POST.get('problem') != WARIANT_NOT_PRESENTED
+            and request.POST.get('problem') != VARIANT_NOT_PRESENTED
 
     def _is_warriant_not_presented_choosed(self, request):
         return self._returned_after_page_with_popular_problem(request) \
-            and request.POST.get('problem') == WARIANT_NOT_PRESENTED
+            and request.POST.get('problem') == VARIANT_NOT_PRESENTED
 
     def _is_detailed_problem_passed(self, request):
         return self._returned_after_page_with_detailed_problem(request)

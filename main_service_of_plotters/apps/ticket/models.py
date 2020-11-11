@@ -7,10 +7,7 @@ from main_service_of_plotters.utils.abstractmodel import DateTimeDateUpdate
 from main_service_of_plotters.apps.users.models import User
 from main_service_of_plotters.apps.users.constants import ROLE
 from main_service_of_plotters.apps.device.models import Plotter
-from .constants import StatusVariants
-
-
-HEADER_MAX_LENGTH = 50
+from .constants import StatusVariants, HEADER_MAX_LENGTH
 
 
 class Ticket(DateTimeDateUpdate):
