@@ -12,7 +12,6 @@ from main_service_of_plotters.apps.users.models import User
 
 @admin.register(Ticket)
 class TicketAdmin(admin.ModelAdmin):
-    list_display = ['header', 'status', 'reporter', 'assignee']
     change_form_template = 'ticket/admin_change_form.html'
     change_list_template = 'admin/change_list_ticket.html'
 
