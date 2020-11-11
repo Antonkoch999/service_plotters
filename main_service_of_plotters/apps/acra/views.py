@@ -27,10 +27,10 @@ def index(request):
 		#log.log(logging.DEBUG, "got put "+ str(request.body) )
 		json_data = json.loads(request.body)
 		description = "";
-		if(json_data.has_key("description")):
+		if("description" in json_data):
 			description = json_data["description"]
 
-		DEBUG = json_data.has_key("APP_VERSION_CODE") and json_data['APP_VERSION_CODE'] == 10509999
+		DEBUG = "APP_VERSION_CODE" in json_data  and json_data['APP_VERSION_CODE'] == 10509999
 		if DEBUG:
 			log.log(logging.DEBUG, "REQUEST:: %s"%json_data['APP_VERSION_CODE'])
 
