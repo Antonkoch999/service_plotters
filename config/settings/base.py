@@ -81,6 +81,7 @@ LOCAL_APPS = [
     "main_service_of_plotters.apps.materials.apps.MaterialsConfig",
     "main_service_of_plotters.apps.device.apps.DeviceConfig",
     "main_service_of_plotters.apps.category.apps.CategoryConfig",
+    "main_service_of_plotters.apps.acra.apps.ACRAConfig",
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS

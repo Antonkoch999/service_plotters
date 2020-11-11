@@ -28,6 +28,7 @@ urlpatterns += [
         'rest_framework.urls',
         namespace='rest_framework'
     )),
+    path("acra/", include("main_service_of_plotters.apps.acra.urls"))
 ]
 
 if settings.DEBUG:
