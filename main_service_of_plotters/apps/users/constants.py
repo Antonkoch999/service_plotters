@@ -12,8 +12,3 @@ CATEGORY = {
     'Watch': 'Watch',
     'Camera': 'Camera',
 }
-
-SIZE = {
-    'M': 'M',
-    'S': 'S',
-}

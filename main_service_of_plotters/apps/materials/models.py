@@ -5,20 +5,20 @@ from django.utils.translation import gettext_lazy as _
 from django.db import models
 from django.urls import reverse
 
-from .validators import validate_unique_code, \
-    validate_file_photo, validate_file_plt
 from main_service_of_plotters.utils.abstractmodel import DateTimeDateUpdate
 from main_service_of_plotters.apps.category.models import DeviceCategory, \
     Manufacturer, ModelsTemplate
 from main_service_of_plotters.apps.users.models import User
 from main_service_of_plotters.apps.device.models import Plotter
-from main_service_of_plotters.apps.users.constants import SIZE
+from main_service_of_plotters.apps.materials.constants import SIZE
+from .validators import validate_unique_code, \
+    validate_file_photo, validate_file_plt
 
 
 class Template(DateTimeDateUpdate):
     """This class creates template table."""
 
-    SIZE_TEMPLATE = ((SIZE[key], key) for key in SIZE.keys())
+    SIZE_TEMPLATE = tuple(SIZE.items())
     device_category = models.ForeignKey(DeviceCategory,
                                         on_delete=models.CASCADE,
                                         verbose_name=_('Category of devices'),
@@ -116,15 +116,15 @@ class Label(DateTimeDateUpdate):
 
         if self.date_of_activation is not None:
             return self.date_of_activation + self.TERM_OF_EXPIRATION
-        else:
-            return None
+        return None
     date_of_expiration.short_description = _("Date of expiration")
 
     def days_before_expiration(self):
         """Calculate days before date of expiration until now."""
         if self.date_of_expiration():
-            expiration_term = self.date_of_expiration() - now()
-            return expiration_term.days
+            expiration_term = (self.date_of_expiration() - now()).days
+            return expiration_term
+        return None
     days_before_expiration.short_description = _("Days before expiration")
 
     @property
@@ -134,8 +134,7 @@ class Label(DateTimeDateUpdate):
         if self.date_of_activation:
             return self.date_of_activation < now() and \
                    now() < self.date_of_expiration()
-        else:
-            return False
+        return False
 
     @property
     def is_active_and_not_expired(self):

@@ -61,13 +61,14 @@ class UserAddTicket(LoginRequiredMixin, PermissionRequiredMixin, View):
 
     def post(self, request):
         if self._is_popular_problem_choosed(request):
-            return self._process_choosed_popular_problem(request)
+            condition = self._process_choosed_popular_problem(request)
         elif self._is_warriant_not_presented_choosed(request):
-            return self._process_warriant_not_presented(request)
+            condition = self._process_warriant_not_presented(request)
         elif self._is_detailed_problem_passed(request):
-            return self._process_detailed_problem_passed(request)
+            condition = self._process_detailed_problem_passed(request)
         else:
-            return HttpResponseNotFound()
+            condition = HttpResponseNotFound()
+        return condition
 
     def _is_popular_problem_choosed(self, request):
         return self._returned_after_page_with_popular_problem(request) \
@@ -101,6 +102,7 @@ class UserAddTicket(LoginRequiredMixin, PermissionRequiredMixin, View):
             ticket.plotters.set(form.cleaned_data["plotters"])
 
             return self._problem_posted_redirect()
+        return None
 
     def _process_warriant_not_presented(self, request):
         prev_form = ChoosePopularProblemForm(request.POST)
@@ -124,8 +126,8 @@ class UserAddTicket(LoginRequiredMixin, PermissionRequiredMixin, View):
             ticket.plotters.set(form.cleaned_data['plotters'])
             ticket.save()
             return self._problem_posted_redirect()
-        else:
-            return HttpResponseNotFound()
+        return HttpResponseNotFound()
 
-    def _problem_posted_redirect(self):
+    @staticmethod
+    def _problem_posted_redirect():
         return redirect('tickets:ticket_list')

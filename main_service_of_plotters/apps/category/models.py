@@ -1,8 +1,9 @@
 """This module creates tables in the database."""
 
 from django.db import models
-from main_service_of_plotters.utils.abstractmodel import DateTimeDateUpdate
 from django.utils.translation import gettext_lazy as _
+
+from main_service_of_plotters.utils.abstractmodel import DateTimeDateUpdate
 
 
 class DeviceCategory(DateTimeDateUpdate):

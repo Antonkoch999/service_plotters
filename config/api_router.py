@@ -1,17 +1,17 @@
 from django.conf import settings
-from rest_framework.urls import path
 from rest_framework.routers import DefaultRouter, SimpleRouter
+from rest_framework.urls import path
 
-from main_service_of_plotters.apps.device.api.views import PlotterViewSet, cut
-
-from main_service_of_plotters.apps.users.api.views import UserViewSet
-
-from main_service_of_plotters.apps.materials.api.views import TemplateViewSet, LabelViewSet
 from main_service_of_plotters.apps.category.api.views import (
     DeviceCategoryViewSet, ManufacturerViewSet, ModelsTemplateViewSet)
+from main_service_of_plotters.apps.device.api.views import PlotterViewSet, cut
+from main_service_of_plotters.apps.materials.api.views import (LabelViewSet,
+                                                               TemplateViewSet)
 from main_service_of_plotters.apps.statistics.api.views import (
-    StatisticsPlotterViewSet, StatisticsTemplateViewSet,
-    CuttingTransactionViewSet)
+    CuttingTransactionViewSet, StatisticsPlotterViewSet,
+    StatisticsTemplateViewSet)
+from main_service_of_plotters.apps.users.api.views import UserViewSet
+
 
 if settings.DEBUG:
     router = DefaultRouter()

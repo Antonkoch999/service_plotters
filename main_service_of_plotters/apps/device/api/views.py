@@ -7,12 +7,14 @@ from rest_framework.decorators import api_view
 import rest_framework.status as status
 from rest_framework.response import Response
 
+from main_service_of_plotters.apps.statistics.models import (
+    CuttingTransaction, StatisticsPlotter, StatisticsTemplate)
+from main_service_of_plotters.apps.materials.api.serializers import (
+    TemplateBlueprintOnlySerializer, )
 from .serializers import PlotterSerializer, CutSerializer
 from ..models import Plotter
 from .permissions import PlotterUserPermission
 from .filters import IsUserOwnFilter, IsDealerOwnFilter
-from main_service_of_plotters.apps.statistics.models import CuttingTransaction, StatisticsPlotter, StatisticsTemplate
-from main_service_of_plotters.apps.materials.api.serializers import TemplateBlueprintOnlySerializer
 
 
 @permission_classes([IsAuthenticated, DjangoModelPermissions, PlotterUserPermission])
@@ -59,5 +61,4 @@ def cut(request):
                                                 context={'request': request})
 
         return Response(seria.data)
-    else:
-        return Response(status=status.HTTP_400_BAD_REQUEST)
+    return Response(status=status.HTTP_400_BAD_REQUEST)

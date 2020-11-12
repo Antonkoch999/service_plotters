@@ -6,9 +6,10 @@ class IsUserPlotterOwnFilter(BaseFilterBackend):
 
     def filter_queryset(self, request, queryset, view):
         if request.user.is_user():
-            return queryset.filter(plotter__user=request.user)
+            qs = queryset.filter(plotter__user=request.user)
         else:
-            return queryset
+            qs = queryset
+        return qs
 
 
 class IsDealerPlotterOwnFilter(BaseFilterBackend):
@@ -16,6 +17,7 @@ class IsDealerPlotterOwnFilter(BaseFilterBackend):
 
     def filter_queryset(self, request, queryset, view):
         if request.user.is_dealer():
-            return queryset.filter(plotter__dealer=request.user)
+            qs = queryset.filter(plotter__dealer=request.user)
         else:
-            return queryset
+            qs = queryset
+        return qs

@@ -12,4 +12,4 @@ class StatisticsPlotterFrom(forms.ModelForm):
 
 class StatisticsPlotterFromUserDealer(StatisticsPlotterFrom):
     class Meta:
-        exclude = ('ip', )
+        fields = ('plotter', 'last_request', 'count_cut', 'date_creation',)

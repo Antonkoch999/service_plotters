@@ -1,8 +1,12 @@
 """Classes and methods of models `Lable` and `Template for admin page."""
+from random import randint
 
 from django.contrib import admin
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
+from django.contrib.admin.views.decorators import staff_member_required
+from django.urls import path
+
 from import_export import resources
 from import_export.admin import ImportExportMixin
 
@@ -10,10 +14,6 @@ from main_service_of_plotters.apps.users.models import User
 from main_service_of_plotters.apps.materials.models import Label, Template
 from .forms import (SelectUserForm, SelectDealerForm, LabelFormDealer,
                     LabelFormUser, LabelFormAdmin, GenerationCodeForm)
-
-from django.contrib.admin.views.decorators import staff_member_required
-from django.urls import path
-from random import randint
 
 
 @staff_member_required
@@ -24,7 +24,7 @@ def generation_code(request):
             count_label = form.cleaned_data['count_label']
             count = form.cleaned_data['count']
             # size = form.cleaned_data['size']
-            for item in range(count_label):
+            for _ in range(count_label):
                 scratch_code = randint(1000000000000000, 9999999999999999)
                 while Label.objects.filter(scratch_code=scratch_code).exists():
                     scratch_code = randint(1000000000000000, 9999999999999999)
@@ -61,7 +61,8 @@ class CustomLabelAdmin(ImportExportMixin, admin.ModelAdmin):
     # custom actions
     actions = ['add_user', 'add_dealer']
 
-    def add_user(self, request, queryset):
+    @staticmethod
+    def add_user(request, queryset):
         """Add user as owner for set of labels."""
 
         form = None
@@ -90,7 +91,8 @@ class CustomLabelAdmin(ImportExportMixin, admin.ModelAdmin):
                           {'items': queryset, 'form': form,
                            'title': u'Изменение категории'})
 
-    def add_dealer(self, request, queryset):
+    @staticmethod
+    def add_dealer(request, queryset):
         """Add dealer as owner for set in labels."""
 
         form = None
@@ -145,7 +147,7 @@ class CustomLabelAdmin(ImportExportMixin, admin.ModelAdmin):
     def get_form(self, request, obj=None, **kwargs):
         """Change form of admin page depended of logged user."""
 
-        if request.user.role == 'Dealer':
+        if request.user.groups.filter(name='Dealer').exists():
             kwargs['form'] = LabelFormDealer
             # Dealer can add to label only user it own
             form = super().get_form(request, obj, **kwargs)
@@ -155,15 +157,13 @@ class CustomLabelAdmin(ImportExportMixin, admin.ModelAdmin):
             form.base_fields['barcode'].disabled = True
             if obj.user is not None:
                 form.base_fields['user'].disabled = True
-            return form
-        elif request.user.role == 'User':
+        elif request.user.groups.filter(name='User').exists():
             kwargs['form'] = LabelFormUser
-        elif request.user.role == 'Administrator':
+        elif request.user.groups.filter(name='Administrator').exists():
             kwargs['form'] = LabelFormAdmin
             form = super().get_form(request, obj, **kwargs)
             if obj is not None and obj.dealer is not None:
                 form.base_fields['dealer'].disabled = True
-            return form
         return super().get_form(request, obj, **kwargs)
 
     def get_list_display(self, request):
@@ -178,7 +178,8 @@ class CustomLabelAdmin(ImportExportMixin, admin.ModelAdmin):
             # without `scretch code`
             list_display = ['barcode', 'count', 'available_count',
                             'dealer', 'user', 'date_of_expiration',
-                            'days_before_expiration', 'is_active',]
+                            'days_before_expiration', 'is_active',
+                            ]
         return list_display
 
     def get_list_filter(self, request):
@@ -192,8 +193,7 @@ class CustomLabelAdmin(ImportExportMixin, admin.ModelAdmin):
     @staticmethod
     def _is_requested_user_dealer_or_user(request):
         """Identificate is authenticated user is dealer."""
-        return request.user.groups.filter(name='Dealer').exists() \
-               or request.user.groups.filter(name='User').exists()
+        return request.user.groups.filter(name='Dealer').exists() or request.user.groups.filter(name='User').exists()
 
     def get_urls(self):
         urls = super().get_urls()

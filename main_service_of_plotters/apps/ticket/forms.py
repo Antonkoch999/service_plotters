@@ -1,8 +1,8 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
-from .models import Ticket, PopularProblem
 from main_service_of_plotters.apps.device.models import Plotter
+from .models import Ticket, PopularProblem
 
 VARIANT_NOT_PRESENTED = 'variant_not_presented'
 
@@ -78,4 +78,3 @@ class UserForm(forms.ModelForm):
         self.fields['assignee'].disabled = True
         self.fields['answer'].disabled = True
         self.fields['answer_attached_file'].disabled = True
-

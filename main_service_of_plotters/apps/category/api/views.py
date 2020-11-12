@@ -1,13 +1,14 @@
+from rest_framework.decorators import permission_classes
+from rest_framework.permissions import IsAuthenticated
+from rest_framework import viewsets
+
 from main_service_of_plotters.apps.category.models import (
     DeviceCategory, ModelsTemplate, Manufacturer)
+from .permissions import AdministratorPermission
 from .serializers import (
     DeviceCategoryListSerializer, ManufacturerListSerializer,
     ModelsTemplateListSerializer, DeviceCategoryInstSerializer,
     ManufacturerInstSerializer)
-from rest_framework.decorators import permission_classes
-from rest_framework.permissions import IsAuthenticated
-from rest_framework import viewsets
-from .permissions import AdministratorPermission
 
 
 @permission_classes([IsAuthenticated, AdministratorPermission])

@@ -11,7 +11,7 @@ from main_service_of_plotters.apps.users.constants import ROLE
 class User(AbstractUser):
     """Default user for Main service of plotters."""
 
-    ROLE_USER = ((ROLE[key], key) for key in ROLE.keys())
+    ROLE_USER = tuple(ROLE.items())
     role = models.CharField(max_length=30, choices=ROLE_USER, blank=True,
                             null=True,
                             verbose_name=_('User role'))

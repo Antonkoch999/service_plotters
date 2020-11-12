@@ -2,8 +2,8 @@
 
 from rest_framework import serializers
 
-from ..models import Plotter
 from main_service_of_plotters.apps.materials.models import Template
+from ..models import Plotter
 
 
 class PlotterSerializer(serializers.HyperlinkedModelSerializer):

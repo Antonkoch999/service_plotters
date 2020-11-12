@@ -25,12 +25,12 @@ class PlotterAdmin(admin.ModelAdmin):
 
     def get_form(self, request, obj=None, **kwargs):
         """Changes form class depending on the user role."""
+
         if request.user.role == 'Dealer':
             kwargs['form'] = DealerPlotterForm
             form = super().get_form(request, obj, **kwargs)
             form.base_fields['user'].queryset = User.objects.filter(
                 dealer=request.user)
-            return form
         elif request.user.role == 'Administrator':
             kwargs['form'] = AdministratorPlotterForm
         elif request.user.role == 'User':
@@ -39,15 +39,17 @@ class PlotterAdmin(admin.ModelAdmin):
 
     def get_queryset(self, request):
         """Changes QuerySet model instance depending of the user groups."""
+
         qs = super().get_queryset(request)
         if request.user.groups.filter(name='Dealer').exists():
-            return qs.filter(dealer=request.user.pk)
+            qs = qs.filter(dealer=request.user.pk)
         elif request.user.groups.filter(name='User').exists():
-            return qs.filter(user=request.user.pk)
+            qs = qs.filter(user=request.user.pk)
         return qs
 
     def get_list_display(self, request):
         """Change list_display list depended of logged user."""
+
         # If user is `Dealer` or User
         if request.user.groups.filter(name='Dealer').exists():
             # without `scretch code`
@@ -76,7 +78,7 @@ class PlotterAdmin(admin.ModelAdmin):
     account_actions.short_description = _('Account Actions')
     account_actions.allow_tags = True
 
-    def process_label(self, request, plotter_id, *args, **kwargs):
+    def process_label(self, request, plotter_id):
         plotter = Plotter.objects.get(pk=plotter_id)
         if request.method == 'POST':
             form = AddLabelForm(request.POST)
@@ -92,8 +94,7 @@ class PlotterAdmin(admin.ModelAdmin):
                     messages.add_message(request, messages.ERROR,
                                          _('Scratch code not found'))
                     return HttpResponseRedirect('./')
-                else:
-                    plotter.link_label(label)
+                plotter.link_label(label)
 
             return HttpResponseRedirect('../..')
         else:

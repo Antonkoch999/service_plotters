@@ -1,9 +1,7 @@
-from main_service_of_plotters.apps.materials.models import Template, Label
 from rest_framework.viewsets import ModelViewSet
+
+from main_service_of_plotters.apps.materials.models import Template, Label
 from .serializers import (TemplateListSerializer, LabelListSerializer)
-from rest_framework.decorators import permission_classes
-from rest_framework.permissions import IsAuthenticated
-from django.contrib.auth.hashers import make_password
 
 
 class TemplateViewSet(ModelViewSet):

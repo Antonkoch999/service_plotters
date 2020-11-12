@@ -2,12 +2,10 @@ from django.contrib import admin
 from django.db.models import Q
 from django.utils.translation import gettext as _
 from django.http import HttpResponseRedirect
-from django.urls import path
-from django.contrib.admin.views.decorators import staff_member_required
 
+from main_service_of_plotters.apps.users.models import User
 from .models import Ticket, PopularProblem
 from .forms import TechSpecialistForm, UserForm
-from main_service_of_plotters.apps.users.models import User
 
 
 @admin.register(Ticket)
@@ -22,11 +20,8 @@ class TicketAdmin(admin.ModelAdmin):
             form = super().get_form(request, obj, **kwargs)
             form.base_fields['assignee'].queryset = User.objects.filter(
                 id=request.user.pk)
-            return form
         elif request.user.groups.filter(name='User').exists():
             kwargs['form'] = UserForm
-            form = super().get_form(request, obj, **kwargs)
-            return form
         return super().get_form(request, obj, **kwargs)
 
     def get_list_display(self, request):
@@ -71,8 +66,7 @@ class TicketAdmin(admin.ModelAdmin):
                         request,
                         f'{obj} {_("changes status to ")}{obj.status.label}')
                 return HttpResponseRedirect('.')
-            elif request.user.groups.filter(
-                name='Technical_Specialist').exists():
+            elif request.user.groups.filter(name='Technical_Specialist').exists():
                 obj.assignee = request.user
                 obj.status = Ticket.status_variants.IN_WORK
                 obj.save()

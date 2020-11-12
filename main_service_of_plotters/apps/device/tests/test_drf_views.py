@@ -1,42 +1,27 @@
 import pytest
 from django.test import RequestFactory
-from django.contrib.auth.models import Group
 
 from ..models import Plotter
 from ..api.views import PlotterViewSet
-from ...users.models import User
-from ...users.constants import ROLE
+from .test_admin import create_group, create_user
 
 pytestmark = pytest.mark.django_db
 
 
 class TestPlotterViewSet:
-    def setup(self):
-        self.admin = User.objects.create(
-            username='admin',
-            password='admin',
-            role=ROLE['Administrator']
-        )
-        self.dealer = User.objects.create(
-            username='dealer',
-            password='dealer',
-            role=ROLE['Dealer']
-        )
-        self.user = User.objects.create(
-            username='user',
-            password='user',
-            dealer=self.dealer
-        )
-        # Create groups
-        self.group_administrator = Group.objects.get_or_create(
-            name='Administrator')[0]
-        self.group_dealer = Group.objects.get_or_create(name='Dealer')[0]
-        self.group_user = Group.objects.get_or_create(name='User')[0]
+
+    def __init__(self):
+        group = create_group()
+        user = create_user()
+
+        self.admin = user['Administrator']
+        self.dealer = user['Dealer']
+        self.user = user['User']
 
         # Assign Groups
-        self.admin.groups.add(self.group_administrator)
-        self.dealer.groups.add(self.group_dealer)
-        self.user.groups.add(self.group_user)
+        self.admin.groups.add(group['Administrator'])
+        self.dealer.groups.add(group['Dealer'])
+        self.user.groups.add(group['User'])
 
         self.view = PlotterViewSet()
 

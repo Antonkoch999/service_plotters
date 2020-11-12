@@ -6,4 +6,3 @@ class TicketConfig(AppConfig):
 
     name = 'main_service_of_plotters.apps.ticket'
     verbose_name = _("Tickets")
-

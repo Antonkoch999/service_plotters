@@ -1,17 +1,13 @@
 from django.contrib.admin.sites import AdminSite
 from django.test import TestCase, Client
 from django.http import HttpRequest
+from django.contrib.auth.models import Group
 
 from main_service_of_plotters.apps.ticket.models import Ticket
 from main_service_of_plotters.apps.users.models import User
-from django.contrib.auth.models import Group
 from main_service_of_plotters.apps.ticket.admin import TicketAdmin
-from main_service_of_plotters.apps.statistics.models import (
-    StatisticsPlotter, StatisticsTemplate, CuttingTransaction)
 from main_service_of_plotters.apps.device.models import Plotter
-from main_service_of_plotters.apps.category.models import (DeviceCategory,
-                                                           Manufacturer,
-                                                           ModelsTemplate)
+from main_service_of_plotters.apps.device.tests.test_admin import create_user
 
 
 class TicketAdminTest(TestCase):
@@ -34,18 +30,10 @@ class TicketAdminTest(TestCase):
             password='tech1',
             role='Technical_Specialist',
         )
-        self.dealer = User.objects.create(
-            username='Dealer',
-            email='dealer',
-            password='dealer',
-            role='Dealer',
-        )
-        self.user = User.objects.create(
-            username='User',
-            email='user',
-            password='user',
-            role='User',
-        )
+        user = create_user()
+        self.admin = user['Administrator']
+        self.dealer = user['Dealer']
+
         self.tech.groups.add(self.group_tech)
         self.tech.save()
         self.tech1.groups.add(self.group_tech)
@@ -78,24 +66,6 @@ class TicketAdminTest(TestCase):
         self.ticket1.save()
         self.ticket1.plotters.set([self.plotter])
         self.ticket1.save()
-
-    def test_ticket_admin_get_form_tech(self):
-        test_admin_model = TicketAdmin(model=Ticket,
-                                        admin_site=AdminSite())
-        self.request.user = self.tech
-        self.assertEqual(
-            list(test_admin_model.get_form(request=self.request).base_fields),
-            ['header', 'text', 'media_file', 'status', 'assignee', 'answer',
-             'answer_attached_file'])
-
-    def test_ticket_admin_get_form_user(self):
-        test_admin_model = TicketAdmin(model=Ticket,
-                                       admin_site=AdminSite())
-        self.request.user = self.user
-        self.assertEqual(
-            list(test_admin_model.get_form(request=self.request).base_fields),
-            ['header', 'text', 'media_file', 'status', 'plotters',
-             'assignee', 'answer', 'answer_attached_file'])
 
     def test_ticket_admin_get_list_display_tech(self):
         test_admin_model = TicketAdmin(model=Ticket,

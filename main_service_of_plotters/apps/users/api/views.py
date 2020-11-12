@@ -1,12 +1,13 @@
-from main_service_of_plotters.apps.users.models import User
+from django.contrib.auth.hashers import make_password
 from rest_framework.viewsets import ModelViewSet
+from rest_framework.decorators import permission_classes
+from rest_framework.permissions import IsAuthenticated
+
+from main_service_of_plotters.apps.users.models import User
 from .serializers import (
     UserListSerializer, UserListSerializerForAdministrator,
     UserListSerializerForDealer)
 from .permissions import UserPermission
-from rest_framework.decorators import permission_classes
-from rest_framework.permissions import IsAuthenticated
-from django.contrib.auth.hashers import make_password
 
 
 @permission_classes([IsAuthenticated, UserPermission])

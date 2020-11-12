@@ -3,18 +3,18 @@ import pytest
 from django.test import RequestFactory
 from django.contrib.auth import get_user_model
 
+from main_service_of_plotters.apps.device.models import Plotter
+from main_service_of_plotters.apps.users.constants import ROLE
 from ..forms import ChoosePopularProblemForm, DetailedProblemFrom, \
                     VARIANT_NOT_PRESENTED, TechSpecialistForm, UserForm
 from ..models import PopularProblem
-from main_service_of_plotters.apps.device.models import Plotter
-from main_service_of_plotters.apps.users.constants import ROLE
 
 pytestmark = pytest.mark.django_db
 User = get_user_model()
 
 
 class TestTicketFormsChoosePopularForm:
-    def setup(self):
+    def __init__(self):
         self.dealer = User.objects.create(
             username='dealer',
             password='dealer',
@@ -75,7 +75,7 @@ class TestTicketFormsChoosePopularForm:
 
 
 class TestTicketFormsDetailedForm:
-    def setup(self):
+    def __init__(self):
         self.dealer = User.objects.create(
             username='dealer',
             password='dealer',
@@ -107,20 +107,25 @@ class TestTicketFormsDetailedForm:
             serial_number=1111222233334446,
         )
 
-    def test_header_field_in_detailed_form(self):
+    @staticmethod
+    def test_header_field_in_detailed_form():
         form = DetailedProblemFrom()
         assert 'header' in form.fields
 
-    def test_text_field_in_detailed_form(self):
+    @staticmethod
+    def test_text_field_in_detailed_form():
         form = DetailedProblemFrom()
         assert 'text' in form.fields
 
-    def test_media_file_field_in_detailed_form(self):
+    @staticmethod
+    def test_media_file_field_in_detailed_form():
         form = DetailedProblemFrom()
         assert 'media_file' in form.fields
 
-    def test_reporter_field_not_presented(self):
+    @staticmethod
+    def test_reporter_field_not_presented():
         """Cause must be populated automaticaly depended of authorized user."""
+
         form = DetailedProblemFrom()
         assert 'reporter' not in form.fields
 
@@ -155,7 +160,8 @@ class ModelFieldsCheckMixin:
 
 
 class TestTechSpecialistForm(ModelFieldsCheckMixin):
-    def setup(self):
+
+    def setup(self, form_class):
         super().setup(TechSpecialistForm)
 
     def test_techspec_header_field_presented_and_disabled(self):
@@ -181,7 +187,7 @@ class TestTechSpecialistForm(ModelFieldsCheckMixin):
 
 
 class TestUserForm(ModelFieldsCheckMixin):
-    def setup(self):
+    def setup(self, form_class):
         super().setup(UserForm)
 
     def test_assignee_header_field_presented_and_disabled(self):

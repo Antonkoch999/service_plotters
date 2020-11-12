@@ -1,46 +1,25 @@
 from django.contrib.admin.sites import AdminSite
-from django.test import TestCase
+from django.test import TestCase, Client
+from django.http import HttpRequest
 
 from main_service_of_plotters.apps.materials.models import Template, Label
 from main_service_of_plotters.apps.category.models import (DeviceCategory,
                                                            Manufacturer,
                                                            ModelsTemplate)
 from main_service_of_plotters.apps.users.models import User
-from django.test import Client
-from django.contrib.auth.models import Group
 from main_service_of_plotters.apps.materials.admin import CustomLabelAdmin
-from django.http import HttpRequest
+from main_service_of_plotters.apps.device.tests.test_admin import (
+    create_user, create_group)
 
 
 class MaterialsAdminTest(TestCase):
 
     def setUp(self):
+        group = create_group()
+        user = create_user()
         self.site = AdminSite()
         self.client = Client()
 
-        self.group_administrator = Group.objects.get_or_create(
-            name='Administrator')[0]
-        self.group_dealer = Group.objects.get_or_create(name='Dealer')[0]
-        self.group_user = Group.objects.get_or_create(name='User')[0]
-
-        self.administrator = User.objects.create(
-            username='Administrator',
-            email='administrator',
-            password='administrator',
-            role='Administrator',
-        )
-        self.dealer = User.objects.create(
-            username='Dealer',
-            email='dealer',
-            password='dealer',
-            role='Dealer',
-        )
-        self.user = User.objects.create(
-            username='User',
-            email='user',
-            password='user',
-            role='User',
-        )
         self.dealer1 = User.objects.create(
             username='Dealer1',
             email='dealer1',
@@ -53,12 +32,15 @@ class MaterialsAdminTest(TestCase):
             password='user1',
             role='User1',
         )
+        self.administrator = user['Administrator']
+        self.dealer = user['Dealer']
+        self.user = user['User']
 
-        self.administrator.groups.add(self.group_administrator)
-        self.dealer.groups.add(self.group_dealer)
-        self.user.groups.add(self.group_user)
-        self.dealer1.groups.add(self.group_dealer)
-        self.user1.groups.add(self.group_user)
+        self.administrator.groups.add(group['Administrator'])
+        self.dealer.groups.add(group['Dealer'])
+        self.user.groups.add(group['User'])
+        self.dealer1.groups.add(group['Dealer'])
+        self.user1.groups.add(group['User'])
 
         self.administrator.save()
         self.dealer.save()
@@ -183,6 +165,7 @@ class MaterialsAdminTest(TestCase):
         test_admin_model = CustomLabelAdmin(model=Label,
                                             admin_site=AdminSite())
         self.request.user = self.user
+        print(self.request.user.groups.all())
         self.assertEqual(
             list(test_admin_model.get_form(request=self.request,
                                            obj=self.label).base_fields),
@@ -195,10 +178,8 @@ class MaterialsAdminTest(TestCase):
         self.request.user = self.administrator
         self.assertEqual(
             list(test_admin_model.get_list_display(request=self.request)),
-            ['scratch_code', 'barcode',
-                        'count', 'available_count', 'dealer', 'user',
-                        'date_of_expiration',
-                        'is_active',]
+            ['scratch_code', 'barcode', 'count', 'available_count',
+             'dealer', 'user', 'date_of_expiration', 'is_active', ]
         )
 
     def test_label_get_list_display_dealer_or_user(self):
@@ -209,7 +190,7 @@ class MaterialsAdminTest(TestCase):
             list(test_admin_model.get_list_display(request=self.request)),
             ['barcode', 'count', 'available_count',
              'dealer', 'user', 'date_of_expiration', 'days_before_expiration',
-             'is_active',]
+             'is_active', ]
         )
 
     def test_label_get_list_filter_administrator(self):

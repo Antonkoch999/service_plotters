@@ -1,8 +1,8 @@
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase, APIClient
+
 from main_service_of_plotters.apps.users.models import User
-from django.contrib.auth.models import Group
 from main_service_of_plotters.apps.users.api.views import UserViewSet
 
 

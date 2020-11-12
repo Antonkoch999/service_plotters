@@ -2,49 +2,32 @@ from django.contrib.admin.sites import AdminSite
 from django.test import TestCase, Client
 from django.http import HttpRequest
 
-from main_service_of_plotters.apps.materials.models import Template, Label
-from main_service_of_plotters.apps.users.models import User
-from django.contrib.auth.models import Group
-from main_service_of_plotters.apps.statistics.admin import PlotterAdmin, CuttingAdmin
+from main_service_of_plotters.apps.materials.models import Template
+from main_service_of_plotters.apps.statistics.admin import (
+    PlotterAdmin, CuttingAdmin)
 from main_service_of_plotters.apps.statistics.models import (
-    StatisticsPlotter, StatisticsTemplate, CuttingTransaction)
+    StatisticsPlotter, CuttingTransaction)
 from main_service_of_plotters.apps.device.models import Plotter
 from main_service_of_plotters.apps.category.models import (DeviceCategory,
                                                            Manufacturer,
                                                            ModelsTemplate)
+from main_service_of_plotters.apps.device.tests.test_admin import create_group, create_user
+
 
 class StatisticsAdminTest(TestCase):
 
     def setUp(self):
         self.site = AdminSite()
         self.client = Client()
-        self.group_administrator = Group.objects.get_or_create(
-            name='Administrator')[0]
-        self.group_dealer = Group.objects.get_or_create(name='Dealer')[0]
-        self.group_user = Group.objects.get_or_create(name='User')[0]
+        group = create_group()
+        user = create_user()
 
-        self.administrator = User.objects.create(
-            username='Administrator',
-            email='administrator',
-            password='administrator',
-            role='Administrator',
-        )
-        self.dealer = User.objects.create(
-            username='Dealer',
-            email='dealer',
-            password='dealer',
-            role='Dealer',
-        )
-        self.user = User.objects.create(
-            username='User',
-            email='user',
-            password='user',
-            role='User',
-        )
-
-        self.administrator.groups.add(self.group_administrator)
-        self.dealer.groups.add(self.group_dealer)
-        self.user.groups.add(self.group_user)
+        self.administrator = user['Administrator']
+        self.dealer = user['Dealer']
+        self.user = user['User']
+        self.administrator.groups.add(group['Administrator'])
+        self.dealer.groups.add(group['Dealer'])
+        self.user.groups.add(group['User'])
 
         self.administrator.save()
         self.dealer.save()
@@ -98,7 +81,7 @@ class StatisticsAdminTest(TestCase):
         self.request.user = self.dealer
         self.assertEqual(
             list(test_admin_model.get_form(request=self.request).base_fields),
-            ['date_creation', 'plotter', 'last_request', 'count_cut'])
+            ['plotter', 'last_request', 'count_cut', 'date_creation'])
 
     def test_statistics_plotter_get_list_display_administrator(self):
         test_admin_model = PlotterAdmin(model=StatisticsPlotter,

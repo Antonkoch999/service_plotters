@@ -1,6 +1,5 @@
-from rest_framework import serializers
+from rest_framework import fields, serializers
 from main_service_of_plotters.apps.materials.models import Template, Label
-from rest_framework import fields
 
 
 class TemplateListSerializer(serializers.HyperlinkedModelSerializer):

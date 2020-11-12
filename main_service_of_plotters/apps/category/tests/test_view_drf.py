@@ -1,48 +1,34 @@
 import json
 
+from django.contrib.auth.models import Group
 from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase, APIClient
-from main_service_of_plotters.apps.users.models import User
-from django.contrib.auth.models import Group
 
+from main_service_of_plotters.apps.users.models import User
 from main_service_of_plotters.apps.category.models import (DeviceCategory,
                                                            ModelsTemplate,
                                                            Manufacturer)
+from main_service_of_plotters.apps.device.tests.test_admin import (create_user,
+                                                                   create_group)
 
 
 class UsersTestCase(APITestCase):
 
     def setUp(self):
-        self.group_administrator = Group.objects.get_or_create(
-            name='Administrator')[0]
-        self.group_dealer = Group.objects.get_or_create(name='Dealer')[0]
-        self.group_user = Group.objects.get_or_create(name='User')[0]
-        self.client = APIClient()
-        self.user_administrator = User.objects.create_user(
-            username='administrator',
-            email='administrator@administrator.com',
-            password='administrator',
-        )
-        self.user_dealer = User.objects.create_user(
-            username='dealer',
-            email='dealer@dealer.com',
-            password='dealer',
-        )
-        self.user_user = User.objects.create_user(
-            username='user',
-            email='user',
-            password='user',
-            dealer=self.user_dealer,
-        )
+        group = create_group()
+        user = create_user()
+        self.admin = user['Administrator']
+        self.dealer = user['Dealer']
+        self.user = user['User']
 
-        self.user_administrator.groups.add(self.group_administrator)
-        self.user_dealer.groups.add(self.group_dealer)
-        self.user_user.groups.add(self.group_user)
+        self.admin.groups.add(group['Administrator'])
+        self.dealer.groups.add(group['Dealer'])
+        self.user.groups.add(group['User'])
 
-        self.user_administrator.save()
-        self.user_dealer.save()
-        self.user_user.save()
+        self.admin.save()
+        self.dealer.save()
+        self.user.save()
 
         self.devicecategory = DeviceCategory.objects.create(
             name='Devicecategory',
@@ -222,11 +208,10 @@ class UsersTestCase(APITestCase):
     def test_get_modelstemplate_data_administrator(self):
         self.client.login(username='administrator', password='administrator')
         response = self.client.get(reverse('api:modelstemplate-list'))
-        data = [
-            {'id': self.modelstemplate.pk,
-              'manufacturer': f'http://testserver/api/manufacturer/{self.modelstemplate.pk}/',
-              'name': self.modelstemplate.name,
-              'url': f'http://testserver/api/modelstemplate/{self.modelstemplate.pk}/',
-              'template_set': []}
-        ]
+        data = [{
+            'id': self.modelstemplate.pk,
+            'manufacturer': f'http://testserver/api/manufacturer/{self.modelstemplate.pk}/',
+            'name': self.modelstemplate.name,
+            'url': f'http://testserver/api/modelstemplate/{self.modelstemplate.pk}/',
+            'template_set': []}]
         self.assertEqual(json.loads(response.content), data)

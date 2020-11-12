@@ -9,4 +9,3 @@ class TranslateConfig(AppConfig):
 
     name = "main_service_of_plotters.apps.translate"
     verbose_name = _("Translate")
-

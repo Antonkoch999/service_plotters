@@ -68,7 +68,8 @@ class GroupAdminWithCount(GroupAdmin):
 
     list_display = GroupAdmin.list_display + ('user_count',)
 
-    def user_count(self, obj):
+    @staticmethod
+    def user_count(obj):
         """Counts the number of users in a group."""
 
         return obj.user_set.count()
