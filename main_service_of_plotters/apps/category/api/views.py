@@ -11,7 +11,7 @@ from .serializers import (
     ManufacturerInstSerializer)
 
 
-@permission_classes([IsAuthenticated, AdministratorPermission])
+@permission_classes([IsAuthenticated])
 class DeviceCategoryViewSet(viewsets.ReadOnlyModelViewSet):
 
     serializer_class = DeviceCategoryListSerializer
@@ -26,7 +26,7 @@ class DeviceCategoryViewSet(viewsets.ReadOnlyModelViewSet):
         return serializer_class
 
 
-@permission_classes([IsAuthenticated, AdministratorPermission])
+@permission_classes([IsAuthenticated])
 class ManufacturerViewSet(viewsets.ReadOnlyModelViewSet):
 
     serializer_class = ManufacturerListSerializer
@@ -41,7 +41,7 @@ class ManufacturerViewSet(viewsets.ReadOnlyModelViewSet):
         return serializer_class
 
 
-@permission_classes([IsAuthenticated, AdministratorPermission])
+@permission_classes([IsAuthenticated])
 class ModelsTemplateViewSet(viewsets.ReadOnlyModelViewSet):
 
     serializer_class = ModelsTemplateListSerializer

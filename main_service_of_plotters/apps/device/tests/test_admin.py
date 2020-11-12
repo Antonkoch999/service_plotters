@@ -23,8 +23,10 @@ def create_user():
         'Administrator': User.objects.create(username='admin',
                                              password='admin',
                                              role=ROLE['Administrator']),
-        'Dealer': User.objects.create(username='dealer', password='dealer', role=ROLE['Dealer']),
-        'User': User.objects.create(username='user', password='user'),
+        'Dealer': User.objects.create(username='dealer', password='dealer',
+                                      role=ROLE['Dealer']),
+        'User': User.objects.create(username='user', password='user',
+                                    role=ROLE['User']),
     }
     return user_dict
 

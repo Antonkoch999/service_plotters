@@ -9,7 +9,7 @@ from main_service_of_plotters.apps.users.models import User
 
 
 @receiver(post_save, sender=User)
-def my_handler(instance, created):
+def my_handler(instance, created,  **kwargs):
     """Post-create user signal that adds the user to everyone group."""
 
     if created:

@@ -31,7 +31,7 @@ class TicketAdminTest(TestCase):
             role='Technical_Specialist',
         )
         user = create_user()
-        self.admin = user['Administrator']
+        self.user = user['User']
         self.dealer = user['Dealer']
 
         self.tech.groups.add(self.group_tech)

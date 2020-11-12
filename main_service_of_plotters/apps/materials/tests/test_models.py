@@ -14,7 +14,7 @@ class MaterialsCreateTest(TestCase):
 
     def setUp(self):
         user = create_user()
-        self.admin = user['Administrator']
+        self.user = user['User']
         self.dealer = user['Dealer']
 
         self.device = DeviceCategory.objects.create(name="Device")
