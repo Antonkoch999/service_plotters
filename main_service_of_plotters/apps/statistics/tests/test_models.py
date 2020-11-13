@@ -27,5 +27,3 @@ class StatisticsCreateTest(TestCase):
         self.test = StatisticsPlotter.objects.get(ip='132.144.21.31')
         self.assertEqual(self.test.ip, '132.144.21.31')
         self.assertEqual(self.test.plotter.serial_number, 1111222233334444)
-
-

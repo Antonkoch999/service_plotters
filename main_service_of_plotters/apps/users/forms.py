@@ -59,4 +59,3 @@ class UserChangeForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ('email', 'username', 'role', 'dealer_id', 'password')
-

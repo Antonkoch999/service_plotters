@@ -13,7 +13,9 @@ def http_basic_auth(func):
                 username, password = auth.split(':', 1)
                 user = authenticate(username=username, password=password)
                 if user is not None:
-                    if user.has_perm('acra.add_crashreport') and user.has_perm('acra.change_crashreport') and user.has_perm('acra.delete_crashreport'):
+                    if user.has_perm('acra.add_crashreport') and \
+                        user.has_perm('acra.change_crashreport') and \
+                       user.has_perm('acra.delete_crashreport'):
                         login(request, user)
                         return func(request, *args, **kwargs)
         response = HttpResponse()

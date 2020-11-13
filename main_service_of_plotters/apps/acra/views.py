@@ -24,7 +24,7 @@ def index(request):
     if (request.method == "PUT" or request.method == "POST"):
         # log.log(logging.DEBUG, "got put "+ str(request.body) )
         json_data = json.loads(request.body)
-        description = "";
+        description = ""
         if ("description" in json_data):
             description = json_data["description"]
 
@@ -56,7 +56,7 @@ def index(request):
 @login_required
 def dashboard(request):
     android_versions = CrashReport.objects.filter().order_by(
-        "android_version").values("android_version").distinct();
+        "android_version").values("android_version").distinct()
     version_count = CrashReport.objects.filter().values(
         'android_version').annotate(count=Count('pk')).order_by(
         "android_version")

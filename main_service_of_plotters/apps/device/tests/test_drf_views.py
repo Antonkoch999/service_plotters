@@ -88,6 +88,3 @@ class TestPlotterViewSet:
 
         for plotter in qs:
             assert plotter.user == user
-
-
-

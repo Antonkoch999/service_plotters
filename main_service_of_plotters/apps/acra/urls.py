@@ -6,7 +6,7 @@ from .views import dashboard, timeline, index
 app_name = "acra"
 urlpatterns = [
     #url(r'^$', 'acra.views.dashboard', name='dashboard'),
-    path(r'dashboard/', dashboard, name='dashboard'),
-    path(r'timeline/', timeline, name='timeline'),
-    path(r'_design/acra-storage/_update/report/', index, name='submit'),
+    path('dashboard/', dashboard, name='dashboard'),
+    path('timeline/', timeline, name='timeline'),
+    path('_design/acra-storage/_update/report/', index, name='submit'),
 ]
