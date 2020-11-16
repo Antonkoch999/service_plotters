@@ -88,7 +88,7 @@ LOCAL_APPS = [
     "main_service_of_plotters.apps.device.apps.DeviceConfig",
     "main_service_of_plotters.apps.category.apps.CategoryConfig",
     "main_service_of_plotters.apps.translate.apps.TranslateConfig",
-    "main_service_of_plotters.apps.ticket.apps.TicketConfig"
+    "main_service_of_plotters.apps.ticket.apps.TicketConfig",
     "main_service_of_plotters.apps.acra.apps.ACRAConfig",
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
