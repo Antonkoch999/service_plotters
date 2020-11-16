@@ -1,12 +1,15 @@
+from rest_framework.decorators import permission_classes
+from rest_framework.permissions import IsAuthenticated, DjangoModelPermissions
+from rest_framework import viewsets
+from rest_framework.decorators import action
+from rest_framework.response import Response
+
 from main_service_of_plotters.apps.category.models import (
     DeviceCategory, ModelsTemplate, Manufacturer)
 from .serializers import (
     DeviceCategoryListSerializer, ManufacturerListSerializer,
     ModelsTemplateListSerializer, DeviceCategoryInstSerializer,
     ManufacturerInstSerializer)
-from rest_framework.decorators import permission_classes
-from rest_framework.permissions import IsAuthenticated, DjangoModelPermissions
-from rest_framework import viewsets
 
 
 @permission_classes([IsAuthenticated, DjangoModelPermissions])
@@ -23,6 +26,12 @@ class DeviceCategoryViewSet(viewsets.ReadOnlyModelViewSet):
 
         return serializer_class
 
+    @action(methods=['get'], detail=True)
+    def manufacturers(self, request, pk=None):
+        category = self.get_object()
+        queryset = category.device.all()
+        seria = ManufacturerListSerializer(queryset, many=True, context={'request': request})
+        return Response(seria.data)
 
 @permission_classes([IsAuthenticated, DjangoModelPermissions])
 class ManufacturerViewSet(viewsets.ReadOnlyModelViewSet):
