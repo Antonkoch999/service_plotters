@@ -47,6 +47,13 @@ class ManufacturerViewSet(viewsets.ReadOnlyModelViewSet):
 
         return serializer_class
 
+    @action(methods=['get'], detail=True)
+    def models(self, request, pk=None):
+        manufacturer = self.get_object()
+        queryset = manufacturer.modelstemplate.all()
+        seria = ModelsTemplateListSerializer(queryset, many=True, context={'request': request})
+        return Response(seria.data)
+
 
 @permission_classes([IsAuthenticated, DjangoModelPermissions])
 class ModelsTemplateViewSet(viewsets.ReadOnlyModelViewSet):
