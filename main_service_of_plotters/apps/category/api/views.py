@@ -10,6 +10,7 @@ from .serializers import (
     DeviceCategoryListSerializer, ManufacturerListSerializer,
     ModelsTemplateListSerializer, DeviceCategoryInstSerializer,
     ManufacturerInstSerializer)
+from main_service_of_plotters.apps.materials.api.serializers import TemplateListSerializer
 
 
 @permission_classes([IsAuthenticated, DjangoModelPermissions])
@@ -60,3 +61,10 @@ class ModelsTemplateViewSet(viewsets.ReadOnlyModelViewSet):
 
     serializer_class = ModelsTemplateListSerializer
     queryset = ModelsTemplate.objects.all()
+
+    @action(methods=['get'], detail=True)
+    def templates(self, request, pk=None):
+        model = self.get_object()
+        queryset = model.template_set.all()
+        seria = TemplateListSerializer(queryset, many=True, context={'request': request})
+        return Response(seria.data)
