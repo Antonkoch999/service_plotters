@@ -35,6 +35,7 @@ class DeviceCategoryInstSerializer(serializers.HyperlinkedModelSerializer):
     def get_manufacturers(self, obj):
         return reverse('api:devicecategory-manufacturers', [obj.pk], request=self.context['request'])
 
+
 class ManufacturerListSerializer(serializers.HyperlinkedModelSerializer):
 
     models = fields.SerializerMethodField('get_models')
@@ -49,8 +50,6 @@ class ManufacturerListSerializer(serializers.HyperlinkedModelSerializer):
 
     def get_models(self, obj):
         return reverse('api:manufacturer-models', [obj.pk], request=self.context['request'])
-
-
 
 
 class ManufacturerInstSerializer(serializers.HyperlinkedModelSerializer):

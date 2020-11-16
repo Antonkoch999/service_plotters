@@ -171,7 +171,8 @@ class UsersTestCase(APITestCase):
             {'id': self.devicecategory.pk,
              'name': self.devicecategory.name,
              'photo': None,
-             'url': f'http://testserver/api/devicecategory/{self.devicecategory.pk}/'
+             'url': f'http://testserver/api/devicecategory/{self.devicecategory.pk}/',
+             'manufacturers': f'http://testserver/api/devicecategory/{self.devicecategory.pk}/manufacturers/',
              }
         ]
         self.assertEqual(json.loads(response.content), data)
@@ -186,7 +187,8 @@ class UsersTestCase(APITestCase):
             'name': self.devicecategory.name,
             'photo': None,
             'url': f'http://testserver/api/devicecategory/{self.devicecategory.pk}/',
-            'device': [f'http://testserver/api/manufacturer/{self.manufacturer.pk}/']
+            'device': [f'http://testserver/api/manufacturer/{self.manufacturer.pk}/'],
+            'manufacturers': f'http://testserver/api/devicecategory/{self.devicecategory.pk}/manufacturers/',
         }
 
         self.assertEqual(json.loads(response.content), data)
@@ -197,6 +199,7 @@ class UsersTestCase(APITestCase):
         data = [
             {'id': self.manufacturer.pk,
              'device_category': f'http://testserver/api/devicecategory/{self.manufacturer.pk}/',
+             'models': f'http://testserver/api/manufacturer/{self.manufacturer.pk}/models/',
              'name': self.manufacturer.name,
              'photo': None,
              'url': f'http://testserver/api/manufacturer/{self.manufacturer.pk}/'
@@ -215,6 +218,7 @@ class UsersTestCase(APITestCase):
             'name': self.manufacturer.name,
             'photo': None,
             'url': f'http://testserver/api/manufacturer/{self.manufacturer.pk}/',
+            'models': f'http://testserver/api/manufacturer/{self.manufacturer.pk}/models/',
             'modelstemplate': [f'http://testserver/api/modelstemplate/{self.modelstemplate.pk}/']
         }
         self.assertEqual(json.loads(response.content), data)
@@ -227,6 +231,7 @@ class UsersTestCase(APITestCase):
               'manufacturer': f'http://testserver/api/manufacturer/{self.modelstemplate.pk}/',
               'name': self.modelstemplate.name,
               'url': f'http://testserver/api/modelstemplate/{self.modelstemplate.pk}/',
+              'templates': f'http://testserver/api/modelstemplate/{self.modelstemplate.pk}/templates/',
               'template_set': []}
         ]
         self.assertEqual(json.loads(response.content), data)
