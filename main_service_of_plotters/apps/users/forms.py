@@ -2,8 +2,6 @@
 
 from django import forms
 from django.utils.translation import gettext_lazy as _
-
-from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.core.exceptions import ValidationError
 
 from main_service_of_plotters.apps.users.models import User
@@ -58,13 +56,6 @@ class AdministratorUserForm(UserCreationForm):
 class UserChangeForm(forms.ModelForm):
     """Creates form for change user, using model User."""
 
-    password = ReadOnlyPasswordHashField(label=_('Password'))
-
     class Meta:
         model = User
-        fields = ('email', 'username', 'role', 'dealer')
-
-    def clean_password(self):
-        """Display hash password."""
-
-        return self.initial["password"]
+        fields = ('email', 'username', 'role', 'dealer_id', 'password')

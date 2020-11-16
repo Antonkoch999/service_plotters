@@ -2,9 +2,10 @@ from django.conf import settings
 from rest_framework.routers import DefaultRouter, SimpleRouter
 from rest_framework.urls import path
 
+from main_service_of_plotters.apps.device.api.views import (
+    PlotterViewSet, cut, PlotterViewSetByDID, scratch_code)
 from main_service_of_plotters.apps.category.api.views import (
     DeviceCategoryViewSet, ManufacturerViewSet, ModelsTemplateViewSet)
-from main_service_of_plotters.apps.device.api.views import PlotterViewSet, cut
 from main_service_of_plotters.apps.materials.api.views import (LabelViewSet,
                                                                TemplateViewSet)
 from main_service_of_plotters.apps.statistics.api.views import (
@@ -34,6 +35,8 @@ app_name = "api"
 
 additional_urls = [
     path('cut/', cut, name='cut'),
+    path('plotter-by-did/<str:device_id>/', PlotterViewSetByDID.as_view({'get': 'retrieve'}), name='plotter-by-did'),
+    path('addlabel/', scratch_code, name='scratch_code'),
 ]
 
 urlpatterns = router.urls + additional_urls

@@ -13,4 +13,4 @@ class UsersConfig(AppConfig):
     def ready(self):
         """At startup application imports signals."""
 
-        import main_service_of_plotters.apps.users.signals
+        import main_service_of_plotters.apps.users.signals  # noqa: F401

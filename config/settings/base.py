@@ -89,6 +89,7 @@ LOCAL_APPS = [
     "main_service_of_plotters.apps.category.apps.CategoryConfig",
     "main_service_of_plotters.apps.translate.apps.TranslateConfig",
     "main_service_of_plotters.apps.ticket.apps.TicketConfig"
+    "main_service_of_plotters.apps.acra.apps.ACRAConfig",
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -307,6 +308,7 @@ REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
         "rest_framework.authentication.SessionAuthentication",
         "rest_framework.authentication.TokenAuthentication",
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
     "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
 }

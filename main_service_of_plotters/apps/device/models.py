@@ -1,9 +1,15 @@
+import random
+
 from django.db import models
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 
 from main_service_of_plotters.apps.users.models import User
 from main_service_of_plotters.utils.abstractmodel import DateTimeDateUpdate
+
+
+def random_string():
+    return str(random.random)[:15]
 
 
 class Plotter(DateTimeDateUpdate):
@@ -21,6 +27,9 @@ class Plotter(DateTimeDateUpdate):
     # FIXME Serial Number must be char string in production stage
     serial_number = models.BigIntegerField(
         verbose_name=_("Serial number")
+    )
+    device_id = models.CharField(
+        max_length=15,
     )
 
     class Meta:
@@ -55,3 +64,9 @@ class Plotter(DateTimeDateUpdate):
             'date_of_activation')
         return [label for label in qs.all() if
                 label.is_active_and_not_expired][0]
+
+    def cut_amount(self):
+        print(self.statisticsplotter_set.all().aggregate(
+            models.Sum('count_cut')))
+        return self.statisticsplotter_set.all().aggregate(
+            models.Sum('count_cut'))['count_cut__sum']

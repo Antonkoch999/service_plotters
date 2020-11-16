@@ -2,8 +2,8 @@
 
 from rest_framework import serializers
 
-from main_service_of_plotters.apps.materials.models import Template
 from ..models import Plotter
+from main_service_of_plotters.apps.materials.models import Template
 
 
 class PlotterSerializer(serializers.HyperlinkedModelSerializer):
@@ -11,7 +11,7 @@ class PlotterSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Plotter
-        fields = ['id', 'serial_number', 'available_films', 'user', 'dealer', 'url']
+        fields = ['id', 'serial_number', 'available_film', 'user', 'dealer', 'url', 'device_id', 'cut_amount']
         extra_kwargs = {
             'url': {'view_name': 'api:plotter-detail', },
             'user': {'view_name': 'api:user-detail', },
@@ -48,3 +48,8 @@ class PlotterSerializer(serializers.HyperlinkedModelSerializer):
 class CutSerializer(serializers.Serializer):
     plotter = serializers.PrimaryKeyRelatedField(queryset=Plotter.objects.all())
     template = serializers.PrimaryKeyRelatedField(queryset=Template.objects.all())
+
+
+class AddLabelSerializer(serializers.Serializer):
+    plotter = serializers.PrimaryKeyRelatedField(queryset=Plotter.objects.all())
+    scratch_code = serializers.CharField(max_length=16)
