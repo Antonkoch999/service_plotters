@@ -8,6 +8,8 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.utils.html import format_html
 from django.utils.translation import gettext_lazy as _
+from import_export import resources
+from import_export.admin import ImportExportMixin
 
 from main_service_of_plotters.apps.device.models import Plotter
 from main_service_of_plotters.apps.materials.models import Label
@@ -16,12 +18,20 @@ from .forms import AdministratorPlotterForm, DealerPlotterForm, PlotterForm, \
     AddLabelForm, UserPlotterForm
 
 
-class PlotterAdmin(admin.ModelAdmin):
-    """Class is representation of a model Plotter in the admin interface."""
+class PlotterResource(resources.ModelResource):
+    """Model Resourse for django-import-export."""
 
+    class Meta:
+        model = Plotter
+
+
+class PlotterAdmin(ImportExportMixin, admin.ModelAdmin):
+    """Class is representation of a model Plotter in the admin interface."""
+    resource_class = PlotterResource
     form = PlotterForm
     list_display = ('serial_number', 'dealer', 'user', 'available_films',
                     'account_actions', )
+    change_list_template = "admin/import_export/plotter_change_list.html"
 
     def get_form(self, request, obj=None, **kwargs):
         """Changes form class depending on the user role."""

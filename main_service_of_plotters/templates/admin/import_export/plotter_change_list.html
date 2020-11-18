@@ -3,9 +3,8 @@
 {% load i18n %}
 
     {{ block.super }}
-    <li>
-        <a href="generation_code/" class="grp-state-focus addlink">{% trans "Generate code" %}</a>
-    </li>
+    {% include "admin/import_export/change_list_import_item.html" %}
+    {% include "admin/import_export/change_list_export_item.html" %}
   {% load i18n %}
 
 {% endblock %}
