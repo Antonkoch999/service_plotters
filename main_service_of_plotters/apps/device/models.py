@@ -32,7 +32,6 @@ class Plotter(DateTimeDateUpdate):
         unique=True,
         help_text=_("Serial numbuer of plotter (typicaly printed on label)")
     )
-    available_film = models.IntegerField(default=0)
     device_id = models.CharField(
         max_length=15,
     )

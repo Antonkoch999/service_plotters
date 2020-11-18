@@ -95,8 +95,7 @@ def scratch_code(request):
                                  'Scratch code not found')
             return Response(status=status.HTTP_400_BAD_REQUEST)
         else:
-            plotter.available_film += label.count
-            plotter.save()
-            label.is_active = True
-            label.save()
+            plotter.link_label(label)
             return Response(status=status.HTTP_201_CREATED)
+    else:
+        return Response(serializer.error_messages, status=status.HTTP_400_BAD_REQUEST)

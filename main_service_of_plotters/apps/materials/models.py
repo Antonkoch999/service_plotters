@@ -90,7 +90,7 @@ class Label(DateTimeDateUpdate):
     linked_plotter = models.ForeignKey(
         Plotter,
         null=True,
-        default=None,
+        blank=True,
         related_name='linked_labels',
         on_delete=models.CASCADE,
         verbose_name=_('Linked plotters')

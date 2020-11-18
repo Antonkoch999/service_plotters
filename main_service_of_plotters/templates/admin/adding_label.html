@@ -3,8 +3,8 @@
 
 {% block content %}
 <form action="" method="post">{% csrf_token %}
-     <h1>{% trans "Enter scratch code, please: %}</h1>
+     <h1>{% trans "Enter scratch code, please:" %}</h1>
     {{ form }}
-    <input type="submit" name="apply" value="{% translate 'Save' %}" />
+    <input type="submit" name="apply" value="{% trans 'Save' %}" />
 </form>
 {% endblock %}
