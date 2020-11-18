@@ -35,6 +35,13 @@ class PlotterViewSetByDID(RetrieveModelMixin, GenericViewSet):
     lookup_field = 'device_id'
 
 
+class PlotterViewSetBySN(RetrieveModelMixin, GenericViewSet):
+
+    serializer_class = PlotterSerializer
+    queryset = Plotter.objects.all()
+    lookup_field = 'serial_number'
+
+
 # Actions with cutting
 @api_view(['POST'])
 def cut(request):
