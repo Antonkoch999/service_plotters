@@ -2,6 +2,7 @@ import random
 
 from django.db import models
 from django.urls import reverse
+from django.utils.translation import gettext_lazy as _
 
 from main_service_of_plotters.apps.users.models import User
 from main_service_of_plotters.utils.abstractmodel import DateTimeDateUpdate
@@ -23,7 +24,13 @@ class Plotter(DateTimeDateUpdate):
                              limit_choices_to={'role': 'User'},
                              related_name='plotter_user', null=True, blank=True)
     # FIXME Serial Number must be char string in production stage
-    serial_number = models.BigIntegerField()
+    serial_number = models.CharField(
+        _("Serial number"),
+        max_length=16,
+        blank=False,
+        unique=True,
+        help_text=_("Serial numbuer of plotter (typicaly printed on label)")
+    )
     available_film = models.IntegerField(default=0)
     device_id = models.CharField(
         max_length=15,

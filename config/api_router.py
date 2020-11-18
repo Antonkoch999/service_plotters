@@ -2,7 +2,8 @@ from django.conf import settings
 from rest_framework.urls import path
 from rest_framework.routers import DefaultRouter, SimpleRouter
 
-from main_service_of_plotters.apps.device.api.views import PlotterViewSet, cut, PlotterViewSetByDID, scratch_code
+from main_service_of_plotters.apps.device.api.views import (
+    PlotterViewSet, cut, PlotterViewSetByDID, scratch_code, PlotterViewSetBySN)
 
 from main_service_of_plotters.apps.users.api.views import UserViewSet
 
@@ -28,6 +29,7 @@ router.register("modelstemplate", ModelsTemplateViewSet)
 router.register("statisticsplotter", StatisticsPlotterViewSet)
 router.register("statisticstemplate", StatisticsTemplateViewSet)
 router.register("cuttingtransaction", CuttingTransactionViewSet)
+router.register("plotter-by-sn", PlotterViewSetBySN, basename="plotter-by-sn")
 
 
 app_name = "api"
