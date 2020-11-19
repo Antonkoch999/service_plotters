@@ -27,14 +27,6 @@ class PlotterViewSet(ModelViewSet):
     filter_backends = (IsUserOwnFilter, IsDealerOwnFilter)
 
 
-class PlotterViewSetByDID(RetrieveModelMixin, GenericViewSet):
-
-    serializer_class = PlotterSerializer
-    queryset = Plotter.objects.all()
-
-    lookup_field = 'device_id'
-
-
 class PlotterViewSetBySN(RetrieveModelMixin, GenericViewSet):
 
     serializer_class = PlotterSerializer

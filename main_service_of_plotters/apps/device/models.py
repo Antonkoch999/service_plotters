@@ -23,7 +23,6 @@ class Plotter(DateTimeDateUpdate):
                              verbose_name='instance model User',
                              limit_choices_to={'role': 'User'},
                              related_name='plotter_user', null=True, blank=True)
-    # FIXME Serial Number must be char string in production stage
     serial_number = models.CharField(
         _("Serial number"),
         max_length=16,
@@ -32,9 +31,6 @@ class Plotter(DateTimeDateUpdate):
         help_text=_("Serial numbuer of plotter (typicaly printed on label)")
     )
     available_film = models.IntegerField(default=0)
-    device_id = models.CharField(
-        max_length=15,
-    )
 
     def __str__(self):
         return f'Plotter {self.serial_number}'
