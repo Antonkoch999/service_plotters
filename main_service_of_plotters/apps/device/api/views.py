@@ -26,6 +26,14 @@ class PlotterViewSet(ModelViewSet):
     queryset = Plotter.objects.all()
     filter_backends = (IsUserOwnFilter, IsDealerOwnFilter)
 
+    def get_queryset(self):
+        queryset = Plotter.objects.all()
+        if self.request.user.groups.filter(name='Dealer').exists():
+            queryset = Plotter.objects.filter(dealer=self.request.user.pk)
+        elif self.request.user.groups.filter(name='User').exists():
+            queryset = Plotter.objects.filter(user=self.request.user.pk)
+        return queryset
+
 
 class PlotterViewSetByDID(RetrieveModelMixin, GenericViewSet):
 
@@ -35,6 +43,7 @@ class PlotterViewSetByDID(RetrieveModelMixin, GenericViewSet):
     lookup_field = 'device_id'
 
 
+@permission_classes([IsAuthenticated, PlotterUserPermission])
 class PlotterViewSetBySN(RetrieveModelMixin, GenericViewSet):
 
     serializer_class = PlotterSerializer
