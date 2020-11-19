@@ -36,6 +36,9 @@ class UserAdmin(BaseUserAdmin):
     def get_form(self, request, obj=None, **kwargs):
         """Changes form class depending on the user role."""
 
+        if request.user.is_superuser:
+            kwargs['form'] = forms.SuperuserUserForm
+
         if request.user.role == 'Dealer':
             kwargs['form'] = forms.DealerUserForm
         elif request.user.role == 'Administrator':

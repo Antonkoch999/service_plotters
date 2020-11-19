@@ -6,6 +6,7 @@ from django.dispatch import receiver
 
 from main_service_of_plotters.apps.users.constants import ROLE
 from main_service_of_plotters.apps.users.models import User
+from django.core.exceptions import ValidationError
 
 
 @receiver(post_save, sender=User)

@@ -4,7 +4,7 @@ from django import forms
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 from django.core.exceptions import ValidationError
 
-from main_service_of_plotters.apps.users.models import User
+from main_service_of_plotters.apps.users.models import User, ROLE
 
 
 class UserCreationForm(forms.ModelForm):
@@ -59,3 +59,16 @@ class UserChangeForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ('email', 'username', 'role', 'dealer_id', 'password')
+
+
+class SuperuserUserForm(UserCreationForm):
+
+    def clean(self):
+        cleaned_data = super().clean()
+        user_role = cleaned_data.get('role')
+        dealer = cleaned_data.get('dealer_id')
+        if user_role == ROLE['User'] and dealer is None:
+            raise ValidationError(
+                "You cannot create `User` role without assigned dealer"
+            )
+
