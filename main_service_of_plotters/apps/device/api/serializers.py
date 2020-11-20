@@ -11,7 +11,7 @@ class PlotterSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Plotter
-        fields = ['id', 'serial_number', 'user', 'dealer', 'url', 'device_id', 'cut_amount']
+        fields = ['id', 'serial_number', 'user', 'dealer', 'url', 'device_id', 'available_films', 'cut_amount']
         extra_kwargs = {
             'url': {'view_name': 'api:plotter-detail', },
             'user': {'view_name': 'api:user-detail', },
@@ -29,20 +29,22 @@ class PlotterSerializer(serializers.HyperlinkedModelSerializer):
             user_presented = plotter.user is not None
             dealer_presented = plotter.dealer is not None
 
-        user = kwargs.get('context', {}).get('request').user
+        request = kwargs.get('context', {}).get('request')
+        user = getattr(request, 'user', None)
 
         super().__init__(*args, **kwargs)
 
-        if user.is_user():
-            self.fields.pop('user')
-        elif user.is_dealer():
-            self.fields.pop('dealer')
-            if get_inst and user_presented:
+        if user is not None:
+            if user.is_user():
+                self.fields.pop('user')
+            elif user.is_dealer():
+                self.fields.pop('dealer')
+                if get_inst and user_presented:
+                    self.fields.get('user').read_only = True
+            elif user.is_administrator():
                 self.fields.get('user').read_only = True
-        elif user.is_administrator():
-            self.fields.get('user').read_only = True
-            if get_inst and dealer_presented:
-                self.fields.get('dealer').read_only = True
+                if get_inst and dealer_presented:
+                    self.fields.get('dealer').read_only = True
 
 
 class CutSerializer(serializers.Serializer):

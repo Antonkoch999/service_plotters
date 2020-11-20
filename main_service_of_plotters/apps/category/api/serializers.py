@@ -1,5 +1,7 @@
 from rest_framework import serializers, fields
 from rest_framework.reverse import reverse
+from drf_spectacular.utils import extend_schema_field
+from drf_spectacular.types import OpenApiTypes
 
 from main_service_of_plotters.apps.category.models import (
     DeviceCategory, Manufacturer, ModelsTemplate)
@@ -7,7 +9,7 @@ from main_service_of_plotters.apps.category.models import (
 
 class DeviceCategoryListSerializer(serializers.HyperlinkedModelSerializer):
 
-    manufacturers = fields.SerializerMethodField('get_manufacturers')
+    manufacturers = fields.SerializerMethodField()
 
     class Meta:
         model = DeviceCategory
@@ -16,13 +18,14 @@ class DeviceCategoryListSerializer(serializers.HyperlinkedModelSerializer):
             'url': {'view_name': 'api:devicecategory-detail'},
         }
 
-    def get_manufacturers(self, obj):
+    @extend_schema_field(OpenApiTypes.URI)
+    def get_manufacturers(self, obj) -> str:
         return reverse('api:devicecategory-manufacturers', [obj.pk], request=self.context['request'])
 
 
 class DeviceCategoryInstSerializer(serializers.HyperlinkedModelSerializer):
 
-    manufacturers = fields.SerializerMethodField('get_manufacturers')
+    manufacturers = fields.SerializerMethodField('method_manufacturers')
 
     class Meta:
         model = DeviceCategory
@@ -32,13 +35,14 @@ class DeviceCategoryInstSerializer(serializers.HyperlinkedModelSerializer):
             'device': {'view_name': 'api:manufacturer-detail'},
         }
 
-    def get_manufacturers(self, obj):
+    @extend_schema_field(OpenApiTypes.URI)
+    def method_manufacturers(self, obj) -> str:
         return reverse('api:devicecategory-manufacturers', [obj.pk], request=self.context['request'])
 
 
 class ManufacturerListSerializer(serializers.HyperlinkedModelSerializer):
 
-    models = fields.SerializerMethodField('get_models')
+    models = fields.SerializerMethodField('method_models')
 
     class Meta:
         model = Manufacturer
@@ -48,13 +52,14 @@ class ManufacturerListSerializer(serializers.HyperlinkedModelSerializer):
             'device_category': {'view_name': 'api:devicecategory-detail'},
         }
 
-    def get_models(self, obj):
+    @extend_schema_field(OpenApiTypes.URI)
+    def method_models(self, obj) -> str:
         return reverse('api:manufacturer-models', [obj.pk], request=self.context['request'])
 
 
 class ManufacturerInstSerializer(serializers.HyperlinkedModelSerializer):
 
-    models = fields.SerializerMethodField('get_models')
+    models = fields.SerializerMethodField('method_models')
 
     class Meta:
         model = Manufacturer
@@ -65,7 +70,8 @@ class ManufacturerInstSerializer(serializers.HyperlinkedModelSerializer):
             'modelstemplate': {'view_name': 'api:modelstemplate-detail'},
         }
 
-    def get_models(self, obj):
+    @extend_schema_field(OpenApiTypes.URI)
+    def method_models(self, obj) -> str:
         return reverse('api:manufacturer-models', [obj.pk], request=self.context['request'])
 
 
@@ -82,5 +88,6 @@ class ModelsTemplateListSerializer(serializers.HyperlinkedModelSerializer):
             'template_set': {'view_name': 'api:template-detail'}
         }
 
-    def method_templates(self, obj):
+    @extend_schema_field(OpenApiTypes.URI)
+    def method_templates(self, obj) -> str:
         return reverse('api:modelstemplate-templates', [obj.pk], request=self.context['request'])

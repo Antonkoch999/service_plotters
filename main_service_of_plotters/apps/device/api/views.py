@@ -8,6 +8,7 @@ import rest_framework.status as status
 from rest_framework.response import Response
 from django.core.exceptions import ObjectDoesNotExist
 from django.contrib import messages
+from drf_spectacular.utils import extend_schema
 
 from .serializers import PlotterSerializer, CutSerializer, AddLabelSerializer
 from ..models import Plotter
@@ -52,8 +53,17 @@ class PlotterViewSetBySN(RetrieveModelMixin, GenericViewSet):
 
 
 # Actions with cutting
+@extend_schema(
+    request=CutSerializer,
+    responses={
+        200: TemplateBlueprintOnlySerializer,
+        400: None,
+        403: None
+    },
+)
 @api_view(['POST'])
 def cut(request):
+    """Call this if app start to cut template and get response with file."""
     serializer = CutSerializer(data=request.data)
     if serializer.is_valid():
         print(serializer.validated_data)
@@ -88,9 +98,16 @@ def cut(request):
         return Response(seria.data)
     return Response(status=status.HTTP_400_BAD_REQUEST)
 
-
+@extend_schema(
+    request=AddLabelSerializer,
+    responses={
+        201: None,
+        400: None,
+    }
+)
 @api_view(['POST'])
 def scratch_code(request):
+    """Adding label with posted scretchcode to this posted plotter."""
     serializer = AddLabelSerializer(data=request.data)
     if serializer.is_valid():
         print(serializer.validated_data)
