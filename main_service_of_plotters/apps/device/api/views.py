@@ -1,8 +1,6 @@
 """This module contents view methods for device."""
 
 from django.utils.translation import ugettext_lazy as _
-from django.core.exceptions import ObjectDoesNotExist
-from django.contrib import messages
 from rest_framework.viewsets import ModelViewSet, GenericViewSet
 from rest_framework.mixins import RetrieveModelMixin
 from rest_framework.decorators import permission_classes
@@ -79,22 +77,29 @@ def cut(request):
         print(serializer.validated_data)
         plotter = serializer.validated_data['plotter']
         template = serializer.validated_data['template']
-        if plotter.available_films <= 0:
+        if plotter.available_films() <= 0:
             return Response(data=_('Available films is over'),
                             status=status.HTTP_403_FORBIDDEN)
         label = plotter.first_linked_label
         label.available_count -= 1
         label.save()
-        StatisticsPlotter.objects.create(
+        StatisticsPlotter.add_to_statistics_or_create(
             plotter=plotter,
-            ip=request.META['REMOTE_ADDR'],
-            count_cut=1
-        )
-        StatisticsTemplate.objects.create(
+            ip=request.META['REMOTE_ADDR'])
+        StatisticsTemplate.add_to_statistics_or_create(
             plotter=plotter,
             template=template,
-            count=1
         )
+        # StatisticsPlotter.objects.create(
+        #     plotter=plotter,
+        #     ip=request.META['REMOTE_ADDR'],
+        #     count_cut=1
+        # )
+        # StatisticsTemplate.objects.create(
+        #     plotter=plotter,
+        #     template=template,
+        #     count=1
+        # )
         CuttingTransaction.objects.create(
             user=request.user,
             plotter=plotter,
@@ -129,11 +134,10 @@ def scratch_code(request):
                 raise Exception("Label is already activated.")
         except Exception as e:
             return Response(status=status.HTTP_400_BAD_REQUEST,
-                            data={"error":str(e)})
+                            data={"error": str(e)})
         else:
             plotter.link_label(label)
             return Response(status=status.HTTP_201_CREATED)
     else:
         return Response(serializer.error_messages,
                         status=status.HTTP_400_BAD_REQUEST)
-

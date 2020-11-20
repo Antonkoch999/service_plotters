@@ -12,16 +12,19 @@ class TemplateAdmin(admin.ModelAdmin):
     list_display = ['plotter', 'template', 'count']
 
     def has_add_permission(self, request):
+        """Return `True` if permission is granted, `False` otherwise."""
         if request.user.is_superuser:
             return True
         return False
 
     def has_change_permission(self, request, obj=None):
+        """Return `True` if permission is granted, `False` otherwise."""
         if request.user.is_superuser:
             return True
         return False
 
     def has_delete_permission(self, request, obj=None):
+        """Return `True` if permission is granted, `False` otherwise."""
         if request.user.is_superuser:
             return True
         return False
@@ -36,14 +39,12 @@ class PlotterAdmin(TemplateAdmin):
 
     def get_form(self, request, obj=None, **kwargs):
         """Change form of admin page depended of logged user."""
-
         if PlotterAdmin._is_requested_user_dealer_or_user(request):
             kwargs['form'] = StatisticsPlotterFromUserDealer
         return super().get_form(request, obj, **kwargs)
 
     def get_list_display(self, request):
         """Change list_display list depended of logged user."""
-
         # If user is `Dealer` or User
         if PlotterAdmin._is_requested_user_dealer_or_user(request):
             # without `ip`
@@ -53,8 +54,7 @@ class PlotterAdmin(TemplateAdmin):
 
     @staticmethod
     def _is_requested_user_dealer_or_user(request):
-        """Helper method identificate is authenticated user is dealer."""
-
+        """Help method identification is authenticated user is dealer."""
         return request.user.groups.filter(name='Dealer').exists() \
             or request.user.groups.filter(name='User').exists()
 
@@ -65,8 +65,7 @@ class CuttingAdmin(TemplateAdmin):
     list_display = ['user', 'plotter', 'template', 'date_cutted']
 
     def get_queryset(self, request):
-        """Changes QuerySet model instance depending of the user groups."""
-
+        """Change QuerySet model instance depending of the user groups."""
         qs = super().get_queryset(request)
         if request.user.groups.filter(name='Dealer').exists():
             return qs.filter(user__dealer=request.user)
