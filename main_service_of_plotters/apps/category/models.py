@@ -10,16 +10,24 @@ class DeviceCategory(DateTimeDateUpdate):
     """Create table device category in the database."""
 
     name = models.CharField(max_length=150, blank=True,
-                            verbose_name=_('Name of category of devices'))
+                            verbose_name=_('Name of category of devices'),
+                            help_text='Name of category of devices')
     photo = models.ImageField(upload_to="device/%Y/%m/%d",
                               verbose_name=_('Photo Device'), blank=True,
-                              null=True)
+                              null=True,
+                              help_text='Photo of category of devices')
 
     class Meta:
+        """Metadata of models DeviceCategory."""
+
         verbose_name = _("Device category")
         verbose_name_plural = _("Device categories")
 
-    def __str__(self):
+    def __str__(self) -> str:
+        """Return the string representation of the object.
+
+        :return: string format: Category name
+        """
         return _('Category') + f' {self.name}'
 
 
@@ -37,10 +45,16 @@ class Manufacturer(DateTimeDateUpdate):
                               null=True)
 
     class Meta:
+        """Metadata of models Manufacturer."""
+
         verbose_name = _("Manufacturer")
         verbose_name_plural = _("Manufacturers")
 
-    def __str__(self):
+    def __str__(self) -> str:
+        """Return the string representation of the object.
+
+        :return: string format: Category name | Manufacturer name
+        """
         return f'{_("Category")} {self.device_category.name} | ' \
                f'{_("Manufacturer")} {self.name}'
 
@@ -55,12 +69,19 @@ class ModelsTemplate(DateTimeDateUpdate):
         related_name='modelstemplate'
     )
     name = models.CharField(max_length=150, blank=True,
-                            verbose_name=_('Name of model'))
+                            verbose_name=_('Name of model'),
+                            help_text='Name of model')
 
     class Meta:
+        """Metadata of models ModelsTemplate."""
+
         verbose_name = _("Model")
         verbose_name_plural = _("Models")
 
-    def __str__(self):
+    def __str__(self) -> str:
+        """Return the string representation of the object.
+
+        :return: string format: Category name | Manufacturer name| Model name
+        """
         return f'Category {self.manufacturer.device_category.name} | ' \
                f'Manufacturer {self.manufacturer.name} | Model {self.name}'

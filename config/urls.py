@@ -13,7 +13,8 @@ urlpatterns = i18n_patterns(
     path("users/", include("main_service_of_plotters.apps.users.urls", namespace="users")),
     path("tickets/", include("main_service_of_plotters.apps.ticket.urls", namespace="tickets")),
     path("accounts/", include("allauth.urls")),
-    path('i18n/', include('django.conf.urls.i18n'))
+    path('i18n/', include('django.conf.urls.i18n')),
+    path('admin/doc/', include('django.contrib.admindocs.urls')),
     # Your stuff: custom urls includes go here
  ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

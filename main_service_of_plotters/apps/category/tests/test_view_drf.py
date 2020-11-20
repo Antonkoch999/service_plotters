@@ -1,17 +1,20 @@
+"""This module testing view of API."""
+
 import json
 
 from django.urls import reverse
+from django.contrib.auth.models import Group
 from rest_framework import status
 from rest_framework.test import APITestCase, APIClient
-from main_service_of_plotters.apps.users.models import User
-from django.contrib.auth.models import Group
 
+from main_service_of_plotters.apps.users.models import User
 from main_service_of_plotters.apps.category.models import (DeviceCategory,
                                                            ModelsTemplate,
                                                            Manufacturer)
 
 
 class UsersTestCase(APITestCase):
+    """This class testing view of API."""
 
     def setUp(self):
         self.group_administrator = Group.objects.get_or_create(
@@ -226,12 +229,12 @@ class UsersTestCase(APITestCase):
     def test_get_modelstemplate_data_administrator(self):
         self.client.login(username='administrator', password='administrator')
         response = self.client.get(reverse('api:modelstemplate-list'))
-        data = [
-            {'id': self.modelstemplate.pk,
-              'manufacturer': f'http://testserver/api/manufacturer/{self.modelstemplate.pk}/',
-              'name': self.modelstemplate.name,
-              'url': f'http://testserver/api/modelstemplate/{self.modelstemplate.pk}/',
-              'templates': f'http://testserver/api/modelstemplate/{self.modelstemplate.pk}/templates/',
-              'template_set': []}
+        data = [{
+            'id': self.modelstemplate.pk,
+            'manufacturer': f'http://testserver/api/manufacturer/{self.modelstemplate.pk}/',
+            'name': self.modelstemplate.name,
+            'url': f'http://testserver/api/modelstemplate/{self.modelstemplate.pk}/',
+            'templates': f'http://testserver/api/modelstemplate/{self.modelstemplate.pk}/templates/',
+            'template_set': []}
         ]
         self.assertEqual(json.loads(response.content), data)
