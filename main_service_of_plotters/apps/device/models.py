@@ -40,7 +40,7 @@ class Plotter(DateTimeDateUpdate):
         verbose_name = _("Plotter")
         verbose_name_plural = _("Plotters")
 
-    def available_films(self):
+    def available_films(self) -> int:
         """Get total of available films."""
 
         return sum(label.available_count
@@ -69,7 +69,7 @@ class Plotter(DateTimeDateUpdate):
         return [label for label in qs.all() if
                 label.is_active_and_not_expired][0]
 
-    def cut_amount(self):
+    def cut_amount(self) -> int:
         print(self.statisticsplotter_set.all().aggregate(
             models.Sum('count_cut')))
         return self.statisticsplotter_set.all().aggregate(

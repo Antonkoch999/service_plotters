@@ -2,6 +2,8 @@
 
 from rest_framework import serializers, fields
 from rest_framework.reverse import reverse
+from drf_spectacular.utils import extend_schema_field
+from drf_spectacular.types import OpenApiTypes
 
 from main_service_of_plotters.apps.category.models import (
     DeviceCategory, Manufacturer, ModelsTemplate)
@@ -10,7 +12,7 @@ from main_service_of_plotters.apps.category.models import (
 class DeviceCategoryListSerializer(serializers.HyperlinkedModelSerializer):
     """This class serializes of device category model."""
 
-    manufacturers = fields.SerializerMethodField('get_manufacturers')
+    manufacturers = fields.SerializerMethodField()
 
     class Meta:
         """Metadata of device category."""
@@ -21,6 +23,7 @@ class DeviceCategoryListSerializer(serializers.HyperlinkedModelSerializer):
             'url': {'view_name': 'api:devicecategory-detail'},
         }
 
+    @extend_schema_field(OpenApiTypes.URI)
     def get_manufacturers(self, obj) -> str:
         """Create link for device category with a list manufacturers.
 
@@ -34,7 +37,7 @@ class DeviceCategoryListSerializer(serializers.HyperlinkedModelSerializer):
 class DeviceCategoryInstSerializer(serializers.HyperlinkedModelSerializer):
     """This class serializes of one device category model."""
 
-    manufacturers = fields.SerializerMethodField('get_manufacturers')
+    manufacturers = fields.SerializerMethodField()
 
     class Meta:
         """Metadata of device category."""
@@ -46,6 +49,7 @@ class DeviceCategoryInstSerializer(serializers.HyperlinkedModelSerializer):
             'device': {'view_name': 'api:manufacturer-detail'},
         }
 
+    @extend_schema_field(OpenApiTypes.URI)
     def get_manufacturers(self, obj) -> str:
         """Create link for device category with a list manufacturers.
 
@@ -55,11 +59,10 @@ class DeviceCategoryInstSerializer(serializers.HyperlinkedModelSerializer):
         return reverse('api:devicecategory-manufacturers', [obj.pk],
                        request=self.context['request'])
 
-
 class ManufacturerListSerializer(serializers.HyperlinkedModelSerializer):
     """This class serializes of manufacturers model."""
 
-    models = fields.SerializerMethodField('get_models')
+    models = fields.SerializerMethodField()
 
     class Meta:
         """Metadata of manufacturer."""
@@ -71,6 +74,7 @@ class ManufacturerListSerializer(serializers.HyperlinkedModelSerializer):
             'device_category': {'view_name': 'api:devicecategory-detail'},
         }
 
+    @extend_schema_field(OpenApiTypes.URI)
     def get_models(self, obj) -> str:
         """Create link for manufacturer with a list models template.
 
@@ -84,7 +88,7 @@ class ManufacturerListSerializer(serializers.HyperlinkedModelSerializer):
 class ManufacturerInstSerializer(serializers.HyperlinkedModelSerializer):
     """This class serializes of one manufacturers model."""
 
-    models = fields.SerializerMethodField('get_models')
+    models = fields.SerializerMethodField()
 
     class Meta:
         """Metadata of manufacturer."""
@@ -98,6 +102,7 @@ class ManufacturerInstSerializer(serializers.HyperlinkedModelSerializer):
             'modelstemplate': {'view_name': 'api:modelstemplate-detail'},
         }
 
+    @extend_schema_field(OpenApiTypes.URI)
     def get_models(self, obj):
         """Create link for manufacturer with a list models template.
 
@@ -111,7 +116,7 @@ class ManufacturerInstSerializer(serializers.HyperlinkedModelSerializer):
 class ModelsTemplateListSerializer(serializers.HyperlinkedModelSerializer):
     """This class serializes of models template model."""
 
-    templates = fields.SerializerMethodField('method_templates')
+    templates = fields.SerializerMethodField()
 
     class Meta:
         """Metadata of models template."""
@@ -125,6 +130,7 @@ class ModelsTemplateListSerializer(serializers.HyperlinkedModelSerializer):
             'template_set': {'view_name': 'api:template-detail'}
         }
 
+    @extend_schema_field(OpenApiTypes.URI)
     def method_templates(self, obj):
         """Create link for models template with a list template.
 

@@ -31,7 +31,7 @@ class TemplateBlueprintOnlySerializer(serializers.HyperlinkedModelSerializer):
 
     file = fields.SerializerMethodField('get_file')
 
-    def get_file(self, obj):
+    def get_file(self, obj) -> str:
         return self.context['request'].build_absolute_uri(obj.file_plt.url)
 
     class Meta:

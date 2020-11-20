@@ -6,17 +6,27 @@ from django.views import defaults as default_views
 from django.conf.urls.i18n import i18n_patterns
 from rest_framework.authtoken.views import obtain_auth_token
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
 
 urlpatterns = i18n_patterns(
     # Django Admin, use {% url 'admin:index' %}
     path(settings.ADMIN_URL, admin.site.urls),
     path("users/", include("main_service_of_plotters.apps.users.urls", namespace="users")),
-    path("tickets/", include("main_service_of_plotters.apps.ticket.urls", namespace="tickets")),
     path("accounts/", include("allauth.urls")),
     path('i18n/', include('django.conf.urls.i18n')),
     path('admin/doc/', include('django.contrib.admindocs.urls')),
     # Your stuff: custom urls includes go here
+    path("tickets/", include("main_service_of_plotters.apps.ticket.urls", namespace="tickets")),
+
  ) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+# URLs without i18n
+urlpatterns += [
+    path("acra/", include("main_service_of_plotters.apps.acra.urls")),
+    path("api/schema/", SpectacularAPIView.as_view(), name='schema'),
+    path("api/schema/swagger-ui/", SpectacularSwaggerView.as_view(), name='swagger-ui'),
+    path("api/schema/redoc/", SpectacularRedocView.as_view(), name='redoc'),
+]
 
 # API URLS
 urlpatterns += [
@@ -32,7 +42,6 @@ urlpatterns += [
         'rest_framework.urls',
         namespace='rest_framework'
     )),
-    path("acra/", include("main_service_of_plotters.apps.acra.urls"))
 ]
 
 if settings.DEBUG:
