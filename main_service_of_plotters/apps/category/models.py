@@ -10,12 +10,12 @@ class DeviceCategory(DateTimeDateUpdate):
     """Create table device category in the database."""
 
     name = models.CharField(max_length=150, blank=True,
-                            verbose_name=_('Name of category of devices'),
-                            help_text='Name of category of devices')
+                            verbose_name=_('Name'),
+                            help_text=_('Name of category of devices'))
     photo = models.ImageField(upload_to="device/%Y/%m/%d",
-                              verbose_name=_('Photo Device'), blank=True,
+                              verbose_name=_('Photo'), blank=True,
                               null=True,
-                              help_text='Photo of category of devices')
+                              help_text=_('Photo of category of devices'))
 
     class Meta:
         """Metadata of models DeviceCategory."""
@@ -37,12 +37,13 @@ class Manufacturer(DateTimeDateUpdate):
     device_category = models.ForeignKey(DeviceCategory,
                                         on_delete=models.CASCADE,
                                         verbose_name=_('Category of devices'),
-                                        related_name='device')
+                                        related_name='device',)
     name = models.CharField(max_length=150, blank=True,
-                            verbose_name=_('Name of manufacturer'))
+                            verbose_name=_('Name'),
+                            help_text=_('Name of manufacturer'))
     photo = models.ImageField(upload_to="manufacturer/%Y/%m/%d",
-                              verbose_name=_('Manufacturer image'), blank=True,
-                              null=True)
+                              verbose_name=_('Photo'), blank=True,
+                              null=True, help_text=_('Photo of manufacturer'))
 
     class Meta:
         """Metadata of models Manufacturer."""
@@ -69,8 +70,8 @@ class ModelsTemplate(DateTimeDateUpdate):
         related_name='modelstemplate'
     )
     name = models.CharField(max_length=150, blank=True,
-                            verbose_name=_('Name of model'),
-                            help_text='Name of model')
+                            verbose_name=_('Name'),
+                            help_text=_('Name of models template'))
 
     class Meta:
         """Metadata of models ModelsTemplate."""

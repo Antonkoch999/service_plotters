@@ -2,14 +2,16 @@
 
 from rest_framework import serializers
 
-from ..models import Plotter
 from main_service_of_plotters.apps.materials.models import Template
+from ..models import Plotter
 
 
 class PlotterSerializer(serializers.HyperlinkedModelSerializer):
     """Serializing Plotter instance for api views."""
 
     class Meta:
+        """Metadata of Plotter."""
+
         model = Plotter
         fields = ['id', 'serial_number', 'user', 'dealer', 'url', 'device_id', 'available_films', 'cut_amount']
         extra_kwargs = {
@@ -19,9 +21,8 @@ class PlotterSerializer(serializers.HyperlinkedModelSerializer):
         }
 
     def __init__(self, *args, **kwargs):
-
+        """Create serializer Plotter."""
         # TODO Rewrite this crap
-
         get_inst = False
         if len(args) > 0 and isinstance(args[0], Plotter):
             plotter = args[0]
@@ -48,10 +49,14 @@ class PlotterSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class CutSerializer(serializers.Serializer):
+    """Serializer for view Cut."""
+
     plotter = serializers.PrimaryKeyRelatedField(queryset=Plotter.objects.all())
     template = serializers.PrimaryKeyRelatedField(queryset=Template.objects.all())
 
 
 class AddLabelSerializer(serializers.Serializer):
+    """Serializer for view scratch_code."""
+
     plotter = serializers.PrimaryKeyRelatedField(queryset=Plotter.objects.all())
     scratch_code = serializers.CharField(max_length=16)
