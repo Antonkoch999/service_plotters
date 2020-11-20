@@ -25,7 +25,7 @@ class DeviceCategoryListSerializer(serializers.HyperlinkedModelSerializer):
 
 class DeviceCategoryInstSerializer(serializers.HyperlinkedModelSerializer):
 
-    manufacturers = fields.SerializerMethodField('method_manufacturers')
+    manufacturers = fields.SerializerMethodField()
 
     class Meta:
         model = DeviceCategory
@@ -36,13 +36,13 @@ class DeviceCategoryInstSerializer(serializers.HyperlinkedModelSerializer):
         }
 
     @extend_schema_field(OpenApiTypes.URI)
-    def method_manufacturers(self, obj) -> str:
+    def get_manufacturers(self, obj) -> str:
         return reverse('api:devicecategory-manufacturers', [obj.pk], request=self.context['request'])
 
 
 class ManufacturerListSerializer(serializers.HyperlinkedModelSerializer):
 
-    models = fields.SerializerMethodField('method_models')
+    models = fields.SerializerMethodField()
 
     class Meta:
         model = Manufacturer
@@ -53,13 +53,13 @@ class ManufacturerListSerializer(serializers.HyperlinkedModelSerializer):
         }
 
     @extend_schema_field(OpenApiTypes.URI)
-    def method_models(self, obj) -> str:
+    def get_models(self, obj) -> str:
         return reverse('api:manufacturer-models', [obj.pk], request=self.context['request'])
 
 
 class ManufacturerInstSerializer(serializers.HyperlinkedModelSerializer):
 
-    models = fields.SerializerMethodField('method_models')
+    models = fields.SerializerMethodField()
 
     class Meta:
         model = Manufacturer
@@ -71,13 +71,13 @@ class ManufacturerInstSerializer(serializers.HyperlinkedModelSerializer):
         }
 
     @extend_schema_field(OpenApiTypes.URI)
-    def method_models(self, obj) -> str:
+    def get_models(self, obj) -> str:
         return reverse('api:manufacturer-models', [obj.pk], request=self.context['request'])
 
 
 class ModelsTemplateListSerializer(serializers.HyperlinkedModelSerializer):
 
-    templates = fields.SerializerMethodField('method_templates')
+    templates = fields.SerializerMethodField()
 
     class Meta:
         model = ModelsTemplate
@@ -89,5 +89,5 @@ class ModelsTemplateListSerializer(serializers.HyperlinkedModelSerializer):
         }
 
     @extend_schema_field(OpenApiTypes.URI)
-    def method_templates(self, obj) -> str:
+    def get_templates(self, obj) -> str:
         return reverse('api:modelstemplate-templates', [obj.pk], request=self.context['request'])
