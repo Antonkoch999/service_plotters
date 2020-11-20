@@ -124,15 +124,16 @@ def scratch_code(request):
         plotter = serializer.validated_data['plotter']
         scratch = serializer.validated_data['scratch_code']
         try:
-            label = Label.objects.filter(is_active=False).get(
-                scratch_code=scratch)
-        except ObjectDoesNotExist:
-            messages.add_message(request, messages.ERROR,
-                                 'Scratch code not found')
-            return Response(status=status.HTTP_400_BAD_REQUEST)
+            label = Label.objects.get(scratch_code=scratch_code)
+            if label.is_active:
+                raise Exception("Label is already activated.")
+        except Exception as e:
+            return Response(status=status.HTTP_400_BAD_REQUEST,
+                            data={"error":str(e)})
         else:
             plotter.link_label(label)
             return Response(status=status.HTTP_201_CREATED)
     else:
         return Response(serializer.error_messages,
                         status=status.HTTP_400_BAD_REQUEST)
+

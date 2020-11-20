@@ -28,9 +28,6 @@ class Plotter(DateTimeDateUpdate):
         unique=True,
         help_text=_("Serial number of plotter (typically printed on label)")
     )
-    device_id = models.CharField(
-        max_length=15,
-    )
 
     class Meta:
         """Metadata of Plotter."""
