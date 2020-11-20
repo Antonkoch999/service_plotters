@@ -14,6 +14,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='plotter',
             name='device_id',
-            field=models.CharField(default=main_service_of_plotters.apps.device.models.random_string, max_length=15),
+            field=models.CharField(max_length=15),
         ),
     ]

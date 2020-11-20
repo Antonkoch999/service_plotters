@@ -15,14 +15,38 @@ class StatisticsPlotter(DateTimeDateUpdate):
 
     plotter = models.ForeignKey(Plotter, on_delete=models.CASCADE,
                                 verbose_name=_('Plotter serial number'))
-    ip = models.CharField(max_length=150, verbose_name=_('IP address plotter'))
+    ip = models.GenericIPAddressField(verbose_name=_('IP'),
+                                      help_text=_('IP address plotter'))
     last_request = models.DateField(
-        verbose_name=_('Last connection to server'), default=now)
-    count_cut = models.IntegerField(verbose_name=_("Count cut"))
+        verbose_name=_('Last connection'), default=now,
+        help_text=_('Last connection to server'))
+    count_cut = models.IntegerField(verbose_name=_('Count cut'),
+                                    help_text=_('Count cut on plotter'))
 
     class Meta:
+        """Metadata of StatisticsPlotter."""
+
         verbose_name = _("Plotter statistic")
         verbose_name_plural = _("Plotter statistics")
+
+    @staticmethod
+    def add_to_statistics_or_create(plotter, ip):
+        """Find object statistics plotter and adding count_cut.
+
+        Search statistics plotter with plotter and IP.
+        If founded updates count_cut, if not create new one.
+        """
+        qs = StatisticsPlotter.objects.filter(plotter=plotter, ip=ip)
+        if not qs.exists():
+            StatisticsPlotter.objects.create(
+                plotter=plotter,
+                ip=ip,
+                count_cut=1
+            )
+        else:
+            statistic_inst = qs.first()
+            statistic_inst.count_cut += 1
+            statistic_inst.save()
 
 
 class StatisticsTemplate(DateTimeDateUpdate):
@@ -32,11 +56,34 @@ class StatisticsTemplate(DateTimeDateUpdate):
                                 verbose_name=_('Plotter serial number'))
     template = models.ForeignKey(Template, on_delete=models.CASCADE,
                                  verbose_name=_('Name of template'))
-    count = models.IntegerField(verbose_name=_("Count"))
+    count = models.IntegerField(verbose_name=_("Count"),
+                                help_text=_('Count cut template on plotter'))
 
     class Meta:
+        """Metadata of StatisticsTemplate."""
+
         verbose_name = _("Template Statistic")
         verbose_name_plural = _("Template Statistics")
+
+    @staticmethod
+    def add_to_statistics_or_create(plotter, template):
+        """Find object statistics template and adding count_cut.
+
+        Search statistics template with plotter and IP.
+        If founded updates count_cut, if not create new one.
+        """
+        qs = StatisticsTemplate.objects.filter(plotter=plotter,
+                                               template=template)
+        if not qs.exists():
+            StatisticsTemplate.objects.create(
+                plotter=plotter,
+                template=template,
+                count=1
+            )
+        else:
+            statistic_inst = qs.first()
+            statistic_inst.count += 1
+            statistic_inst.save()
 
 
 class CuttingTransaction(DateTimeDateUpdate):
@@ -48,11 +95,9 @@ class CuttingTransaction(DateTimeDateUpdate):
                                 verbose_name=_('Plotter'))
     template = models.ForeignKey(Template, on_delete=models.CASCADE,
                                  verbose_name=_('Name of template'))
-    # label = models.ForeignKey(Label, null=True, on_delete=models.SET_NULL,
-    #                           verbose_name='instance model label')
-    date_cutted = models.DateTimeField(verbose_name=_('Data of creation cut'),
-                                       default=now)
 
     class Meta:
+        """Metadata of CuttingTransaction."""
+
         verbose_name = _("Cutting Transaction")
         verbose_name_plural = _("Cutting Transactions")

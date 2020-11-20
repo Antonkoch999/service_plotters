@@ -27,4 +27,4 @@ class StatisticsCreateTest(TestCase):
 
     def test_create_statistics_plotter(self):
         self.assertEqual(self.test.ip, '132.144.21.31')
-        self.assertEqual(self.test.plotter.serial_number, 1111222233334444)
+        self.assertEqual(self.test.plotter.serial_number, '1111222233334444')
