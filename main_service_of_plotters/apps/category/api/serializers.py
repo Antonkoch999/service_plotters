@@ -131,7 +131,7 @@ class ModelsTemplateListSerializer(serializers.HyperlinkedModelSerializer):
         }
 
     @extend_schema_field(OpenApiTypes.URI)
-    def method_templates(self, obj):
+    def get_templates(self, obj):
         """Create link for models template with a list template.
 
         :param obj: instance models template
