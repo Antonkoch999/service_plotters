@@ -18,6 +18,12 @@ from .forms import (SelectUserForm, SelectDealerForm, LabelFormDealer,
 
 @staff_member_required
 def generation_code(request):
+    """Generate packs of label.
+
+    On GET, return special form.
+    On POST, generate labels with posted amount of packs with posted amount of
+    labels.
+    """
     if request.method == "POST":
         form = GenerationCodeForm(request.POST)
         if form.is_valid():
@@ -36,7 +42,6 @@ def generation_code(request):
                     scratch_code=scratch_code,
                     barcode=barcode,
                     count=count,
-                    # size=size,
                 )
             return HttpResponseRedirect('../')
 
@@ -49,6 +54,8 @@ class LabelResource(resources.ModelResource):
     """Model Resourse for django-import-export."""
 
     class Meta:
+        """Metadata of resource. django-import-export stuff."""
+
         model = Label
 
 
@@ -64,7 +71,6 @@ class CustomLabelAdmin(ImportExportMixin, admin.ModelAdmin):
     @staticmethod
     def add_user(request, queryset):
         """Add user as owner for set of labels."""
-
         form = None
 
         if 'apply' in request.POST:
@@ -94,7 +100,6 @@ class CustomLabelAdmin(ImportExportMixin, admin.ModelAdmin):
     @staticmethod
     def add_dealer(request, queryset):
         """Add dealer as owner for set in labels."""
-
         form = None
 
         if 'apply' in request.POST:
@@ -121,7 +126,6 @@ class CustomLabelAdmin(ImportExportMixin, admin.ModelAdmin):
 
     def get_actions(self, request):
         """Change list of actions for different users."""
-
         actions = super().get_actions(request)
         if request.user.groups.filter(name='Dealer').exists():
             del actions['add_dealer']
@@ -134,7 +138,6 @@ class CustomLabelAdmin(ImportExportMixin, admin.ModelAdmin):
 
     def get_queryset(self, request):
         """Change list of available labels depended of logged user."""
-
         qs = super().get_queryset(request)
         # Dealer can see own labels
         if request.user.groups.filter(name='Dealer').exists():
@@ -146,7 +149,6 @@ class CustomLabelAdmin(ImportExportMixin, admin.ModelAdmin):
 
     def get_form(self, request, obj=None, **kwargs):
         """Change form of admin page depended of logged user."""
-
         if request.user.groups.filter(name='Dealer').exists():
             kwargs['form'] = LabelFormDealer
             # Dealer can add to label only user it own
@@ -168,7 +170,6 @@ class CustomLabelAdmin(ImportExportMixin, admin.ModelAdmin):
 
     def get_list_display(self, request):
         """Change list_display list depended of logged user."""
-
         list_display = ('scratch_code', 'barcode',
                         'count', 'available_count', 'dealer', 'user',
                         'date_of_expiration',
@@ -184,7 +185,6 @@ class CustomLabelAdmin(ImportExportMixin, admin.ModelAdmin):
 
     def get_list_filter(self, request):
         """Add filters on list page depeded of logged user."""
-
         filters = ('date_creation', 'user', 'dealer',)
         if CustomLabelAdmin._is_requested_user_dealer_or_user(request):
             filters = ('date_creation',)
@@ -192,10 +192,11 @@ class CustomLabelAdmin(ImportExportMixin, admin.ModelAdmin):
 
     @staticmethod
     def _is_requested_user_dealer_or_user(request):
-        """Identificate is authenticated user is dealer."""
+        """Identificate is authenticated user is dealer or user role."""
         return request.user.groups.filter(name='Dealer').exists() or request.user.groups.filter(name='User').exists()
 
     def get_urls(self):
+        """Return urls of admin model."""
         urls = super().get_urls()
         my_urls = [path("generation_code/", generation_code,
                         name='generation code'), ]

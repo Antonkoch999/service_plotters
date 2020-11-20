@@ -9,9 +9,12 @@ from main_service_of_plotters.apps.users.models import User
 
 class GenerationCodeForm(forms.ModelForm):
     """From with one field `dealer` to add this dealer to multiple entities."""
+
     count_label = forms.IntegerField(label=_('Count label'))
 
     class Meta:
+        """Metadata of from."""
+
         model = Label
         fields = ['count', 'count_label', ]
 
@@ -22,7 +25,8 @@ class SelectDealerForm(forms.Form):
     _selected_action = forms.CharField(widget=forms.MultipleHiddenInput)
     dealer = forms.ModelChoiceField(
         queryset=User.objects.filter(role='Dealer'),
-        label=_('Dealer'))
+        label=_('Dealer')
+    )
 
 
 class SelectUserForm(forms.Form):
@@ -34,6 +38,11 @@ class SelectUserForm(forms.Form):
         label=_('User'))
 
     def __init__(self, *args, dealer=None, **kwargs):
+        """Init form.
+
+        If `dealer` parameter represented, shows only users attached to this
+        dealer.
+        """
         super().__init__(*args, **kwargs)
         # while form is created, filter by owner user
         if dealer:
@@ -45,6 +54,8 @@ class LabelFormDealer(forms.ModelForm):
     """Form for `Label` admin page when `User` is loggined."""
 
     class Meta:
+        """Metadata of form."""
+
         models = Label
         # User must't see scratch_code at own dealer (its obviouse)
         fields = ('barcode', 'count', 'user', )
@@ -54,6 +65,8 @@ class LabelFormUser(forms.ModelForm):
     """Form for `Label` admin page when `Dealer` is loggined."""
 
     class Meta:
+        """Metadata of form."""
+
         models = Label
         fields = ('barcode', 'count', 'date_of_activation', 'linked_plotter', )
 
@@ -62,6 +75,8 @@ class LabelFormAdmin(forms.ModelForm):
     """Form for `Label` admin page when `Administrator` is loggined."""
 
     class Meta:
+        """Metadata of form."""
+
         models = Label
         fields = ('scratch_code', 'barcode', 'count', 'dealer', 'user',
                   'is_active', )
