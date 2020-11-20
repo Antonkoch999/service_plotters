@@ -322,3 +322,9 @@ CORS_URLS_REGEX = r"^/api/.*$"
 # ------------------------------------------------------------------------------
 IMPORT_EXPORT_EXPORT_PERMISSION_CODE = 'add'
 IMPORT_EXPORT_IMPORT_PERMISSION_CODE = 'add'
+
+# DRF Spectacular (openapi generator) settings
+SPECTACULAR_SETTINGS = {
+    'DESCRIPTION': 'Documentation of API of project.',
+    'VERSION': '0.1.0'
+}
