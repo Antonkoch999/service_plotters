@@ -1,8 +1,10 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
 {% load i18n %}
 
 {% block content %}
 <form action="" method="post">{% csrf_token %}
-    {{ form }}
+    {{ form|crispy }}
     <input type="hidden" name="action" value="{{ action }}" />
     <input type="submit" name="apply" value='{% trans "Report" %}' />
 </form>
