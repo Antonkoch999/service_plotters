@@ -39,7 +39,6 @@ class PlotterViewSetBySN(RetrieveModelMixin, GenericViewSet):
 def cut(request):
     serializer = CutSerializer(data=request.data)
     if serializer.is_valid():
-        print(serializer.validated_data)
         plotter = serializer.validated_data['plotter']
         template = serializer.validated_data['template']
         if plotter.available_film <= 0:

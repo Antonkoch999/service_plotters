@@ -39,7 +39,5 @@ class Plotter(DateTimeDateUpdate):
         return reverse('api:plotter-detail', kwargs={'pk': self.pk})
 
     def cut_amount(self):
-        print(self.statisticsplotter_set.all().aggregate(
-            models.Sum('count_cut')))
         return self.statisticsplotter_set.all().aggregate(
             models.Sum('count_cut'))['count_cut__sum']
