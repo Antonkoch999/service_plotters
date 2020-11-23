@@ -1,3 +1,5 @@
+"""This class is representation of tickets in the admin interface."""
+
 from django.contrib import admin
 from django.db.models import Q
 from django.utils.translation import gettext as _
@@ -10,11 +12,13 @@ from .forms import TechSpecialistForm, UserForm
 
 @admin.register(Ticket)
 class TicketAdmin(admin.ModelAdmin):
+    """Class representation of model Ticket in interface admin."""
+
     change_form_template = 'ticket/admin_change_form.html'
     change_list_template = 'admin/change_list_ticket.html'
 
     def get_form(self, request, obj=None, **kwargs):
-
+        """Change form class depending on the user groups."""
         if request.user.groups.filter(name='Technical_Specialist').exists():
             kwargs['form'] = TechSpecialistForm
             form = super().get_form(request, obj, **kwargs)
@@ -25,17 +29,16 @@ class TicketAdmin(admin.ModelAdmin):
         return super().get_form(request, obj, **kwargs)
 
     def get_list_display(self, request):
-
+        """Change list_display list depended of user groups."""
         list_display = ['header', 'assignee', 'reporter', 'status']
         # If user is `Dealer` or User
         if request.user.groups.filter(name='Technical_Specialist').exists():
             # without `scretch code`
             list_display = ['header', 'status', 'assignee']
-
         return list_display
 
     def get_queryset(self, request):
-
+        """Change queryset list depended of user groups."""
         qs = super().get_queryset(request)
         if request.user.groups.filter(name='Technical_Specialist').exists():
             qs = qs.filter(Q(status='O') | Q(assignee=request.user.pk))
@@ -44,14 +47,14 @@ class TicketAdmin(admin.ModelAdmin):
         return qs
 
     def get_list_filter(self, request):
-        """Add filters on list page depeded of logged user."""
-
+        """Add filters on list page depended of logged user."""
         filters = ('status', )
         if request.user.groups.filter(name='Technical_Specialist').exists():
             filters = ('status', )
         return filters
 
     def response_change(self, request, obj):
+        """Create custom button in change form."""
         # TODO user must have change permission to close ticket but this is not propper condition
         # Rethink it
         if '_make_close' in request.POST:
@@ -79,4 +82,4 @@ class TicketAdmin(admin.ModelAdmin):
 
 @admin.register(PopularProblem)
 class PopularProblemAdmin(admin.ModelAdmin):
-    pass
+    """Class representation of model Popular Problem in interface admin."""

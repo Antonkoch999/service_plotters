@@ -79,6 +79,7 @@ class Ticket(DateTimeDateUpdate):
     )
 
     class Meta:
+        """Metadata of Ticket."""
 
         verbose_name = _("Ticket")
         verbose_name_plural = _("Tickets")
@@ -88,14 +89,12 @@ class Ticket(DateTimeDateUpdate):
         ]
 
     def __str__(self):
-        """
-        Return string representation of ticket
-        """
+        """Return string representation of ticket."""
         return f"{_('Ticket')} #{self.pk}: \"{self.header}\""
 
 
 class PopularProblem(models.Model):
-    """Model descride list with popular problems."""
+    """Model describe list with popular problems."""
 
     name = models.CharField(
         verbose_name=_("Name"),
@@ -116,12 +115,11 @@ class PopularProblem(models.Model):
     )
 
     class Meta:
+        """Metadata of Ticket."""
 
         verbose_name = _('Popular problem')
         verbose_name_plural = _('Popular problems')
 
     def __str__(self):
-        """
-        Return string representation of popular problem
-        """
+        """Return string representation of popular problem."""
         return f"{_('Popular problem')} \"{self.name}\""

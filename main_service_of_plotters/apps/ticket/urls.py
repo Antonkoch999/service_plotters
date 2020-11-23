@@ -1,3 +1,5 @@
+"""This module register url."""
+
 from django.urls import path
 
 from .views import UserAddTicket, TicketListView, TicketDetailView
