@@ -1,3 +1,5 @@
+"""Set of API views."""
+
 from django.contrib.auth.hashers import make_password
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.decorators import permission_classes
@@ -12,6 +14,8 @@ from .permissions import UserPermission
 
 @permission_classes([IsAuthenticated, UserPermission])
 class UserViewSet(ModelViewSet):
+    """Couple view for API ofmodel User."""
+
     serializer_class = UserListSerializer
     queryset = User.objects.all()
 

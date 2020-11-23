@@ -62,6 +62,7 @@ class UserChangeForm(forms.ModelForm):
 
 
 class SuperuserUserForm(UserCreationForm):
+    """Form for admin site for superuser user."""
 
     def clean(self):
         cleaned_data = super().clean()
