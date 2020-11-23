@@ -121,7 +121,7 @@ class CustomLabelAdmin(ImportExportMixin, admin.ModelAdmin):
                 dealer_id=request.user.pk)
             # For dealer barcode is unchangable
             form.base_fields['barcode'].disabled = True
-            if obj.user is not None:
+            if obj is not None and obj.user is not None:
                 form.base_fields['user'].disabled = True
             return form
         elif request.user.groups.filter(name='User').exists():
@@ -129,7 +129,7 @@ class CustomLabelAdmin(ImportExportMixin, admin.ModelAdmin):
         elif request.user.groups.filter(name='Administrator').exists():
             kwargs['form'] = LabelFormAdmin
             form = super().get_form(request, obj, **kwargs)
-            if obj.dealer is not None:
+            if obj is not None and obj.dealer is not None:
                 form.base_fields['dealer'].disabled = True
             return form
         return super().get_form(request, obj, **kwargs)
