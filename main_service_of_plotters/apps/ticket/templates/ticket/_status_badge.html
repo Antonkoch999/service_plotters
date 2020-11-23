@@ -1,0 +1,10 @@
+{% if ticket.status == 'O' %}
+  <span class="badge badge-primary">
+{% elif ticket.status == 'W'%}
+  <span class="badge badge-warning">
+{% elif ticket.status == 'S'%}
+  <span class="badge badge-success">
+{% else %}
+  <span class="badge badge-secondary">
+{% endif %}
+{{ticket.get_status_display}}</span>
