@@ -35,7 +35,6 @@ class UserAdmin(BaseUserAdmin):
 
     def get_form(self, request, obj=None, **kwargs):
         """Changes form class depending on the user role."""
-
         if request.user.is_superuser:
             kwargs['form'] = forms.SuperuserUserForm
 
@@ -54,8 +53,7 @@ class UserAdmin(BaseUserAdmin):
         return qs
 
     def save_model(self, request, obj, form, change):
-        """Changes method save.
-
+        """Change method save.
 
         If the user is authenticated and belongs to the group equals to
         'Dealer', when creates another user, it is added dealer_is equals
@@ -73,8 +71,7 @@ class GroupAdminWithCount(GroupAdmin):
 
     @staticmethod
     def user_count(obj):
-        """Counts the number of users in a group."""
-
+        """Count the number of users in a group."""
         return obj.user_set.count()
 
 
