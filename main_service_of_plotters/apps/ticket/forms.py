@@ -24,9 +24,15 @@ def _list_of_popular_problems_plus_not_found():
 class ChoosePopularProblemForm(forms.Form):
     """This class create form with list popular problem and users plotter."""
 
-    plotters = forms.ModelMultipleChoiceField(queryset=Plotter.objects)
+    plotters = forms.ModelMultipleChoiceField(
+        queryset=Plotter.objects,
+        label=_("Plotters")
+    )
     problem = forms.ChoiceField(
-        choices=_list_of_popular_problems_plus_not_found
+        choices=_list_of_popular_problems_plus_not_found,
+        required=True,
+        label=_('Problem'),
+        help_text=_("Choose your problem in the list.")
     )
 
     def __init__(self, *args, context=None, **kwargs):
