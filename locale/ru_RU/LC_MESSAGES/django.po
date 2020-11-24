@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-11-20 15:44+0000\n"
+"POT-Creation-Date: 2020-11-24 11:03+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,7 +24,7 @@ msgstr "Категория лекала"
 #: main_service_of_plotters/apps/category/models.py:13
 #: main_service_of_plotters/apps/category/models.py:42
 #: main_service_of_plotters/apps/category/models.py:73
-#: main_service_of_plotters/apps/ticket/models.py:101
+#: main_service_of_plotters/apps/ticket/models.py:100
 msgid "Name"
 msgstr "Имя"
 
@@ -35,7 +35,7 @@ msgstr "Названия категории девайса"
 #: main_service_of_plotters/apps/category/models.py:16
 #: main_service_of_plotters/apps/category/models.py:45
 msgid "Photo"
-msgstr ""
+msgstr "Фотография"
 
 #: main_service_of_plotters/apps/category/models.py:18
 msgid "Photo of category of devices"
@@ -99,7 +99,7 @@ msgstr "Действия аккаунта"
 msgid "Scratch code not found"
 msgstr "Скретч код не найден"
 
-#: main_service_of_plotters/apps/device/api/views.py:83
+#: main_service_of_plotters/apps/device/api/views.py:81
 msgid "Available films is over"
 msgstr "Доступная плёнка закончилась"
 
@@ -110,15 +110,15 @@ msgstr "Девайс"
 #: main_service_of_plotters/apps/device/models.py:15
 #: main_service_of_plotters/apps/materials/forms.py:28
 #: main_service_of_plotters/apps/users/forms.py:52
-#: main_service_of_plotters/apps/users/models.py:22
+#: main_service_of_plotters/apps/users/models.py:25
 msgid "Dealer"
 msgstr "Дилер"
 
 #: main_service_of_plotters/apps/device/models.py:19
 #: main_service_of_plotters/apps/materials/forms.py:38
-#: main_service_of_plotters/apps/statistics/models.py:46
+#: main_service_of_plotters/apps/statistics/models.py:93
 #: main_service_of_plotters/apps/users/forms.py:44
-#: main_service_of_plotters/apps/users/models.py:27
+#: main_service_of_plotters/apps/users/models.py:33
 msgid "User"
 msgstr "Пользователь"
 
@@ -131,11 +131,12 @@ msgid "Serial number of plotter (typically printed on label)"
 msgstr "Серийный номер плоттера (обычно напечатан на этикетке)"
 
 #: main_service_of_plotters/apps/device/models.py:35
-#: main_service_of_plotters/apps/statistics/models.py:48
+#: main_service_of_plotters/apps/statistics/models.py:95
 msgid "Plotter"
 msgstr "Плоттер"
 
 #: main_service_of_plotters/apps/device/models.py:36
+#: main_service_of_plotters/apps/ticket/forms.py:29
 #: main_service_of_plotters/apps/ticket/models.py:53
 msgid "Plotters"
 msgstr "Плоттеры"
@@ -173,14 +174,14 @@ msgid "Name of device tempalte created for."
 msgstr "Название девайса лекала"
 
 #: main_service_of_plotters/apps/materials/models.py:44
-#: main_service_of_plotters/apps/statistics/models.py:34
-#: main_service_of_plotters/apps/statistics/models.py:50
+#: main_service_of_plotters/apps/statistics/models.py:58
+#: main_service_of_plotters/apps/statistics/models.py:97
 msgid "Name of template"
 msgstr "Название лекала"
 
 #: main_service_of_plotters/apps/materials/models.py:48
 msgid "Image"
-msgstr ""
+msgstr "Фотография"
 
 #: main_service_of_plotters/apps/materials/models.py:50
 msgid "File of schematic image of template"
@@ -215,8 +216,8 @@ msgid ""
 "Scratch code is secret key what user scratch from labels and put to system. "
 "Then system activate this label"
 msgstr ""
-"Скретч код -- это секретный ключ, который пользователь стерает с плёнки и вводит в систему. "
-"Тогда система активирует эту плёнку"
+"Скретч код - это секретный ключ, который пользователь стирает с плёнки и "
+"вводит в систему. Тогда система активирует эту плёнку"
 
 #: main_service_of_plotters/apps/materials/models.py:96
 msgid "Unique barcode"
@@ -313,73 +314,90 @@ msgid "Statistics"
 msgstr "Статистика"
 
 #: main_service_of_plotters/apps/statistics/models.py:17
-#: main_service_of_plotters/apps/statistics/models.py:32
+#: main_service_of_plotters/apps/statistics/models.py:56
 msgid "Plotter serial number"
 msgstr "Серийный номер плоттера"
 
 #: main_service_of_plotters/apps/statistics/models.py:18
+msgid "IP"
+msgstr "IP"
+
+#: main_service_of_plotters/apps/statistics/models.py:19
 msgid "IP address plotter"
 msgstr "IP адрес плоттера"
 
-#: main_service_of_plotters/apps/statistics/models.py:20
+#: main_service_of_plotters/apps/statistics/models.py:21
+msgid "Last connection"
+msgstr "Последнее соединение с плоттером"
+
+#: main_service_of_plotters/apps/statistics/models.py:22
 msgid "Last connection to server"
 msgstr "Последнее соединение с плоттером"
 
-#: main_service_of_plotters/apps/statistics/models.py:21
+#: main_service_of_plotters/apps/statistics/models.py:23
 msgid "Count cut"
 msgstr "Количество вырезов"
 
 #: main_service_of_plotters/apps/statistics/models.py:24
+msgid "Count cut on plotter"
+msgstr "Количество вырезов"
+
+#: main_service_of_plotters/apps/statistics/models.py:29
 msgid "Plotter statistic"
 msgstr "Статистика плоттера"
 
-#: main_service_of_plotters/apps/statistics/models.py:25
+#: main_service_of_plotters/apps/statistics/models.py:30
 msgid "Plotter statistics"
 msgstr "Статистики плоттеров"
 
-#: main_service_of_plotters/apps/statistics/models.py:35
+#: main_service_of_plotters/apps/statistics/models.py:59
 msgid "Count"
 msgstr "Количество вырезов"
 
-#: main_service_of_plotters/apps/statistics/models.py:38
+#: main_service_of_plotters/apps/statistics/models.py:60
+msgid "Count cut template on plotter"
+msgstr "Количество вырезов шаблонов на плоттере"
+
+#: main_service_of_plotters/apps/statistics/models.py:65
 msgid "Template Statistic"
 msgstr "Статистика лекала"
 
-#: main_service_of_plotters/apps/statistics/models.py:39
+#: main_service_of_plotters/apps/statistics/models.py:66
 msgid "Template Statistics"
 msgstr "Статистики лекал"
 
-#: main_service_of_plotters/apps/statistics/models.py:53
-msgid "Data of creation cut"
-msgstr "Дата создания выреза"
-
-#: main_service_of_plotters/apps/statistics/models.py:57
+#: main_service_of_plotters/apps/statistics/models.py:102
 msgid "Cutting Transaction"
 msgstr "Вырез"
 
-#: main_service_of_plotters/apps/statistics/models.py:58
+#: main_service_of_plotters/apps/statistics/models.py:103
 msgid "Cutting Transactions"
 msgstr "Вырезы"
 
-#: main_service_of_plotters/apps/ticket/admin.py:61
+#: main_service_of_plotters/apps/ticket/admin.py:64
 msgid "You dont have permission to close this ticket"
 msgstr "У вас нет доступа чтобы закрыть проблему"
 
-#: main_service_of_plotters/apps/ticket/apps.py:8
-#: main_service_of_plotters/apps/ticket/models.py:84
+#: main_service_of_plotters/apps/ticket/apps.py:11
+#: main_service_of_plotters/apps/ticket/models.py:85
+#: main_service_of_plotters/apps/ticket/templates/ticket/ticket_detail.html:8
+#: main_service_of_plotters/apps/ticket/templates/ticket/ticket_list.html:8
 msgid "Tickets"
 msgstr "Тикеты"
 
 #: main_service_of_plotters/apps/ticket/constants.py:14
+#: main_service_of_plotters/apps/ticket/forms.py:73
 msgid "Open"
 msgstr "Открыто"
 
 #: main_service_of_plotters/apps/ticket/constants.py:15
+#: main_service_of_plotters/apps/ticket/forms.py:74
 #: main_service_of_plotters/apps/ticket/templates/ticket/admin_change_form.html:12
 msgid "In Work"
 msgstr "В работе"
 
 #: main_service_of_plotters/apps/ticket/constants.py:16
+#: main_service_of_plotters/apps/ticket/forms.py:75
 msgid "Solved"
 msgstr "Решено"
 
@@ -387,9 +405,22 @@ msgstr "Решено"
 msgid "Closed"
 msgstr "Закрыто"
 
-#: main_service_of_plotters/apps/ticket/forms.py:16
+#: main_service_of_plotters/apps/ticket/forms.py:20
 msgid "My problem is not presented in this list"
 msgstr "Моей проблемы нет в этом списке"
+
+#: main_service_of_plotters/apps/ticket/forms.py:34
+msgid "Problem"
+msgstr "Популярная проблема"
+
+#: main_service_of_plotters/apps/ticket/forms.py:35
+msgid "Choose your problem in the list."
+msgstr "Выберите свою проблему в списке."
+
+#: main_service_of_plotters/apps/ticket/forms.py:76
+#: main_service_of_plotters/apps/ticket/models.py:36
+msgid "Status"
+msgstr "Статус"
 
 #: main_service_of_plotters/apps/ticket/models.py:19
 msgid "Header"
@@ -410,11 +441,6 @@ msgstr "Описание проблемы"
 #: main_service_of_plotters/apps/ticket/models.py:30
 msgid "Attached media file"
 msgstr "Прикрепленный файл"
-
-#: main_service_of_plotters/apps/ticket/models.py:36
-#: main_service_of_plotters/apps/ticket/templates/ticket/ticket_list.html:8
-msgid "Status"
-msgstr "Статус"
 
 #: main_service_of_plotters/apps/ticket/models.py:43
 msgid "Reporter"
@@ -448,27 +474,27 @@ msgstr "Ответный файл"
 msgid "Media file attached by assigned technical specialist"
 msgstr "Файл прикрепленный ответственным специалистом"
 
-#: main_service_of_plotters/apps/ticket/models.py:83
+#: main_service_of_plotters/apps/ticket/models.py:84
 msgid "Ticket"
 msgstr "Тикет"
 
-#: main_service_of_plotters/apps/ticket/models.py:103
+#: main_service_of_plotters/apps/ticket/models.py:102
 msgid "Short name of problem, will be displayed"
 msgstr "Краткое назнание проблемы будет отображено на экране"
 
-#: main_service_of_plotters/apps/ticket/models.py:107
+#: main_service_of_plotters/apps/ticket/models.py:106
 msgid "Populated Header"
 msgstr "Связанный дилер"
 
-#: main_service_of_plotters/apps/ticket/models.py:110
+#: main_service_of_plotters/apps/ticket/models.py:109
 msgid "Text what will be populated in created ticket header"
 msgstr "Текст, который будет заполнен в заголовке созданного тикета"
 
-#: main_service_of_plotters/apps/ticket/models.py:113
+#: main_service_of_plotters/apps/ticket/models.py:112
 msgid "Populated Text"
 msgstr "Заполненный текст"
 
-#: main_service_of_plotters/apps/ticket/models.py:114
+#: main_service_of_plotters/apps/ticket/models.py:113
 msgid "Text what will be populated in created ticket text"
 msgstr "Текст, который будет вставлен в созданный текст заявки"
 
@@ -480,7 +506,7 @@ msgstr "Популярная проблема"
 msgid "Popular problems"
 msgstr "Популярная проблема"
 
-#: main_service_of_plotters/apps/ticket/templates/ticket/add_ticket.html:7
+#: main_service_of_plotters/apps/ticket/templates/ticket/add_ticket.html:9
 msgid "Report"
 msgstr "Отчет"
 
@@ -488,24 +514,36 @@ msgstr "Отчет"
 msgid "Close ticket"
 msgstr "Закрыть проблему"
 
-#: main_service_of_plotters/apps/ticket/templates/ticket/ticket_list.html:13
+#: main_service_of_plotters/apps/ticket/templates/ticket/ticket_detail.html:14
+msgid "Ticket #"
+msgstr "Тикет"
+
+#: main_service_of_plotters/apps/ticket/templates/ticket/ticket_detail.html:25
+msgid "Close"
+msgstr "Закрыто"
+
+#: main_service_of_plotters/apps/ticket/templates/ticket/ticket_list.html:20
 msgid "Report a problem"
 msgstr "Сообщить о проблеме"
 
-#: main_service_of_plotters/apps/ticket/templates/ticket/ticket_list.html:16
+#: main_service_of_plotters/apps/ticket/templates/ticket/ticket_list.html:23
 msgid "Filters"
 msgstr "Фильры"
 
-#: main_service_of_plotters/apps/ticket/templates/ticket/ticket_list.html:27
+#: main_service_of_plotters/apps/ticket/templates/ticket/ticket_list.html:34
 msgid "All"
 msgstr "Все"
+
+#: main_service_of_plotters/apps/ticket/views.py:153
+msgid "Ticket is closed"
+msgstr "Тикеты"
 
 #: main_service_of_plotters/apps/translate/apps.py:11
 msgid "Translate"
 msgstr "Перевести"
 
 #: main_service_of_plotters/apps/users/apps.py:11
-#: main_service_of_plotters/apps/users/models.py:28
+#: main_service_of_plotters/apps/users/models.py:34
 msgid "Users"
 msgstr "Пользователи"
 
@@ -519,9 +557,24 @@ msgstr "Подтвердите пароль"
 
 #: main_service_of_plotters/apps/users/forms.py:45
 #: main_service_of_plotters/apps/users/forms.py:53
-#: main_service_of_plotters/apps/users/models.py:17
+#: main_service_of_plotters/apps/users/models.py:18
 msgid "User role"
 msgstr "Роль пользователя"
+
+#: main_service_of_plotters/apps/users/models.py:19
+msgid ""
+"User's role defines all allowed actions and permissions of the user in "
+"system."
+msgstr ""
+"Роль пользователя определяет все разрешенные действия и разрешения пользователя в "
+"системе."
+#: main_service_of_plotters/apps/users/models.py:27
+msgid "Dealer who supplies user with stuff. Only for `User` role only."
+msgstr "Дилер, поставляющий товары пользователю. Только для роли Пользователь."
+
+#: main_service_of_plotters/apps/users/views.py:34
+msgid "Info successfully updated"
+msgstr "Информация успешно обновлена"
 
 #: main_service_of_plotters/templates/admin/add_dealer.html:7
 msgid "Dealer will be added to following instances"
@@ -550,19 +603,19 @@ msgstr "Сгенерировать код"
 msgid "User will be added to following instances"
 msgstr "Пользователь будет добавлен к сущностям ниже"
 
-#: main_service_of_plotters/templates/base.html:55
+#: main_service_of_plotters/templates/base.html:59
 msgid "My Profile"
 msgstr "Мой профиль"
 
-#: main_service_of_plotters/templates/base.html:59
+#: main_service_of_plotters/templates/base.html:63
 msgid "Sign Out"
 msgstr "Выйти"
 
-#: main_service_of_plotters/templates/base.html:64
+#: main_service_of_plotters/templates/base.html:68
 msgid "Sign Up"
 msgstr "Регистрация"
 
-#: main_service_of_plotters/templates/base.html:68
+#: main_service_of_plotters/templates/base.html:72
 msgid "Sign In"
 msgstr "Войти"
 
@@ -573,6 +626,9 @@ msgstr "Дата создания"
 #: main_service_of_plotters/utils/abstractmodel.py:9
 msgid "Date of update"
 msgstr "Дата обновления"
+
+#~ msgid "Data of creation cut"
+#~ msgstr "Дата создания выреза"
 
 #~ msgid "Photo Device"
 #~ msgstr "Фотография Девайса"

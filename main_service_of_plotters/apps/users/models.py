@@ -24,7 +24,7 @@ class User(AbstractUser):
         null=True,
         verbose_name=_('Dealer'),
         related_name='attached_users',
-        help_text=_('Dealer who suplies user with stuff. Only for `User` role only.')
+        help_text=_('Dealer who supplies user with stuff. Only for `User` role only.')
     )
 
     class Meta:
