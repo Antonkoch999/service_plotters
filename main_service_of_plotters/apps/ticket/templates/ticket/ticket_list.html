@@ -3,13 +3,18 @@
 
 {% block content %}
 
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item active" aria-current="page">{% trans "Tickets" %}</li>
+  </ol>
+</nav>
+
 <ul>{% for ticket in ticket_list %}
   <li><a href="{% url 'tickets:ticket_detail' ticket.pk %}">
-    {{ ticket }}</a>
-    {% trans "Status" %} - {{ ticket.get_status_display }}
+    {{ ticket }}<a>
+    {% include 'ticket/_status_badge.html' %}
   </li>
-{% endfor %}
-</ul>
+{% endfor %} </ul>
 
 {% if perms.ticket.can_report_problem %}
   <a href='{% url "tickets:user_add_ticket" %}'>{% trans "Report a problem" %}</a>

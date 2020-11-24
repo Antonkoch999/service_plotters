@@ -49,6 +49,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('users', '0012_auto_20201109_1111'),
+        ('ticket', '0007_auto_20201109_0916')
     ]
 
     operations = [

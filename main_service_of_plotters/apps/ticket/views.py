@@ -1,9 +1,12 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, RedirectView
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.http import HttpResponseNotFound
 from django.db.models import Q
+from django.contrib import messages
+from django.utils.translation import gettext as _
+from django.http.response import HttpResponseForbidden
 
 from .models import Ticket, PopularProblem
 from .forms import ChoosePopularProblemForm, VARIANT_NOT_PRESENTED, DetailedProblemFrom
@@ -99,7 +102,9 @@ class UserAddTicket(LoginRequiredMixin, PermissionRequiredMixin, View):
                 text=chosed_problem.populated_text,
                 reporter=request.user
             )
+
             ticket.plotters.set(form.cleaned_data["plotters"])
+            messages.add_message(request, messages.SUCCESS, f'{_("Your")} {ticket} {_("was sended to specialists!")}')
 
             return self._problem_posted_redirect()
         return None
@@ -125,9 +130,25 @@ class UserAddTicket(LoginRequiredMixin, PermissionRequiredMixin, View):
             ticket.save()
             ticket.plotters.set(form.cleaned_data['plotters'])
             ticket.save()
+            messages.add_message(request, messages.SUCCESS, f'{_("Your")} {ticket} {_("was sended to specialists!")}')
             return self._problem_posted_redirect()
         return HttpResponseNotFound()
 
     @staticmethod
     def _problem_posted_redirect():
         return redirect('tickets:ticket_list')
+
+
+class CloseTicketView(LoginRequiredMixin, PermissionRequiredMixin, RedirectView):
+
+    permission_required = ('ticket.can_close_ticket', )
+    pattern_name = 'tickets:ticket_detail'
+
+    def get_redirect_url(self, *args, **kwargs):
+        ticket = get_object_or_404(Ticket, pk=kwargs['pk'])
+        if ticket.reporter != self.request.user:
+            return HttpResponseForbidden()
+        ticket.status = ticket.status_variants.CLOSED
+        ticket.save()
+        messages.add_message(self.request, messages.SUCCESS, _("Ticket is closed"))
+        return super().get_redirect_url(*args, **kwargs)
