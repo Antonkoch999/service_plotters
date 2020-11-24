@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+<ul>{% for statistics in statisticsplotter_list %}
+  <li><h2>{{ statistics }}</h2></li>
+{% endfor %}
+</ul>
+{%endblock%}

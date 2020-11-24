@@ -70,6 +70,7 @@ class TechSpecialistForm(forms.ModelForm):
     """This class create form for TechSpecialist for model Ticket."""
 
     status = forms.ChoiceField(choices=[
+        ('O', _('Open')),
         ('W', _('In Work')),
         ('S', _('Solved')),
     ], label=_('Status'))
