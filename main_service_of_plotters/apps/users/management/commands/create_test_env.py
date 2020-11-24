@@ -1,3 +1,5 @@
+"""This module create custom command for creating users and group."""
+
 from django.core.management.base import BaseCommand
 from django.contrib.auth.models import Group, Permission
 from main_service_of_plotters.apps.users.models import User
@@ -5,9 +7,14 @@ from main_service_of_plotters.apps.users.constants import ROLE
 
 
 class Command(BaseCommand):
+    """Create custom command."""
+
     help = 'Displays current time'
 
     def handle(self, *args, **kwargs):
+        """Logic custom command.
+
+        Create users and groups and appoints permissions for groups."""
         groups = {'Administrator': None, 'Dealer': None, 'User': None,
                   'Technical_Specialist': None}
         users = {'User': User.objects.get_or_create(
@@ -62,8 +69,8 @@ class Command(BaseCommand):
         )
         permission_tech_list = (
             'Can view Popular problem', 'Can change Ticket', 'Can view Ticket',
+            "Can solve ticket's problems",
         )
-
         permission_dealer = Permission.objects.filter(
             name__in=permission_dealer_list)
         permission_user = Permission.objects.filter(
