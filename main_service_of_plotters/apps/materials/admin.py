@@ -68,8 +68,7 @@ class CustomLabelAdmin(ImportExportMixin, admin.ModelAdmin):
     # custom actions
     actions = ['add_user', 'add_dealer']
 
-    @staticmethod
-    def add_user(request, queryset):
+    def add_user(self, request, queryset):
         """Add user as owner for set of labels."""
         form = None
 
@@ -97,8 +96,7 @@ class CustomLabelAdmin(ImportExportMixin, admin.ModelAdmin):
                           {'items': queryset, 'form': form,
                            'title': u'Изменение категории'})
 
-    @staticmethod
-    def add_dealer(request, queryset):
+    def add_dealer(self, request, queryset):
         """Add dealer as owner for set in labels."""
         form = None
 
