@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.views import View
 from django.views.generic import ListView, DetailView, RedirectView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
@@ -181,13 +181,16 @@ class SolveTicketView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
     def form_valid(self, form):
         self.object.status = Ticket.status_variants.SOLVED
         self.object.save()
-        super().form_valid(form)
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('tickets:solve_ticket', kwargs={'pk': self.object.pk})
 
 
 class PushTicketInWorkView(LoginRequiredMixin, PermissionRequiredMixin, RedirectView):
 
     permission_required = ('ticket.can_solve_problems', )
-    pattern_name = 'tickets:push_tikcet_in_work'
+    pattern_name = 'tickets:solve_ticket'
 
     def get_redirect_url(self, *args, **kwargs):
         ticket = get_object_or_404(Ticket, pk=kwargs['pk'])

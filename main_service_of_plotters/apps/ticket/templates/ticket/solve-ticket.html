@@ -24,20 +24,20 @@
     {% endif %}
   <li>{% trans "Assignee" %}: {{ ticket.assignee }}<li>
   </ul>
-  {% if status.ticket == 'O' %}
-    <a href="{% url 'ticket:push_ticket_in_work' %}"role="button" class="btn btn-warning">
+  {% if ticket.status == 'O' %}
+    <a href="{% url 'tickets:push_ticket_in_work' pk=ticket.pk %}"role="button" class="btn btn-warning">
       {% trans "Push in Work" %}
     </a>
-  {% elif status.ticket == 'W' %}
+  {% elif ticket.status == 'W' %}
   </ul>
-    <form method="post">{% csrf_token %}
+    <form method="post" enctype="multipart/form-data">{% csrf_token %}
      {{ form|crispy }}
      <input type="submit" value="{% trans 'Solve' %}">
     </form>
   {% else %}
     <li>{% trans "Answer" %}: {{ticket.answer}}</li>
     {% if ticket.answer_attached_file %}
-      <li><img src="{{ ticket.answer_attached_file }}" alt="answer attached media file"></li>
+      <li><img src="{{ ticket.answer_attached_file.url }}" alt="answer attached media file"></li>
     {% endif %}
   </ul>
   {% endif %}
