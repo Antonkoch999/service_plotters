@@ -20,6 +20,12 @@
     {% if ticket.media_file %}
       <li><img src="{{ ticket.media_file.url }}" alt="attached media file"></li>
     {% endif %}
+    {% if ticket.status == 'S' or ticket.status == 'C'%}
+      <li>{% trans "Answer" %}: {{ticket.answer}}</li>
+      {% if ticket.answer_attached_file %}
+        <li><img src="{{ ticket.answer_attached_file.url }}" alt="answer attached media file"></li>
+      {% endif %}
+    {% endif %}
   </ul>
   {% if ticket.reporter == request.user and perms.ticket.can_close_ticket and ticket.status != 'C' %}
      <a href="{% url 'tickets:close_ticket' pk=ticket.pk %}" role="button" class="btn btn-primary">{% trans "Close" %}</a>
