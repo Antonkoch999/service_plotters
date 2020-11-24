@@ -17,10 +17,16 @@ class Command(BaseCommand):
         Create users and groups and appoints permissions for groups."""
         groups = {'Administrator': None, 'Dealer': None, 'User': None,
                   'Technical_Specialist': None}
+
+        for group in groups.keys():
+            groups[group] = Group.objects.get_or_create(name=group)[0]
+            groups[group].save()
+
         users = {'User': User.objects.get_or_create(
             username='user', role=ROLE['User'], password='12345')[0],
                  'Dealer': User.objects.get_or_create(
-                     username='dealer', role=ROLE['Dealer'], password='12345')[0],
+                     username='dealer', role=ROLE['Dealer'], password='12345')[
+                     0],
                  'Administrator': User.objects.get_or_create(
                      username='administrator', role=ROLE['Administrator'],
                      password='12345')[0],
@@ -28,10 +34,6 @@ class Command(BaseCommand):
                      username='tech', role=ROLE['Technical_Specialist'],
                      password='12345')[0]
                  }
-
-        for group in groups.keys():
-            groups[group] = Group.objects.get_or_create(name=group)[0]
-            groups[group].save()
 
         permission_administrator_list = (
             'Can add Plotter', 'Can change Plotter', 'Can delete Plotter',
