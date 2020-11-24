@@ -122,7 +122,7 @@ class UserAddTicket(LoginRequiredMixin, PermissionRequiredMixin, View):
         return render(request, 'ticket/add_ticket.html', context)
 
     def _process_detailed_problem_passed(self, request):
-        form = DetailedProblemFrom(request.POST)
+        form = DetailedProblemFrom(request.POST, request.FILES)
         print(form)
         if form.is_valid():
             ticket = form.save(commit=False)
