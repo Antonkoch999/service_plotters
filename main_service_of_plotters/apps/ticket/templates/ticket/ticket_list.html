@@ -35,4 +35,9 @@
       </a>
     </li>
 </ul>
+{% if perms.ticket.can_solve_problems %}
+    <a href="{% url 'tickets:tech_spec_list'%}" role="button" class="btn btn-warning">
+      {% trans "Start to solve porblems" %}
+    </a>
+{% endif %}
 {% endblock %}

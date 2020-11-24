@@ -109,3 +109,11 @@ class UserForm(forms.ModelForm):
         model = Ticket
         fields = ['header', 'text', 'media_file', 'status', 'plotters',
                   'assignee', 'answer', 'answer_attached_file']
+
+
+class SolveProblemForm(forms.ModelForm):
+
+    class Meta:
+        model = Ticket
+        fields = ("answer", "answer_attached_file",)
+

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'tickets:ticket_list' %}">{% trans "Tickets" %}</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{% trans "Solving problems" %}</li>
+  </ol>
+</nav>
+
+<ul>{% for ticket in ticket_list %}
+  <li>
+    {{ ticket }}
+    {% include 'ticket/_status_badge.html' %}
+    <a href="{% url 'tickets:solve_ticket' pk=ticket.pk %}" role="button" class="btn btn-primary">{% trans "Consider" %}</a>
+  </li>
+{% endfor %} </ul>
+
+{% endblock %}

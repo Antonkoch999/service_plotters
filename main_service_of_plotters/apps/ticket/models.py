@@ -85,7 +85,8 @@ class Ticket(DateTimeDateUpdate):
         verbose_name_plural = _("Tickets")
         permissions = [
             ("can_report_problem", "Can report a problem"),
-            ("can_close_ticket", "Can change ticket status to Close")
+            ("can_close_ticket", "Can change ticket status to Close"),
+            ("can_solve_problems", "Can solve ticket's problems"),
         ]
 
     def __str__(self):

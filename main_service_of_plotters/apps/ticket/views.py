@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views import View
-from django.views.generic import ListView, DetailView, RedirectView
+from django.views.generic import ListView, DetailView, RedirectView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.http import HttpResponseNotFound
 from django.db.models import Q
@@ -9,7 +9,12 @@ from django.utils.translation import gettext as _
 from django.http.response import HttpResponseForbidden
 
 from .models import Ticket, PopularProblem
-from .forms import ChoosePopularProblemForm, VARIANT_NOT_PRESENTED, DetailedProblemFrom
+from .forms import (
+    ChoosePopularProblemForm,
+    VARIANT_NOT_PRESENTED,
+    DetailedProblemFrom,
+    SolveProblemForm
+)
 
 
 class TicketListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
@@ -152,3 +157,49 @@ class CloseTicketView(LoginRequiredMixin, PermissionRequiredMixin, RedirectView)
         ticket.save()
         messages.add_message(self.request, messages.SUCCESS, _("Ticket is closed"))
         return super().get_redirect_url(*args, **kwargs)
+
+
+class TechSpecTicketListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
+
+    permission_required = ('ticket.can_solve_problems', )
+    template_name = 'ticket/solving-tickets-list.html'
+
+    def get_queryset(self):
+        return Ticket.objects.filter(
+                Q(status=Ticket.status_variants.OPEN) |
+                Q(assignee=self.request.user)
+            )
+
+
+class SolveTicketView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
+
+    permission_required = ('ticket.can_solve_problems', )
+    template_name = 'ticket/solve-ticket.html'
+    model = Ticket
+    fields = ['answer', 'answer_attached_file']
+
+    def form_valid(self, form):
+        self.object.status = Ticket.status_variants.SOLVED
+        self.object.save()
+        super().form_valid(form)
+
+
+class PushTicketInWorkView(LoginRequiredMixin, PermissionRequiredMixin, RedirectView):
+
+    permission_required = ('ticket.can_solve_problems', )
+    pattern_name = 'tickets:push_tikcet_in_work'
+
+    def get_redirect_url(self, *args, **kwargs):
+        ticket = get_object_or_404(Ticket, pk=kwargs['pk'])
+        if ticket.status != Ticket.status_variants.OPEN:
+            return HttpResponseNotFound
+        ticket.assignee = self.request.user
+        ticket.status = Ticket.status_variants.IN_WORK
+        ticket.save()
+        messages.add_message(
+            self.request, messages.INFO,
+            f'{_("You assigned to")} {ticket}. {_("Ticket status changed to")} {ticket.status}')
+        return super().get_redirect_url(*args, **kwargs)
+
+
+

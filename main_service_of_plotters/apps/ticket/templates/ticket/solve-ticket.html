@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'tickets:ticket_list' %}">{% trans "Tickets" %}</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'tickets:tech_spec_list' %}">{% trans "Solving problems" %}</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{ticket}}</li>
+  </ol>
+</nav>
+
+  <h1>
+    {% trans 'Ticket #' %}{{ ticket.id }}
+    {% include 'ticket/_status_badge.html' %}
+  </h1>
+  <h2>{{ticket.header}}</h2>
+  <ul>
+    <li>{{ticket.text}}</li>
+    {% if ticket.media_file %}
+      <li><img src="{{ ticket.media_file.url }}" alt="attached media file"></li>
+    {% endif %}
+  <li>{% trans "Assignee" %}: {{ ticket.assignee }}<li>
+  </ul>
+  {% if status.ticket == 'O' %}
+    <a href="{% url 'ticket:push_ticket_in_work' %}"role="button" class="btn btn-warning">
+      {% trans "Push in Work" %}
+    </a>
+  {% elif status.ticket == 'W' %}
+  </ul>
+    <form method="post">{% csrf_token %}
+     {{ form|crispy }}
+     <input type="submit" value="{% trans 'Solve' %}">
+    </form>
+  {% else %}
+    <li>{% trans "Answer" %}: {{ticket.answer}}</li>
+    {% if ticket.answer_attached_file %}
+      <li><img src="{{ ticket.answer_attached_file }}" alt="answer attached media file"></li>
+    {% endif %}
+  </ul>
+  {% endif %}
+{% endblock content %}
