@@ -81,7 +81,6 @@ class Label(DateTimeDateUpdate):
 
     scratch_code = models.CharField(
         max_length=16,
-        blank=True,
         validators=[validate_unique_code],
         verbose_name=_('Unique scratch code'),
         unique=True,
@@ -91,7 +90,6 @@ class Label(DateTimeDateUpdate):
     )
     barcode = models.CharField(
         max_length=16,
-        blank=True,
         validators=[validate_unique_code],
         verbose_name=_('Unique barcode'),
         unique=True,
@@ -103,7 +101,7 @@ class Label(DateTimeDateUpdate):
         help_text=_('Amount of labels in pack on the start')
     )
     available_count = models.IntegerField(
-        default=0,
+        default=0, blank=True,
         verbose_name=_("Available amount"),
         help_text=_("Remaining labels in pack.")
     )
@@ -127,6 +125,7 @@ class Label(DateTimeDateUpdate):
 
     date_of_activation = models.DateTimeField(
         null=True,
+        blank=True,
         default=None,
         verbose_name=_('Date of activation'),
         help_text=_('Date then user activate this label in plotter.')

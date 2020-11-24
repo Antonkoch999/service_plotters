@@ -109,7 +109,8 @@ class PlotterAdmin(ImportExportMixin, admin.ModelAdmin):
                                          _('Scratch code not found'))
                     return HttpResponseRedirect('./')
                 plotter.link_label(label)
-
+            else:
+                print(form.errors)
             return HttpResponseRedirect('../..')
 
         form = AddLabelForm()
