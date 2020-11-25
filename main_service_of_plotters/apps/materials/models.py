@@ -176,7 +176,6 @@ class Label(DateTimeDateUpdate):
         return None
     days_before_expiration.short_description = _("Days before expiration")
 
-    @property
     def is_in_terms_of_expiration(self):
         """Check if instance in terms of expiration."""
         if self.date_of_activation:
@@ -187,7 +186,7 @@ class Label(DateTimeDateUpdate):
     @property
     def is_active_and_not_expired(self):
         """Check if instance is active and in terms of expiration."""
-        return self.is_active and self.is_in_terms_of_expiration
+        return self.is_active and self.is_in_terms_of_expiration()
 
     def link_to_plotter(self, plotter):
         """Create link between instance and plotter."""
