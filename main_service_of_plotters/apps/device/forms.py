@@ -43,11 +43,11 @@ class UserPlotterForm(PlotterForm):
         fields = ('serial_number', )
 
 
-class AddLabelForm(forms.ModelForm):
+class AddLabelForm(forms.Form):
     """This class create form for model Label."""
-
-    class Meta:
-        """Metadata of Label."""
-
-        model = Label
-        fields = ('scratch_code', )
+    scratch_code = forms.CharField(max_length=16)
+    # class Meta:
+    #     """Metadata of Label."""
+    #
+    #     model = Label
+    #     fields = ('scratch_code', )
