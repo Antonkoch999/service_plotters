@@ -3,6 +3,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
 from django.views import defaults as default_views
+from django.views.generic import TemplateView
 from django.conf.urls.i18n import i18n_patterns
 from rest_framework.authtoken.views import obtain_auth_token
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
@@ -11,6 +12,7 @@ from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, Spec
 urlpatterns = i18n_patterns(
     # Django Admin, use {% url 'admin:index' %}
     path(settings.ADMIN_URL, admin.site.urls),
+    path("", TemplateView.as_view(template_name='index.html'), name='home'),
     path("users/", include("main_service_of_plotters.apps.users.urls", namespace="users")),
     path("accounts/", include("allauth.urls")),
     path('i18n/', include('django.conf.urls.i18n')),

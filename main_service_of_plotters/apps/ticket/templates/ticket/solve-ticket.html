@@ -13,7 +13,7 @@
 </nav>
 
   <h1>
-    {% trans 'Ticket #' %}{{ ticket.id }}
+    {% trans 'Ticket' %} #{{ ticket.id }}
     {% include 'ticket/_status_badge.html' %}
   </h1>
   <h2>{{ticket.header}}</h2>
@@ -23,7 +23,6 @@
       <ul>{% for plotter in ticket.plotters.all %}
         <li>{{plotter}}</li>
       {% endfor %}</ul>
-    {% if ticket.media_file
     {% if ticket.media_file %}
       <li><img src="{{ ticket.media_file.url }}" alt="attached media file"></li>
     {% endif %}

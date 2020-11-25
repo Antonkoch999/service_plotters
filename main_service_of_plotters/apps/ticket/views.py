@@ -15,6 +15,7 @@ from .forms import (
     DetailedProblemFrom,
     SolveProblemForm
 )
+from .filters import TicketFilter
 
 
 class TicketListView(LoginRequiredMixin, PermissionRequiredMixin, ListView):
@@ -163,12 +164,23 @@ class TechSpecTicketListView(LoginRequiredMixin, PermissionRequiredMixin, ListVi
 
     permission_required = ('ticket.can_solve_problems', )
     template_name = 'ticket/solving-tickets-list.html'
+    queryset = Ticket.objects.all()
 
     def get_queryset(self):
-        return Ticket.objects.filter(
+        qs = super().get_queryset()
+        qs = qs.filter(
                 Q(status=Ticket.status_variants.OPEN) |
                 Q(assignee=self.request.user)
             )
+        self.filter = TicketFilter(self.request.GET, qs)
+        print(self.filter.form)
+        return self.filter.qs
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["filter"] = self.filter
+        return context
+
 
 
 class SolveTicketView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):

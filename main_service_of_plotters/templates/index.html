@@ -1,0 +1,6 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+  <p><a href="{% url 'tickets:ticket_list' %}">{% trans "Tickets" %}</a></p>
+{% endblock content %}
